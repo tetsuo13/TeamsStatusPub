@@ -1,4 +1,4 @@
-<img src="TeamsStatusPub/Icons/logo.png" width="100" alt="Logo" />
+<img src="src/TeamsStatusPub/Icons/logo.png" width="100" alt="Logo" />
 
 # Teams Status Pub
 
