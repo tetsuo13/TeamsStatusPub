@@ -13,13 +13,13 @@ Teams Status Pub runs on the system tray to publish your Teams status via a web 
 
 There are other projects available for integrating Teams with Home Assistant however their usage is largly dependent on how Teams and/or your computer is configured within the organization.
 
-### Microsoft Teams
+### Microsoft Graph
 
 Your status is available via the [presence](https://docs.microsoft.com/en-us/graph/api/presence-get) API in [Microsoft Graph](https://docs.microsoft.com/en-us/graph/overview) if your organization has granted consent. If so then [PresenceLight](https://github.com/isaacrlevin/PresenceLight) may be a better alternative in this scenario. Note that hardware support for bulbs is limited.
 
 ### Directly Update Home Assistant
 
-If the computer that Teams is installed on can reach Home Assistant on the network, then [EBOOZE/TeamsStatus](https://github.com/EBOOZ/TeamsStatus) may be worth a try. After creating the status sensors in Home Assistant and providing it with a long-lived access token, it will determine your availability from Teams locally and reach out to Home Assistant to set the values of the sensors accordingly.
+If the computer that Teams is installed on can reach Home Assistant on the network, then [EBOOZE/TeamsStatus](https://github.com/EBOOZ/TeamsStatus) may be worth a try. After creating the status sensors in Home Assistant then provide TeamStatus with a long-lived access token, it will determine your availability from Teams locally and reach out to Home Assistant to set the values of the sensors accordingly.
 
 ### Teams Status Pub
 
