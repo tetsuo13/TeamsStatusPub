@@ -42,8 +42,6 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
     /// </summary>
     private readonly string _eventDataTokenCallStarted = EventDataToken + "1";
 
-    private readonly Encoding _teamsLogFileEncoding;
-
     private readonly ILogger<MicrosoftTeamsHandler> _logger;
 
     /// <summary>
@@ -53,13 +51,6 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
     public MicrosoftTeamsHandler(ILogger<MicrosoftTeamsHandler> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _teamsLogFileEncoding = GetFileEncoding();
-    }
-
-    internal MicrosoftTeamsHandler(ILogger<MicrosoftTeamsHandler> logger, Encoding teamsLogFileEncoding)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _teamsLogFileEncoding = teamsLogFileEncoding;
     }
 
     /// <inheritdoc/>
@@ -127,9 +118,9 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
                 }
 
                 stream.Read(buffer, 0, bufferLength);
-                var charCount = _teamsLogFileEncoding.GetCharCount(buffer, 0, bufferLength);
+                var charCount = Encoding.UTF8.GetCharCount(buffer, 0, bufferLength);
                 chars = new char[charCount];
-                _teamsLogFileEncoding.GetChars(buffer, 0, bufferLength, chars, 0);
+                Encoding.UTF8.GetChars(buffer, 0, bufferLength, chars, 0);
                 iteration++;
             }
 
@@ -207,19 +198,5 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
         }
 
         return line.Contains(_eventDataTokenCallStarted);
-    }
-
-    private Encoding GetFileEncoding()
-    {
-        var options = new FileStreamOptions
-        {
-            Access = FileAccess.Read,
-            Mode = FileMode.Open,
-            Share = FileShare.ReadWrite
-        };
-
-        using var reader = new StreamReader(_teamsLogFilePath, Encoding.UTF8, true, options);
-        reader.Peek();
-        return reader.CurrentEncoding;
     }
 }

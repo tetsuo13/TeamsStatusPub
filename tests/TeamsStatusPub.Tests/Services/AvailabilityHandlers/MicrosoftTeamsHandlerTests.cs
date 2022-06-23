@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
 using TeamsStatusPub.Services.AvailabilityHandlers;
 using Xunit;
@@ -54,6 +53,6 @@ public static class MicrosoftTeamsHandlerTests
     private static MicrosoftTeamsHandler GetHandler()
     {
         var logger = new Mock<ILogger<MicrosoftTeamsHandler>>();
-        return new MicrosoftTeamsHandler(logger.Object, Encoding.UTF8);
+        return new MicrosoftTeamsHandler(logger.Object);
     }
 }
