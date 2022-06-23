@@ -60,6 +60,12 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
     /// </remarks>
     public bool IsAvailable()
     {
+        if (!File.Exists(_teamsLogFilePath))
+        {
+            _logger.LogCritical("Couldn't find Teams log file at {logFilePath}", _teamsLogFilePath);
+            throw new FileNotFoundException("Couldn't find Teams log file", _teamsLogFilePath);
+        }
+
         Stopwatch? stopwatch = null;
 
         var lineBuilder = new List<char>();
