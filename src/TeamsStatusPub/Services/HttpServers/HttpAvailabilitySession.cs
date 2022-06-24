@@ -1,6 +1,6 @@
 ﻿using System.Net.Mime;
 using System.Text;
-using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetCoreServer;
@@ -12,6 +12,11 @@ public class HttpAvailabilitySession : HttpSession
 {
     private readonly ILogger<HttpAvailabilitySession> _logger;
     private readonly IOptions<RuntimeSettings> _runtimeSettings;
+
+    /// <summary>
+    /// Function that will return a boolean to indicate if the user is
+    /// available.
+    /// </summary>
     private readonly Func<bool> _availabilityHandler;
 
     public HttpAvailabilitySession(ILogger<HttpAvailabilitySession> logger, IOptions<RuntimeSettings> runtimeSettings,
@@ -34,14 +39,16 @@ public class HttpAvailabilitySession : HttpSession
             _logger.LogInformation("Request from {userAgent}", GetUserAgent(request));
         }
 
-        var isAvailable = _availabilityHandler();
+        var response = new JsonObject
+        {
+            // Intention is to return a true value if the user is busy, the
+            // opposite of what the function returns.
+            [_runtimeSettings.Value.OutputAvailabilityKeyName!] = _availabilityHandler() == false
+        };
 
-        var availableText = isAvailable ? _runtimeSettings.Value.OutputAvailableText : _runtimeSettings.Value.OutputNotAvailableText;
-        var response = JsonSerializer.Serialize(availableText);
+        _logger.LogInformation("Sending response {response}", response.ToJsonString());
 
-        _logger.LogInformation("Sending response {response}", response);
-
-        SendResponseAsync(Response.MakeGetResponse(response,
+        SendResponseAsync(Response.MakeGetResponse(response.ToJsonString(),
             $"{MediaTypeNames.Application.Json}; charset={Encoding.UTF8.HeaderName}"));
     }
 

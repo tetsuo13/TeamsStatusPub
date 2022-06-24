@@ -33,26 +33,31 @@ Your computer must be running Windows 10 or later.
 
 The default listen address is http://10.8.15.109:17493/
 
-In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application/port through the firewall.
+In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall.
 
 ### Home Assistant
 
-https://www.home-assistant.io/integrations/sensor.rest/
-
-https://www.home-assistant.io/integrations/binary_sensor.rest/
+Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targetting the IP, port, and availability key name specified in [*appsettings.json*](src/TeamsStatusPub/appsettings.json):
 
 ```yaml
 binary_sensor:
   - platform: rest
     resource: http://IP_ADDRESS:PORT/
-    name: Microsoft Teams Status
-    value_template: "{{ value_raw equals 'busy' }}"
+    name: "Microsoft Teams on Call"
+    value_template: "{{ value_json.AVAILABILITY_KEY_NAME }}"
+```
 
-# Probably don't need this
-  - platform: template
-    sensors:
-      teams_status:
-        value_template: 
+Set up an [automation](https://www.home-assistant.io/docs/automation/) to toggle a light based on the binary sensor:
+
+```yaml
+automation:
+  - alias: Toggle Light When Busy in Microsoft Teams
+    trigger:
+      platform: state
+      entity_id: binary_sensor.microsoft_teams_on_call
+    action:
+      service: light.toggle
+      entity_id: light.red_light_above_office_door
 ```
 
 ## License

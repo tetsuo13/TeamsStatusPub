@@ -47,22 +47,17 @@ public class HttpProvider : IHttpProvider, IDisposable
 
         if (!IPAddress.TryParse(_runtimeSettings.Value.ListenAddress, out _))
         {
-            return $"Invalid listen address '{_runtimeSettings.Value.ListenAddress}'";
+            return $"Invalid listen address '{_runtimeSettings.Value.ListenAddress}' specified in {nameof(_runtimeSettings.Value.ListenAddress)} setting";
         }
 
         if (_runtimeSettings.Value.ListenPort < 1024 || _runtimeSettings.Value.ListenPort > 65535)
         {
-            return $"Listen port should be between 1024-65535";
+            return $"{nameof(_runtimeSettings.Value.ListenPort)} should be between 1024-65535";
         }
 
-        if (string.IsNullOrEmpty(_runtimeSettings.Value.OutputAvailableText))
+        if (string.IsNullOrEmpty(_runtimeSettings.Value.OutputAvailabilityKeyName))
         {
-            return "Missing OutputAvailableText setting";
-        }
-
-        if (string.IsNullOrEmpty(_runtimeSettings.Value.OutputNotAvailableText))
-        {
-            return "Missing OutputNotAvailableText setting";
+            return $"Missing {nameof(_runtimeSettings.Value.OutputAvailabilityKeyName)} setting";
         }
 
         return null;

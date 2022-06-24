@@ -16,12 +16,7 @@ public record RuntimeSettings
     public int ListenPort { get; init; }
 
     /// <summary>
-    /// The text to use when availability handler determines available.
+    /// The JSON object key name to use when sending the response object.
     /// </summary>
-    public string? OutputAvailableText { get; init; }
-
-    /// <summary>
-    /// The text to use when availability handler determines not available.
-    /// </summary>
-    public string? OutputNotAvailableText { get; init; }
+    public string? OutputAvailabilityKeyName { get; init; }
 }
