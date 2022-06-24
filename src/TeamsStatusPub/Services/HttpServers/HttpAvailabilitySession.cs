@@ -29,6 +29,10 @@ public class HttpAvailabilitySession : HttpSession
         {
             _logger.LogDebug("{request}", request);
         }
+        else
+        {
+            _logger.LogInformation("Request from {userAgent}", GetUserAgent(request));
+        }
 
         var isAvailable = _availabilityHandler();
 
@@ -39,5 +43,20 @@ public class HttpAvailabilitySession : HttpSession
 
         SendResponseAsync(Response.MakeGetResponse(response,
             $"{MediaTypeNames.Application.Json}; charset={Encoding.UTF8.HeaderName}"));
+    }
+
+    private static string GetUserAgent(HttpRequest request)
+    {
+        for (var i = 0; i < request.Headers; i++)
+        {
+            var header = request.Header(i);
+
+            if (string.Compare(header.Item1, "user-agent", StringComparison.InvariantCultureIgnoreCase) == 0)
+            {
+                return header.Item2;
+            }
+        }
+
+        return "Undetermined";
     }
 }
