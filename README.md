@@ -19,7 +19,7 @@ Your status is available via the [presence](https://docs.microsoft.com/en-us/gra
 
 ### Directly Update Home Assistant
 
-If the computer that Teams is installed on can reach Home Assistant on the network, then [EBOOZE/TeamsStatus](https://github.com/EBOOZ/TeamsStatus) may be worth a try. After creating the status sensors in Home Assistant then provide TeamStatus with a long-lived access token, it will determine your availability from Teams locally and reach out to Home Assistant to set the values of the sensors accordingly.
+If the computer that Teams is installed on can reach Home Assistant on the network, then [EBOOZE/TeamsStatus](https://github.com/EBOOZ/TeamsStatus) may be worth a try. After creating the status sensors in Home Assistant and providing TeamStatus with a long-lived access token, it will determine your availability from Teams locally and reach out to Home Assistant to set the values of the sensors accordingly.
 
 ### Teams Status Pub
 
@@ -27,7 +27,8 @@ If you've made it this far, the above alternatives are lacking something or you'
 
 ## Getting Started
 
-Your computer must be running Windows 10 or later.
+- Your computer must be running Windows 10 or later.
+- The desktop version of Teams must be installed.
 
 ### Teams Status Pub
 
@@ -47,7 +48,7 @@ binary_sensor:
     value_template: "{{ value_json.AVAILABILITY_KEY_NAME }}"
 ```
 
-Set up an [automation](https://www.home-assistant.io/docs/automation/) to toggle a light based on the binary sensor:
+With that binary sensor in place there are all sorts of [automations](https://www.home-assistant.io/docs/automation/) that can be created. One example is to toggle a light:
 
 ```yaml
 automation:
