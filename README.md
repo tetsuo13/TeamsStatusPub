@@ -61,6 +61,10 @@ automation:
       entity_id: light.red_light_above_office_door
 ```
 
+## Development
+
+To enable logging, change the `Serilog:MinimumLevel:Default` value in *appsettings.json* to "Information" (use "Debug" to increase the verbosity level). An application restart will be required. By changing the value, a log file will be written in the same directory as the application.
+
 ## License
 
 See [LICENSE](LICENSE)

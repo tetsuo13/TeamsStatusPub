@@ -32,7 +32,7 @@ public class HttpAvailabilitySession : HttpSession
     {
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            _logger.LogDebug("{request}", request);
+            _logger.LogDebug("HTTP request info:\n{request}", request.ToString().Trim());
         }
         else
         {
