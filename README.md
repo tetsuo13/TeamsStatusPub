@@ -57,9 +57,15 @@ automation:
       platform: state
       entity_id: binary_sensor.microsoft_teams_on_call
     action:
-      service: light.toggle
-      entity_id: light.red_light_above_office_door
+      - service: >
+          light.turn_{{ trigger.to_state.state }}
+        target:
+          entity_id: light.red_light_above_office_door
 ```
+
+## Troubleshooting
+
+To enable logging, change the `Serilog:MinimumLevel:Default` value in *appsettings.json* to "Information" (use "Debug" to increase the verbosity level). The default value that's there is set in order to disable logging. An application restart will be required. By changing the value, a log file will be written in the same directory as the application.
 
 ## License
 

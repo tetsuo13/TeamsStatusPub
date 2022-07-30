@@ -1,10 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using TeamsStatusPub.Configuration;
 using TeamsStatusPub.Views;
-
-[assembly: InternalsVisibleTo("TeamsStatusPub.Tests")]
 
 namespace TeamsStatusPub;
 
@@ -16,12 +14,27 @@ internal static class Program
     [STAThread]
     public static void Main()
     {
+        LoggingConfiguration.CreateDefaultLogger();
+
         var host = Host.CreateDefaultBuilder()
+            .ConfigureAppLogging()
             .ConfigureAppServices()
             .Build();
 
         ApplicationConfiguration.Initialize();
 
-        Application.Run((Form)host.Services.GetRequiredService<IMainForm>());
+        try
+        {
+            Log.Information("Starting application");
+            Application.Run((Form)host.Services.GetRequiredService<IMainForm>());
+        }
+        catch (Exception e)
+        {
+            Log.Fatal(e, "Application terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 }
