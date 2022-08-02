@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NetCoreServer;
-using TeamsStatusPub.Models;
 
 namespace TeamsStatusPub.Services.HttpServers;
 
@@ -11,7 +9,6 @@ public class HttpAvailabilityServer : HttpServer
 {
     private readonly Func<bool> _availabilityHandler;
     private readonly ILogger<HttpAvailabilitySession> _sessionLogger;
-    private readonly IOptions<RuntimeSettings> _runtimeSettings;
 
     private bool? _previousAvailabilityResult = null;
 
@@ -36,7 +33,6 @@ public class HttpAvailabilityServer : HttpServer
         using var scope = serviceScopeFactory.CreateScope();
 
         _sessionLogger = scope.ServiceProvider.GetRequiredService<ILogger<HttpAvailabilitySession>>();
-        _runtimeSettings = scope.ServiceProvider.GetRequiredService<IOptions<RuntimeSettings>>();
     }
 
     /// <summary>
@@ -46,8 +42,8 @@ public class HttpAvailabilityServer : HttpServer
     {
         var currentAvailabilityResult = _availabilityHandler();
 
-        var session = new HttpAvailabilitySession(_sessionLogger, _runtimeSettings,
-            this, _previousAvailabilityResult, currentAvailabilityResult);
+        var session = new HttpAvailabilitySession(_sessionLogger, this,
+            _previousAvailabilityResult, currentAvailabilityResult);
 
         _previousAvailabilityResult = currentAvailabilityResult;
 

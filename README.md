@@ -32,20 +32,31 @@ If you've made it this far, the above alternatives are lacking something or you'
 
 ### Teams Status Pub
 
-The default listen address is http://10.8.15.109:17493/
+The default listen address is http://192.168.1.1:17493/ but this will most likely need to be changed. The following settings are available in *appsettings.json*:
+
+| Setting | Description |
+| ------- | ----------- |
+| `Runtime:ListenAddress` | The IP address to listen on.  |
+| `Runtime:ListenPort` | The port to listen on. Should be greater than 1024. |
 
 In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall.
 
 ### Home Assistant
 
-Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targetting the IP, port, and availability key name specified in [*appsettings.json*](src/TeamsStatusPub/appsettings.json):
+Teams Status Pub will output a single object with a boolean value that will indicate whether the user is busy in Teams or not:
+
+```json
+{"busy":false}
+```
+
+Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targetting the IP and port set in *appsettings.json*:
 
 ```yaml
 binary_sensor:
   - platform: rest
-    resource: http://IP_ADDRESS:PORT/
+    resource: http://LISTEN_ADDRESS:LISTEN_PORT/
     name: "Microsoft Teams on Call"
-    value_template: "{{ value_json.AVAILABILITY_KEY_NAME }}"
+    value_template: "{{ value_json.busy }}"
 ```
 
 With that binary sensor in place there are all sorts of [automations](https://www.home-assistant.io/docs/automation/) that can be created. One example is to toggle a light:

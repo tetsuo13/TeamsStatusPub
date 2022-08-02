@@ -2,9 +2,7 @@
 using System.Text;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NetCoreServer;
-using TeamsStatusPub.Models;
 
 namespace TeamsStatusPub.Services.HttpServers;
 
@@ -27,8 +25,9 @@ public class HttpAvailabilitySession : HttpSession
 {
     internal const string UndeterminedUserAgent = "Undetermined";
 
+    private const string OutputAvailabilityKeyName = "busy";
+
     private readonly ILogger<HttpAvailabilitySession> _logger;
-    private readonly IOptions<RuntimeSettings> _runtimeSettings;
     private readonly bool? _previousAvailabilityResult;
     private readonly bool _currentAvailabilityResult;
 
@@ -36,15 +35,13 @@ public class HttpAvailabilitySession : HttpSession
     /// Initializes a new instance of the HttpAvailabilitySession class.
     /// </summary>
     /// <param name="logger"></param>
-    /// <param name="runtimeSettings"></param>
     /// <param name="server"></param>
     /// <param name="availabilityHandler"></param>
-    public HttpAvailabilitySession(ILogger<HttpAvailabilitySession> logger, IOptions<RuntimeSettings> runtimeSettings,
-        HttpServer server, bool? previousAvailabilityResult, bool currentAvailabilityResult)
+    public HttpAvailabilitySession(ILogger<HttpAvailabilitySession> logger, HttpServer server,
+        bool? previousAvailabilityResult, bool currentAvailabilityResult)
         : base(server)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _runtimeSettings = runtimeSettings ?? throw new ArgumentNullException(nameof(runtimeSettings));
         _previousAvailabilityResult = previousAvailabilityResult;
         _currentAvailabilityResult = currentAvailabilityResult;
     }
@@ -60,7 +57,7 @@ public class HttpAvailabilitySession : HttpSession
         {
             // Intention is to return a true value if the user is busy, the
             // opposite of what's in the current availability result.
-            [_runtimeSettings.Value.OutputAvailabilityKeyName!] = _currentAvailabilityResult == false
+            [OutputAvailabilityKeyName] = _currentAvailabilityResult == false
         };
 
         if (LogInformational())

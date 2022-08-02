@@ -55,11 +55,6 @@ public class HttpProvider : IHttpProvider, IDisposable
             return $"{nameof(_runtimeSettings.Value.ListenPort)} should be between 1024-65535";
         }
 
-        if (string.IsNullOrEmpty(_runtimeSettings.Value.OutputAvailabilityKeyName))
-        {
-            return $"Missing {nameof(_runtimeSettings.Value.OutputAvailabilityKeyName)} setting";
-        }
-
         return null;
     }
 

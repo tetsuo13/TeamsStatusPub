@@ -13,7 +13,6 @@ public static class HttpProviderTests
 {
     private const string ValidListenAddress = "127.0.0.1";
     private const int ValidListenPort = 28374;
-    private const string ValidOutputAvailabilityKeyName = "busy";
 
     private static Func<bool>? ValidProvider => () => false;
 
@@ -23,14 +22,14 @@ public static class HttpProviderTests
     [InlineData("632.12.545.3345")]
     public static void VerifyReadyToListen_InvalidListenAddress_ReturnsErrorMessage(string? listenAddress)
     {
-        using var httpProvider = CreateProvider(listenAddress, ValidListenPort, ValidOutputAvailabilityKeyName);
+        using var httpProvider = CreateProvider(listenAddress, ValidListenPort);
         Assert.NotNull(httpProvider.VerifyReadyToListen(ValidProvider));
     }
 
     [Fact]
     public static void VerifyReadyToListen_MissingAvailabilityHandler_ReturnsErrorMessage()
     {
-        using var httpProvider = CreateProvider(ValidListenAddress, ValidListenPort, ValidOutputAvailabilityKeyName);
+        using var httpProvider = CreateProvider(ValidListenAddress, ValidListenPort);
         Assert.NotNull(httpProvider.VerifyReadyToListen(null));
     }
 
@@ -40,35 +39,25 @@ public static class HttpProviderTests
     [InlineData(65536)]
     public static void VerifyReadyToListen_InvalidListenPort_ReturnsErrorMessage(int listenPort)
     {
-        using var httpProvider = CreateProvider(ValidListenAddress, listenPort, ValidOutputAvailabilityKeyName);
-        Assert.NotNull(httpProvider.VerifyReadyToListen(ValidProvider));
-    }
-
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    public static void VerifyReadyToListen_InvalidOutputAvailabilityKeyName_ReturnsErrorMessage(string? outputAvailabilityKeyName)
-    {
-        using var httpProvider = CreateProvider(ValidListenAddress, ValidListenPort, outputAvailabilityKeyName);
+        using var httpProvider = CreateProvider(ValidListenAddress, listenPort);
         Assert.NotNull(httpProvider.VerifyReadyToListen(ValidProvider));
     }
 
     [Fact]
     public static void VerifyReadyToListen_ValidOptions_ReturnsNull()
     {
-        using var httpProvider = CreateProvider(ValidListenAddress, ValidListenPort, ValidOutputAvailabilityKeyName);
+        using var httpProvider = CreateProvider(ValidListenAddress, ValidListenPort);
         Assert.Null(httpProvider.VerifyReadyToListen(ValidProvider));
     }
 
-    private static HttpProvider CreateProvider(string? listenAddress, int listenPort, string? outputAvailabilityKeyName)
+    private static HttpProvider CreateProvider(string? listenAddress, int listenPort)
     {
         var logger = new Mock<ILogger<HttpProvider>>();
         var scopeFactory = new Mock<IServiceScopeFactory>();
         var runtimeSettings = Options.Create(new RuntimeSettings
         {
             ListenAddress = listenAddress,
-            ListenPort = listenPort,
-            OutputAvailabilityKeyName = outputAvailabilityKeyName
+            ListenPort = listenPort
         });
 
         return new HttpProvider(logger.Object, runtimeSettings, scopeFactory.Object);
