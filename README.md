@@ -1,4 +1,4 @@
-<img src="src/TeamsStatusPub/Icons/logo.png" width="100" alt="Logo" />
+<img src="src/TeamsStatusPub/logo.png" width="100" alt="Logo" />
 
 # Teams Status Pub
 
@@ -28,9 +28,12 @@ If you've made it this far, the above alternatives are lacking something or you'
 ## Getting Started
 
 - Your computer must be running Windows 10 or later.
+- .NET 6 runtime.
 - The desktop version of Teams must be installed.
 
 ### Teams Status Pub
+
+Download the latest release and unzip it to a dedicated folder. As part of the release there will be an *appsettings.json* file used to configure some basic runtime settings.
 
 The default listen address is http://192.168.1.1:17493/ but this will most likely need to be changed. The following settings are available in *appsettings.json*:
 
