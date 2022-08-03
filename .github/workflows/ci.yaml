@@ -73,7 +73,6 @@ jobs:
           --runtime win-x64
           --output publish
           --no-restore
-          -p:PublishReadyToRun=true
           -p:PublishSingleFile=true
           -p:DebugType=None
           -p:DebugSymbols=false
