@@ -28,9 +28,6 @@ jobs:
         with:
           dotnet-version: ${{ env.dotnet_version }}
 
-      - name: .NET info
-        run: dotnet --info
-
       - name: Restore dependencies
         run: dotnet restore
 
