@@ -40,7 +40,7 @@ jobs:
   deploy_github:
     name: Create GitHub Release
     needs: build
-    #if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: windows-latest
     timeout-minutes: 15
 
@@ -48,8 +48,8 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      #ARTIFACT_NAME: TeamsStatusPub-${{ github.ref_name }}.zip
-      ARTIFACT_NAME: TeamsStatusPub-123.zip
+      ARTIFACT_NAME: TeamsStatusPub-${{ github.ref_name }}.zip
+      #ARTIFACT_NAME: TeamsStatusPub-123.zip
 
     steps:
       - name: Clone repository
