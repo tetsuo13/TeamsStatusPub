@@ -27,7 +27,7 @@ public partial class MainForm : Form, IMainForm
 
         try
         {
-            var iconPath = Path.Combine(presenter.ApplicationPath, "Icons", "logo.ico");
+            var iconPath = Path.Combine(presenter.ApplicationPath, "logo.ico");
 
             _notifyIcon = new NotifyIcon
             {

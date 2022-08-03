@@ -1,4 +1,4 @@
-<img src="src/TeamsStatusPub/Icons/logo.png" width="100" alt="Logo" />
+<img src="src/TeamsStatusPub/logo.png" width="100" alt="Logo" />
 
 # Teams Status Pub
 
@@ -7,7 +7,7 @@
 
 Serve a RESTful interface from a computer running [Microsoft Teams](https://www.microsoft.com/en-us/microsoft-teams/group-chat-software/) to act as a sensor for [Home Assistant](https://www.home-assistant.io/). This sensor can then be used, for example, to toggle power to a smart lightbulb when you're in a meeting.
 
-Teams Status Pub runs on the system tray to publish your Teams status via a web server that listens for incoming requests. When a request comes in, it will look at the Teams log file to determine your status as either "available" or "busy" and serve a JSON payload with the result.
+Teams Status Pub runs on the system tray to publish your Teams status via a web server that listens for incoming requests. When a request comes in, it will look at the Teams log file to determine your status as either "available" or "busy" and serve a JSON payload with the result. You're considered busy in Teams when on a call, regardless of video or mic status.
 
 ## Motiviation and Alternatives
 
@@ -28,9 +28,12 @@ If you've made it this far, the above alternatives are lacking something or you'
 ## Getting Started
 
 - Your computer must be running Windows 10 or later.
+- .NET 6 runtime.
 - The desktop version of Teams must be installed.
 
 ### Teams Status Pub
+
+Download the latest release and unzip it to a dedicated folder. As part of the release there will be an *appsettings.json* file used to configure some basic runtime settings.
 
 The default listen address is http://192.168.1.1:17493/ but this will most likely need to be changed. The following settings are available in *appsettings.json*:
 

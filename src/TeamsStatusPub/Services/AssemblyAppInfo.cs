@@ -8,7 +8,7 @@ namespace TeamsStatusPub.Services;
 public class AssemblyAppInfo : IAppInfo
 {
     public string ApplicationName => GetAssemblyAttribute<AssemblyProductAttribute>((attribute) => attribute.Product);
-    public string ApplicationPath => Path.GetDirectoryName(_assembly.Location)!;
+    public string ApplicationPath => AppContext.BaseDirectory;
     public string Copyright => GetAssemblyAttribute<AssemblyCopyrightAttribute>((attribute) => attribute.Copyright);
     public string WebsiteUrl => GetAssemblyAttribute<AssemblyCompanyAttribute>((attribute) => attribute.Company);
 
