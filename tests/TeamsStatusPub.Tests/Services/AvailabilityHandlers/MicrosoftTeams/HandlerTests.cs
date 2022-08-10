@@ -1,16 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using Moq;
-using TeamsStatusPub.Services.AvailabilityHandlers;
-using Xunit;
+﻿using Xunit;
 
-namespace TeamsStatusPub.Tests.Services.AvailabilityHandlers;
+namespace TeamsStatusPub.Tests.Services.AvailabilityHandlers.MicrosoftTeams;
 
-public static class MicrosoftTeamsHandlerTests
+public class HandlerTests : MicrosoftTeamsHandlerTests
 {
-    public const string EventData1 = "Wed Mar 30 2022 11:30:31 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::1, inactiveTime: 1, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 27548024, freeMemory: 344715264, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
-    public const string EventData3 = "Wed Mar 30 2022 12:30:14 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::3, inactiveTime: 0, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 28988980, freeMemory: 402382848, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
-    public const string EventData4 = "Wed Mar 30 2022 16:23:16 GMT-0400 (Eastern Daylight Time) <14080> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::4, inactiveTime: 42, name: machineState, AppInfo.Language: en-us, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 24242768, freeMemory: 6676017152, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 0.99, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
-    public const string EventData5 = "Wed Mar 30 2022 21:52:24 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::5, inactiveTime: 60, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 26274384, freeMemory: 992256000, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
+    private const string EventData1 = "Wed Mar 30 2022 11:30:31 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::1, inactiveTime: 1, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 27548024, freeMemory: 344715264, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
+    private const string EventData3 = "Wed Mar 30 2022 12:30:14 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::3, inactiveTime: 0, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 28988980, freeMemory: 402382848, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
+    private const string EventData4 = "Wed Mar 30 2022 16:23:16 GMT-0400 (Eastern Daylight Time) <14080> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::4, inactiveTime: 42, name: machineState, AppInfo.Language: en-us, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 24242768, freeMemory: 6676017152, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 0.99, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
+    private const string EventData5 = "Wed Mar 30 2022 21:52:24 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::5, inactiveTime: 60, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 26274384, freeMemory: 992256000, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
 
     public static readonly TheoryData<string> _noEventTokenData = new()
     {
@@ -48,11 +45,5 @@ public static class MicrosoftTeamsHandlerTests
     {
         var handler = GetHandler();
         Assert.True(handler.ContainsCallStartedEventToken(EventData1));
-    }
-
-    private static MicrosoftTeamsHandler GetHandler()
-    {
-        var logger = new Mock<ILogger<MicrosoftTeamsHandler>>();
-        return new MicrosoftTeamsHandler(logger.Object);
     }
 }
