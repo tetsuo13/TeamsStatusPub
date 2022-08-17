@@ -20,4 +20,10 @@
     <ProjectReference Include="..\..\src\TeamsStatusPub\TeamsStatusPub.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Services\AvailabilityHandlers\MicrosoftTeams\ExampleLogs\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

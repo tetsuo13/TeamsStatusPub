@@ -66,6 +66,18 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
             throw new FileNotFoundException("Couldn't find Teams log file", _teamsLogFilePath);
         }
 
+        var lastAvailabilityFromFile = FindLastAvailabilityFromLogFile(_teamsLogFilePath);
+
+        if (lastAvailabilityFromFile.HasValue)
+        {
+            _lastAvailability = lastAvailabilityFromFile.Value;
+        }
+
+        return _lastAvailability;
+    }
+
+    internal bool? FindLastAvailabilityFromLogFile(string logFilePath)
+    {
         Stopwatch? stopwatch = null;
 
         var lineBuilder = new List<char>();
@@ -77,13 +89,15 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
         // is completed. No need to read the lines unnecessarily.
         const int maxLines = 500;
 
+        const char invalidChar = '�'; // 65533
+
         if (_logger.IsEnabled(LogLevel.Debug))
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
         }
 
-        using var stream = new FileStream(_teamsLogFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var stream = new FileStream(logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         stream.Seek(0, SeekOrigin.End);
 
         while (true)
@@ -91,7 +105,6 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
             var bufferLength = 1;
             var buffer = new byte[1];
             // Assumes multi-byte UTF-8 file encoding.
-            const char invalidChar = '�'; // 65533
             char[] chars = { invalidChar };
             var iteration = 0;
 
@@ -147,8 +160,7 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
 
                     // If the line contains the call started token then the
                     // user isn't available.
-                    _lastAvailability = containsCallStartedEventToken.Value == false;
-                    return _lastAvailability;
+                    return containsCallStartedEventToken.Value == false;
                 }
 
                 lineBuilder.Clear();
@@ -177,7 +189,8 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
                 maxLines, stopwatch?.Elapsed.TotalSeconds, _lastAvailability);
         }
 
-        return _lastAvailability;
+        // Didn't find a line with event data token.
+        return null;
     }
 
     /// <summary>
