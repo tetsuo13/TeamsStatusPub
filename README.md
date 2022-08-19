@@ -71,8 +71,7 @@ automation:
       platform: state
       entity_id: binary_sensor.microsoft_teams_on_call
     action:
-      - service: >
-          light.turn_{{ trigger.to_state.state }}
+      - service: light.turn_{{ trigger.to_state.state }}
         target:
           entity_id: light.red_light_above_office_door
 ```
