@@ -44,9 +44,9 @@ jobs:
           --runtime win-x64
           --output ${{ env.PUBLISH_DIR }}
           --no-restore
-          -p:PublishSingleFile=true
-          -p:DebugType=None
-          -p:DebugSymbols=false
+          -property:PublishSingleFile=true
+          -property:DebugType=None
+          -property:DebugSymbols=false
           --self-contained false
           src/TeamsStatusPub/TeamsStatusPub.csproj
 
