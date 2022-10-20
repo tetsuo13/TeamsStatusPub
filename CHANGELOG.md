@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## Unreleased
+## 1.0.1 (2022-10-19)
 
 - Fixed screen sharing while on a call not counting as busy ([#8](https://github.com/tetsuo13/TeamsStatusPub/issues/8))
 
