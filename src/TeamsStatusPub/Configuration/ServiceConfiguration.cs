@@ -4,6 +4,7 @@ using TeamsStatusPub.Models;
 using TeamsStatusPub.Presenters;
 using TeamsStatusPub.Services;
 using TeamsStatusPub.Services.AvailabilityHandlers;
+using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
 using TeamsStatusPub.Views;
 
 namespace TeamsStatusPub.Configuration;
@@ -32,7 +33,10 @@ internal static class ServiceConfiguration
             services.AddTransient<IAboutForm, AboutForm>();
 
             services.AddTransient<IHttpProvider, HttpProvider>();
+
             services.AddTransient<IAvailabilityHandler, MicrosoftTeamsHandler>();
+            services.AddTransient<ILogFileReader, LogFileReader>();
+
             services.AddSingleton<IAppInfo, AssemblyAppInfo>();
         });
     }

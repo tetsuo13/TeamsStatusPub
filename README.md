@@ -33,9 +33,9 @@ If you've made it this far, the above alternatives are lacking something or you'
 
 ### Teams Status Pub
 
-Download the latest release and unzip it to a dedicated folder. As part of the release there will be an *appsettings.json* file used to configure some basic runtime settings.
+Download the latest release and unzip it to a dedicated folder. As part of the release there will be an `appsettings.json` file used to configure some basic runtime settings.
 
-The default listen address is http://192.168.1.1:17493/ but this will most likely need to be changed. The following settings are available in *appsettings.json*:
+The default listen address is http://192.168.1.1:17493/ but this will most likely need to be changed. The following settings are available in `appsettings.json`:
 
 | Setting | Description |
 | ------- | ----------- |
@@ -52,7 +52,7 @@ Teams Status Pub will output a single object with a boolean value that will indi
 {"busy":false}
 ```
 
-Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targetting the IP and port set in *appsettings.json*:
+Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targetting the IP and port set in `appsettings.json`:
 
 ```yaml
 binary_sensor:
@@ -78,7 +78,11 @@ automation:
 
 ## Troubleshooting
 
-To enable logging, change the `Serilog:MinimumLevel:Default` value in *appsettings.json* to "Information" (use "Debug" to increase the verbosity level). The default value that's there is set in order to disable logging. An application restart will be required. By changing the value, a log file will be written in the same directory as the application.
+To enable logging, change the `Serilog:MinimumLevel:Default` value in `appsettings.json` to "Information" (use "Debug" to increase the verbosity level). The default value that's there is set in order to disable logging. An application restart will be required. By changing the value, a log file will be written in the same directory as the application.
+
+## Development
+
+There has been some consideration taken to make the code modular enough to handle integrating with other conferencing tools other than Microsoft Teams, although that is the only one currently supported. In the future it could be possible to add additional availability handlers and use configuration to determine which handler(s) to use. A detailed breakdown of handlers and how a user is considered busy can be found in the [README](src/TeamsStatusPub/Services/AvailabilityHandlers/README.md) file in the availability handlers directory.
 
 ## License
 
