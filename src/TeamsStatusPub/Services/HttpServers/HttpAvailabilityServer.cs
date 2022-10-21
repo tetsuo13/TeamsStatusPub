@@ -23,10 +23,7 @@ public class HttpAvailabilityServer : HttpServer
         IPAddress address, int port, Func<bool> availabilityHandler)
         : base(address, port)
     {
-        if (serviceScopeFactory is null)
-        {
-            throw new ArgumentNullException(nameof(serviceScopeFactory));
-        }
+        ArgumentNullException.ThrowIfNull(serviceScopeFactory);
 
         _availabilityHandler = availabilityHandler;
 

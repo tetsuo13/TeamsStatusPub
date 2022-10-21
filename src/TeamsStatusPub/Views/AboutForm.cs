@@ -8,15 +8,8 @@ public partial class AboutForm : Form, IAboutForm
 {
     public AboutForm(IAboutFormPresenter presenter, ILogger<AboutForm> logger)
     {
-        if (presenter is null)
-        {
-            throw new ArgumentNullException(nameof(presenter));
-        }
-
-        if (logger is null)
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        ArgumentNullException.ThrowIfNull(presenter);
+        ArgumentNullException.ThrowIfNull(logger);
 
         InitializeComponent();
 

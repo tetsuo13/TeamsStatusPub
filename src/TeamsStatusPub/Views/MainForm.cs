@@ -13,15 +13,8 @@ public partial class MainForm : Form, IMainForm
     {
         _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
 
-        if (presenter is null)
-        {
-            throw new ArgumentNullException(nameof(presenter));
-        }
-
-        if (logger is null)
-        {
-            throw new ArgumentNullException(nameof(logger));
-        }
+        ArgumentNullException.ThrowIfNull(presenter);
+        ArgumentNullException.ThrowIfNull(logger);
 
         InitializeComponent();
 
