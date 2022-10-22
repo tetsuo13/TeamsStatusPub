@@ -34,7 +34,7 @@ jobs:
           $csproj = "src/TeamsStatusPub/TeamsStatusPub.csproj" | Resolve-Path
           $xml = [xml](Get-Content $csproj)
           $xml.Project.PropertyGroup.Version += ".${env:GITHUB_RUN_NUMBER}"
-          Write-Host "Setting assembly version to ${xml.Project.PropertyGroup.Version}"
+          Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
           $xml.Save($csproj)
 
       - name: Restore dependencies
