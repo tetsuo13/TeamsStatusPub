@@ -27,6 +27,15 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
+      # Existing version number isn't expected to have a revision number.
+      - name: Add build number to version string
+        run: |
+          # Need absolute path for saving later.
+          $csproj = "src/TeamsStatusPub/TeamsStatusPub.csproj" | Resolve-Path
+          $xml = [xml](Get-Content $csproj)
+          $xml.Project.PropertyGroup.Version += ".${env:GITHUB_RUN_NUMBER}"
+          $xml.Save($csproj)
+
       - name: Restore dependencies
         run: dotnet restore
 
