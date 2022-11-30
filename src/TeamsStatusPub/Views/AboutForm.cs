@@ -21,11 +21,11 @@ public partial class AboutForm : Form, IAboutForm
         websiteLinkLabel.Text = presenter.WebsiteUrl;
         websiteLinkLabel.Links.Add(new LinkLabel.Link(0, presenter.WebsiteUrl.Length, presenter.WebsiteUrl));
 
-        websiteLinkLabel.LinkClicked += (object sender, LinkLabelLinkClickedEventArgs e) =>
+        websiteLinkLabel.LinkClicked += (object? sender, LinkLabelLinkClickedEventArgs e) =>
         {
             try
             {
-                var url = e.Link.LinkData.ToString();
+                var url = e.Link!.LinkData.ToString();
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = url,

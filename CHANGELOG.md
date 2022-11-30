@@ -2,7 +2,7 @@
 
 ## 1.1.0
 
-- .NET 7
+- .NET 7 ([#28](https://github.com/tetsuo13/TeamsStatusPub/pull/28))
 
 ## 1.0.1 (2022-10-19)
 
