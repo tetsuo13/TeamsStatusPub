@@ -28,7 +28,7 @@ If you've made it this far, the above alternatives are lacking something or you'
 ## Getting Started
 
 - Your computer must be running Windows 10 or later.
-- .NET 6 runtime.
+- .NET 7 runtime.
 - The desktop version of Teams must be installed.
 
 ### Teams Status Pub
