@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## 1.1.0
+## 1.1.0 (2022-12-05)
 
 - .NET 7 ([#28](https://github.com/tetsuo13/TeamsStatusPub/pull/28))
 
