@@ -57,7 +57,7 @@ public class HttpAvailabilitySession : HttpSession
         {
             // Intention is to return a true value if the user is busy, the
             // opposite of what's in the current availability result.
-            [OutputAvailabilityKeyName] = _currentAvailabilityResult == false
+            [OutputAvailabilityKeyName] = !_currentAvailabilityResult
         };
 
         if (LogInformational())

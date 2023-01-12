@@ -66,7 +66,7 @@ public class HttpProvider : IHttpProvider, IDisposable
         if (!string.IsNullOrEmpty(initializationError))
         {
             _logger.LogError("{error}", initializationError);
-            throw new ApplicationException(initializationError);
+            throw new HttpListenerException((int)HttpStatusCode.BadGateway, initializationError);
         }
 
         _logger.LogInformation("Starting listener on http://{uri}:{port}...",
@@ -81,7 +81,7 @@ public class HttpProvider : IHttpProvider, IDisposable
         if (!_server.IsStarted)
         {
             _logger.LogError("Error starting listener");
-            throw new ApplicationException("Error starting listener");
+            throw new HttpListenerException((int)HttpStatusCode.BadGateway, "Error starting listener");
         }
 
         return Task.CompletedTask;

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TeamsStatusPub.Tests.Services.AvailabilityHandlers.MicrosoftTeams;
 
-public class MicrosoftTeamsHandlerTests
+public static class MicrosoftTeamsHandlerTests
 {
     private const string EventData0 = "Tue Aug 16 2022 10:50:13 GMT-0400 (Eastern Daylight Time) <159540> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::0, inactiveTime: 0, name: machineState, AppInfo.Language: en-us, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 25340460, freeMemory: 3206307840, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 0.95, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";
     private const string EventData1 = "Wed Mar 30 2022 11:30:31 GMT-0400 (Eastern Daylight Time) <25392> -- event -- eventpdclevel: 2, eventData: s::;m::1;a::1, inactiveTime: 1, name: machineState, AppInfo.Language: en-US, complianceEnvironmentType: 0, isDataCategorizationEnabled: true, userpdclevel: 0, processMemory: 27548024, freeMemory: 344715264, clientType: desktop, AppInfo.ClientType: desktop, batterylevel: 1, pluggedin: true, Window.Focus: foreground, windowIsVisible: true, Window.Status: maximized, UserInfo.TimeZone: -04:00, vdiMode: 0,";

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace TeamsStatusPub.Tests.Services.AvailabilityHandlers.MicrosoftTeams;
 
-public class LogFileReaderTests
+public static class LogFileReaderTests
 {
     /// <summary>
     /// Doesn't contain a line with the event data token.

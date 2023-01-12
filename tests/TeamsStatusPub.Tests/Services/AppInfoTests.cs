@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TeamsStatusPub.Tests.Services;
 
-public class AppInfoTests
+public static class AppInfoTests
 {
     private static AssemblyAppInfo appInfo => new();
 
