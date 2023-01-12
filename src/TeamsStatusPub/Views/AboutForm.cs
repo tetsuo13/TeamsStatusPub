@@ -21,6 +21,9 @@ public partial class AboutForm : Form, IAboutForm
         websiteLinkLabel.Text = presenter.WebsiteUrl;
         websiteLinkLabel.Links.Add(new LinkLabel.Link(0, presenter.WebsiteUrl.Length, presenter.WebsiteUrl));
 
+        websiteLinkLabel.MouseEnter += (object? sender, EventArgs e) => websiteLinkLabel.LinkColor = Color.Blue;
+        websiteLinkLabel.MouseLeave += (object? sender, EventArgs e) => websiteLinkLabel.LinkColor = Color.Red;
+
         websiteLinkLabel.LinkClicked += (object? sender, LinkLabelLinkClickedEventArgs e) =>
         {
             try
