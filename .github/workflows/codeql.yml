@@ -10,6 +10,8 @@ jobs:
   build:
     name: Build and Test
     uses: ./.github/workflows/build.yml
+    with:
+      createArtifact: true
 
   analyze:
     name: Analyze
