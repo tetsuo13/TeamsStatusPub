@@ -6,7 +6,7 @@ on:
       - '**.md'
 
 env:
-  CREATE_RELEASE: startsWith(github.ref, 'refs/tags/')
+  CREATE_RELEASE: ${{ startsWith(github.ref, 'refs/tags/') }}
 
 jobs:
   build:
