@@ -18,8 +18,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      #ARTIFACT_NAME: TeamsStatusPub-${{ github.ref_name }}.zip
-      ARTIFACT_NAME: TeamsStatusPub-11.22.33.zip
+      ARTIFACT_NAME: TeamsStatusPub-${{ github.ref_name }}.zip
       PUBLISH_DIR: publish
 
     steps:
