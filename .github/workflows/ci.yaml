@@ -10,7 +10,7 @@ jobs:
     name: Build and Test
     uses: ./.github/workflows/build.yml
     with:
-      createArtifact: ${{ startsWith(github.ref, 'refs/tags/') }}
+      createArtifact: ${{ !startsWith(github.ref, 'refs/tags/') }}
 
   release:
     name: Create Release
@@ -28,5 +28,5 @@ jobs:
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         uses: softprops/action-gh-release@v1
         with:
-          files: publish
+          files: publish/*.zip
           name: TeamsStatusPub ${{ github.ref_name }}

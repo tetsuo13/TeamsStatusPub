@@ -164,3 +164,6 @@ indent_size = 2
 indent_size = 2
 charset = utf-8-bom
 insert_final_newline = true
+
+[*.yml]
+indent_size = 2
