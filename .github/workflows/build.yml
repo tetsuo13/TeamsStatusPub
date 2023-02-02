@@ -7,6 +7,10 @@ on:
         description: 'Whether or not to create the artifact'
         required: true
         type: boolean
+      artifactVersion:
+        description: 'Version string to append to artifact file name'
+        required: true
+        type: string
 
 jobs:
   build:
@@ -18,12 +22,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      # Assuming a tag number will be used here only in cases when an artifact
-      # should be generated. In all other cases, this will be the branch name
-      # which may or may not be a valid Windows filename (branches with
-      # slashes, for example) however an artifact won't be generated in those
-      # cases.
-      ARTIFACT_NAME: TeamsStatusPub-${{ github.ref_name }}.zip
+      ARTIFACT_NAME: TeamsStatusPub-${{ inputs.artifactVersion }}.zip
       PUBLISH_DIR: publish
 
     steps:
