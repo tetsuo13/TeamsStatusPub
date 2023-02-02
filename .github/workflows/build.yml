@@ -77,7 +77,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: artifact
-          path: |
-            ${{ env.ARTIFACT_NAME }}
-            ${{ env.PUBLISH_DIR }}
+          path: ${{ env.ARTIFACT_NAME }}
           retention-days: 1
