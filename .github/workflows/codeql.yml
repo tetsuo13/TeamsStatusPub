@@ -2,8 +2,9 @@ name: CodeQL
 
 on:
   push:
-    paths-ignore:
-      - '**.md'
+    branches: [ "main" ]
+  schedule:
+    - cron: '36 6 * * 6'
 
 jobs:
   analyze:
