@@ -18,6 +18,11 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
+      # Assuming a tag number will be used here only in cases when an artifact
+      # should be generated. In all other cases, this will be the branch name
+      # which may or may not be a valid Windows filename (branches with
+      # slashes, for example) however an artifact won't be generated in those
+      # cases.
       ARTIFACT_NAME: TeamsStatusPub-${{ github.ref_name }}.zip
       PUBLISH_DIR: publish
 
@@ -31,6 +36,7 @@ jobs:
           dotnet-version: 7.0.x
 
       # Existing version number isn't expected to have a revision number.
+      # Expecting "x.y.z" string. This will append ".build" to it.
       - name: Add build number to version string
         run: |
           # Need absolute path for saving later.
