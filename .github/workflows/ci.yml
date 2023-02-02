@@ -21,14 +21,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
 
-      - name: Show files from downloaded artifact
-        run: ls -l
-
-      - name: Show files in downloaded artifact
-        run: ls -l artifact/
-
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: '*.zip'
+          files: 'artifact/*.zip'
           name: TeamsStatusPub ${{ github.ref_name }}
