@@ -1,6 +1,6 @@
 # Teams Status Pub
 
-[![Continuous integration](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yaml/badge.svg)](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yaml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![release](https://img.shields.io/github/release/tetsuo13/TeamsStatusPub.svg)](https://github.com/tetsuo13/TeamsStatusPub/releases)
+[![Continuous integration](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yml/badge.svg)](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![release](https://img.shields.io/github/release/tetsuo13/TeamsStatusPub.svg)](https://github.com/tetsuo13/TeamsStatusPub/releases)
 
 <img src="src/TeamsStatusPub/logo.png" width="100" alt="Logo" align="right" />
 

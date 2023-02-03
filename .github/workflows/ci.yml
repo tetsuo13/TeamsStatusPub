@@ -1,0 +1,29 @@
+name: Continuous integration
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    name: Build and Test
+    uses: ./.github/workflows/build.yml
+    with:
+      createArtifact: ${{ startsWith(github.ref, 'refs/tags/') }}
+      artifactVersion: ${{ github.ref_name }}
+
+  release:
+    name: Create Release
+    needs: build
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: 'artifact/*.zip'
+          name: TeamsStatusPub ${{ github.ref_name }}
