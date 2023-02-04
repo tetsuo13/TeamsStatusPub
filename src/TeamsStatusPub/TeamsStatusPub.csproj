@@ -12,7 +12,12 @@
     <Version>1.1.0</Version>
     <Copyright>Copyright © 2022 Andrei Nicholson</Copyright>
     <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
+    <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\logo.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <InternalsVisibleTo Include="TeamsStatusPub.Tests" />
@@ -46,12 +51,10 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="logo.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="logo.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

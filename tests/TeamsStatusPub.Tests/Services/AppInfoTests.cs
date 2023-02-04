@@ -1,5 +1,4 @@
-﻿using System.IO;
-using TeamsStatusPub.Services;
+﻿using TeamsStatusPub.Services;
 using Xunit;
 
 namespace TeamsStatusPub.Tests.Services;
@@ -12,12 +11,6 @@ public static class AppInfoTests
     public static void ApplicationName_FromAssembly()
     {
         Assert.Equal("Teams Status Pub", appInfo.ApplicationName);
-    }
-
-    [Fact]
-    public static void ApplicationPath_FromAssembly()
-    {
-        Assert.Contains(Path.Combine("TeamsStatusPub.Tests", "bin"), appInfo.ApplicationPath);
     }
 
     [Fact]

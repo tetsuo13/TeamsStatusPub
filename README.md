@@ -2,7 +2,7 @@
 
 [![Continuous integration](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yml/badge.svg)](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![release](https://img.shields.io/github/release/tetsuo13/TeamsStatusPub.svg)](https://github.com/tetsuo13/TeamsStatusPub/releases)
 
-<img src="src/TeamsStatusPub/logo.png" width="100" alt="Logo" align="right" />
+<img src="src/TeamsStatusPub/Icons/logo.png" width="100" alt="Logo" align="right" />
 
 Serve a RESTful interface from a computer running [Microsoft Teams](https://www.microsoft.com/en-us/microsoft-teams/group-chat-software/) to act as a sensor for [Home Assistant](https://www.home-assistant.io/). This sensor can then be used, for example, to toggle power to a smart lightbulb when you're in a meeting.
 

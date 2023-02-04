@@ -7,7 +7,6 @@ namespace TeamsStatusPub.Presenters;
 public class MainFormPresenter : IMainFormPresenter
 {
     public string ApplicationName => _appInfo.ApplicationName;
-    public string ApplicationPath => _appInfo.ApplicationPath;
 
     private readonly ILogger<MainFormPresenter> _logger;
     private readonly IHttpProvider _httpHost;

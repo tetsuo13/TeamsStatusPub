@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TeamsStatusPub.Presenters;
+using TeamsStatusPub.Properties;
 
 namespace TeamsStatusPub.Views;
 
@@ -20,13 +21,11 @@ public partial class MainForm : Form, IMainForm
 
         try
         {
-            var iconPath = Path.Combine(presenter.ApplicationPath, "logo.ico");
-
             _notifyIcon = new NotifyIcon
             {
                 Text = presenter.ApplicationName,
                 ContextMenuStrip = new ContextMenuStrip(),
-                Icon = new Icon(iconPath)
+                Icon = Resources.MainIcon
             };
         }
         catch (Exception e)

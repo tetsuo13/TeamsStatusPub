@@ -11,11 +11,6 @@ public interface IAppInfo
     string ApplicationName { get; }
 
     /// <summary>
-    /// Gets the absolute file path to the application binary.
-    /// </summary>
-    string ApplicationPath { get; }
-
-    /// <summary>
     /// Gets the copyright notice.
     /// </summary>
     string Copyright { get; }

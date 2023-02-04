@@ -1,5 +1,9 @@
 # Teams Status Pub Changelog
 
+## Unreleased
+
+- Bundled application icon, no longer distributed with release files.
+
 ## 1.1.0 (2022-12-05)
 
 - .NET 7 ([#28](https://github.com/tetsuo13/TeamsStatusPub/pull/28))
@@ -10,4 +14,4 @@
 
 ## 1.0.0 (2022-08-03)
 
-- Initial release.
+- Initial release
