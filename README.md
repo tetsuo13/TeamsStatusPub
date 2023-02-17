@@ -30,6 +30,10 @@ If you've made it this far, the above alternatives are lacking something or you'
 - .NET 7 runtime.
 - The desktop version of Teams must be installed.
 
+### Teams
+
+No additional changes are required, the default settings already log sufficient data.
+
 ### Teams Status Pub
 
 Download the latest release and unzip it to a dedicated folder. As part of the release there will be an `appsettings.json` file used to configure some basic runtime settings.
