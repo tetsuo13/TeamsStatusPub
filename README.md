@@ -61,7 +61,7 @@ Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/bina
 binary_sensor:
   - platform: rest
     resource: http://LISTEN_ADDRESS:LISTEN_PORT/
-    name: "Microsoft Teams on Call"
+    name: Microsoft Teams on Call
     value_template: "{{ value_json.busy }}"
 ```
 
