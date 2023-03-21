@@ -9,8 +9,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Product>Teams Status Pub</Product>
-    <Version>1.1.0</Version>
-    <Copyright>Copyright © 2022 Andrei Nicholson</Copyright>
+    <Version>1.2.0</Version>
+    <Copyright>Copyright © 2023 Andrei Nicholson</Copyright>
     <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
     <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
