@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## Unreleased
+## 1.2.0 (2023-01-20)
 
 - Bundled application icon, no longer distributed with release files.
 
