@@ -41,11 +41,15 @@ public partial class MainForm : Form, IMainForm
         _notifyIcon.Visible = true;
 
         WindowState = FormWindowState.Minimized;
-        Visible = false;
         ShowInTaskbar = false;
 
         Load += (object? sender, EventArgs e) => Task.Run(() => presenter.OnViewLoad());
         FormClosing += (object? sender, FormClosingEventArgs e) => RemoveNotifyIcon();
+    }
+
+    protected override void OnShown(EventArgs e)
+    {
+        Visible = false;
     }
 
     private void ContextMenu_Quit(object? sender, EventArgs e)
