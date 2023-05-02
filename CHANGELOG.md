@@ -1,5 +1,9 @@
 # Teams Status Pub Changelog
 
+## Unreleased
+
+- Fixed minimized window showing in bottom-left of screen ([#31](https://github.com/tetsuo13/TeamsStatusPub/issues/31))
+
 ## 1.2.0 (2023-01-20)
 
 - Bundled application icon, no longer distributed with release files.
