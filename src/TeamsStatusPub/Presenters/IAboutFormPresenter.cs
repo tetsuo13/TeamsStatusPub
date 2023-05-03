@@ -6,4 +6,5 @@ public interface IAboutFormPresenter
     string Copyright { get; }
     string Version { get; }
     string WebsiteUrl { get; }
+    string ListenUrl { get; }
 }

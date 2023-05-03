@@ -6,10 +6,12 @@ namespace TeamsStatusPub.Views;
 
 public partial class AboutForm : Form, IAboutForm
 {
+    private readonly ILogger<AboutForm> _logger;
+
     public AboutForm(IAboutFormPresenter presenter, ILogger<AboutForm> logger)
     {
         ArgumentNullException.ThrowIfNull(presenter);
-        ArgumentNullException.ThrowIfNull(logger);
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         InitializeComponent();
 
@@ -18,13 +20,19 @@ public partial class AboutForm : Form, IAboutForm
         copyrightLabel.Text = presenter.Copyright;
         versionLabel.Text = presenter.Version;
 
-        websiteLinkLabel.Text = presenter.WebsiteUrl;
-        websiteLinkLabel.Links.Add(new LinkLabel.Link(0, presenter.WebsiteUrl.Length, presenter.WebsiteUrl));
+        StyleLinkLabel(websiteLinkLabel, presenter.WebsiteUrl);
+        StyleLinkLabel(listenLinkLabel, presenter.ListenUrl);
+    }
 
-        websiteLinkLabel.MouseEnter += (object? sender, EventArgs e) => websiteLinkLabel.LinkColor = Color.Red;
-        websiteLinkLabel.MouseLeave += (object? sender, EventArgs e) => websiteLinkLabel.LinkColor = Color.Blue;
+    private void StyleLinkLabel(LinkLabel label, string url)
+    {
+        label.Text = url;
+        label.Links.Add(new LinkLabel.Link(0, url.Length, url));
 
-        websiteLinkLabel.LinkClicked += (object? sender, LinkLabelLinkClickedEventArgs e) =>
+        label.MouseEnter += (object? sender, EventArgs e) => label.LinkColor = Color.Red;
+        label.MouseLeave += (object? sender, EventArgs e) => label.LinkColor = Color.Blue;
+
+        label.LinkClicked += (object? sender, LinkLabelLinkClickedEventArgs e) =>
         {
             try
             {
@@ -38,7 +46,7 @@ public partial class AboutForm : Form, IAboutForm
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error opening link to website");
+                _logger.LogError(ex, "Error opening link to website on {labelName}", label.Name);
             }
         };
     }
