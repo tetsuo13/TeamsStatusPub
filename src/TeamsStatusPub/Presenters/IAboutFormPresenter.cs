@@ -7,4 +7,5 @@ public interface IAboutFormPresenter
     string Version { get; }
     string WebsiteUrl { get; }
     string ListenUrl { get; }
+    string LastTeamsStatus { get; }
 }

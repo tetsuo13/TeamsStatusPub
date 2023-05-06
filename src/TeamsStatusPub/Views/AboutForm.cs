@@ -19,6 +19,12 @@ public partial class AboutForm : Form, IAboutForm
         productLabel.Text = presenter.ApplicationName;
         copyrightLabel.Text = presenter.Copyright;
         versionLabel.Text = presenter.Version;
+        lastTeamsStatusLabel.Text = presenter.LastTeamsStatus;
+        teamsStatusTooltip.SetToolTip(teamsStatusLabel,
+            """
+            The status shown is not live and does not change here.
+            It's simply the status at the time of opening this dialog.
+            """);
 
         StyleLinkLabel(websiteLinkLabel, presenter.WebsiteUrl);
         StyleLinkLabel(listenLinkLabel, presenter.ListenUrl);

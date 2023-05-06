@@ -36,6 +36,9 @@ partial class AboutForm
         websiteLinkLabel = new LinkLabel();
         listenLabel = new Label();
         listenLinkLabel = new LinkLabel();
+        teamsStatusLabel = new Label();
+        lastTeamsStatusLabel = new Label();
+        teamsStatusTooltip = new ToolTip();
         ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
         SuspendLayout();
         // 
@@ -43,7 +46,7 @@ partial class AboutForm
         // 
         productLabel.AutoSize = true;
         productLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
-        productLabel.Location = new Point(296, 74);
+        productLabel.Location = new Point(296, 48);
         productLabel.Margin = new Padding(7, 0, 7, 0);
         productLabel.Name = "productLabel";
         productLabel.Size = new Size(324, 60);
@@ -54,7 +57,7 @@ partial class AboutForm
         // 
         versionLabel.AutoSize = true;
         versionLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-        versionLabel.Location = new Point(29, 293);
+        versionLabel.Location = new Point(296, 128);
         versionLabel.Margin = new Padding(7, 0, 7, 0);
         versionLabel.Name = "versionLabel";
         versionLabel.Size = new Size(116, 41);
@@ -64,7 +67,7 @@ partial class AboutForm
         // copyrightLabel
         // 
         copyrightLabel.AutoSize = true;
-        copyrightLabel.Location = new Point(29, 335);
+        copyrightLabel.Location = new Point(296, 170);
         copyrightLabel.Margin = new Padding(7, 0, 7, 0);
         copyrightLabel.Name = "copyrightLabel";
         copyrightLabel.Size = new Size(150, 41);
@@ -85,7 +88,7 @@ partial class AboutForm
         // websiteLinkLabel
         // 
         websiteLinkLabel.AutoSize = true;
-        websiteLinkLabel.Location = new Point(29, 377);
+        websiteLinkLabel.Location = new Point(296, 212);
         websiteLinkLabel.Margin = new Padding(7, 0, 7, 0);
         websiteLinkLabel.Name = "websiteLinkLabel";
         websiteLinkLabel.Size = new Size(243, 41);
@@ -96,7 +99,7 @@ partial class AboutForm
         // listenLabel
         // 
         listenLabel.AutoSize = true;
-        listenLabel.Location = new Point(296, 152);
+        listenLabel.Location = new Point(28, 320);
         listenLabel.Margin = new Padding(7, 0, 7, 0);
         listenLabel.Name = "listenLabel";
         listenLabel.Size = new Size(180, 41);
@@ -106,7 +109,7 @@ partial class AboutForm
         // listenLinkLabel
         // 
         listenLinkLabel.AutoSize = true;
-        listenLinkLabel.Location = new Point(470, 152);
+        listenLinkLabel.Location = new Point(202, 320);
         listenLinkLabel.Margin = new Padding(7, 0, 7, 0);
         listenLinkLabel.Name = "listenLinkLabel";
         listenLinkLabel.Size = new Size(304, 41);
@@ -114,11 +117,33 @@ partial class AboutForm
         listenLinkLabel.TabStop = true;
         listenLinkLabel.Text = "http://127.0.0.1:8080/";
         // 
+        // teamsStatusLabel
+        // 
+        teamsStatusLabel.AutoSize = true;
+        teamsStatusLabel.Location = new Point(28, 370);
+        teamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
+        teamsStatusLabel.Name = "teamsStatusLabel";
+        teamsStatusLabel.Size = new Size(286, 41);
+        teamsStatusLabel.TabIndex = 7;
+        teamsStatusLabel.Text = "Last status in Teams:";
+        // 
+        // lastTeamsStatusLabel
+        // 
+        lastTeamsStatusLabel.AutoSize = true;
+        lastTeamsStatusLabel.Location = new Point(305, 370);
+        lastTeamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
+        lastTeamsStatusLabel.Name = "lastTeamsStatusLabel";
+        lastTeamsStatusLabel.Size = new Size(134, 41);
+        lastTeamsStatusLabel.TabIndex = 8;
+        lastTeamsStatusLabel.Text = "not busy";
+        // 
         // AboutForm
         // 
         AutoScaleDimensions = new SizeF(17F, 41F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1107, 467);
+        Controls.Add(lastTeamsStatusLabel);
+        Controls.Add(teamsStatusLabel);
         Controls.Add(listenLinkLabel);
         Controls.Add(listenLabel);
         Controls.Add(websiteLinkLabel);
@@ -146,4 +171,7 @@ partial class AboutForm
     private LinkLabel websiteLinkLabel;
     private Label listenLabel;
     private LinkLabel listenLinkLabel;
+    private Label teamsStatusLabel;
+    private Label lastTeamsStatusLabel;
+    private ToolTip teamsStatusTooltip;
 }
