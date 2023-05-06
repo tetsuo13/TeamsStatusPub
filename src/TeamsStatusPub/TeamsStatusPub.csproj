@@ -13,6 +13,7 @@
     <Copyright>Copyright © 2023 Andrei Nicholson</Copyright>
     <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
     <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
