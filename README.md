@@ -30,6 +30,8 @@ If you've made it this far, the above alternatives are lacking something or you'
 - .NET 7 runtime.
 - The desktop version of Teams must be installed.
 
+Tested against Microsoft Teams app Windows versions 1.5.00.21463 - 1.6.00.11166 although the latest release noted here may not always be up to date.
+
 ### Teams
 
 No additional changes are required, the default settings already log sufficient data.

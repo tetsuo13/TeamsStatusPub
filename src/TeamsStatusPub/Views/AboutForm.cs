@@ -6,11 +6,12 @@ namespace TeamsStatusPub.Views;
 
 public partial class AboutForm : Form, IAboutForm
 {
+    private readonly IAboutFormPresenter _presenter;
     private readonly ILogger<AboutForm> _logger;
 
     public AboutForm(IAboutFormPresenter presenter, ILogger<AboutForm> logger)
     {
-        ArgumentNullException.ThrowIfNull(presenter);
+        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         InitializeComponent();
@@ -19,7 +20,6 @@ public partial class AboutForm : Form, IAboutForm
         productLabel.Text = presenter.ApplicationName;
         copyrightLabel.Text = presenter.Copyright;
         versionLabel.Text = presenter.Version;
-        lastTeamsStatusLabel.Text = presenter.LastTeamsStatus;
         teamsStatusTooltip.SetToolTip(teamsStatusLabel,
             """
             The status shown is not live and does not change here.
@@ -28,6 +28,11 @@ public partial class AboutForm : Form, IAboutForm
 
         StyleLinkLabel(websiteLinkLabel, presenter.WebsiteUrl);
         StyleLinkLabel(listenLinkLabel, presenter.ListenUrl);
+    }
+
+    protected override void OnLoad(EventArgs e)
+    {
+        lastTeamsStatusLabel.Text = _presenter.LastTeamsStatus;
     }
 
     private void StyleLinkLabel(LinkLabel label, string url)
