@@ -28,6 +28,7 @@ partial class AboutForm
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         var resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
         productLabel = new Label();
         versionLabel = new Label();
@@ -38,7 +39,7 @@ partial class AboutForm
         listenLinkLabel = new LinkLabel();
         teamsStatusLabel = new Label();
         lastTeamsStatusLabel = new Label();
-        teamsStatusTooltip = new ToolTip();
+        teamsStatusTooltip = new ToolTip(components);
         ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
         SuspendLayout();
         // 
@@ -109,7 +110,7 @@ partial class AboutForm
         // listenLinkLabel
         // 
         listenLinkLabel.AutoSize = true;
-        listenLinkLabel.Location = new Point(202, 320);
+        listenLinkLabel.Location = new Point(199, 320);
         listenLinkLabel.Margin = new Padding(7, 0, 7, 0);
         listenLinkLabel.Name = "listenLinkLabel";
         listenLinkLabel.Size = new Size(304, 41);
@@ -130,7 +131,7 @@ partial class AboutForm
         // lastTeamsStatusLabel
         // 
         lastTeamsStatusLabel.AutoSize = true;
-        lastTeamsStatusLabel.Location = new Point(305, 370);
+        lastTeamsStatusLabel.Location = new Point(303, 370);
         lastTeamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
         lastTeamsStatusLabel.Name = "lastTeamsStatusLabel";
         lastTeamsStatusLabel.Size = new Size(134, 41);
