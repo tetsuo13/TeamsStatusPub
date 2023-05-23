@@ -28,83 +28,139 @@ partial class AboutForm
     /// </summary>
     private void InitializeComponent()
     {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
-            this.productLabel = new System.Windows.Forms.Label();
-            this.versionLabel = new System.Windows.Forms.Label();
-            this.copyrightLabel = new System.Windows.Forms.Label();
-            this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.websiteLinkLabel = new System.Windows.Forms.LinkLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // productLabel
-            // 
-            this.productLabel.AutoSize = true;
-            this.productLabel.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.productLabel.Location = new System.Drawing.Point(122, 27);
-            this.productLabel.Name = "productLabel";
-            this.productLabel.Size = new System.Drawing.Size(134, 25);
-            this.productLabel.TabIndex = 0;
-            this.productLabel.Text = "Product Name";
-            // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.versionLabel.Location = new System.Drawing.Point(122, 56);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(57, 20);
-            this.versionLabel.TabIndex = 1;
-            this.versionLabel.Text = "Version";
-            // 
-            // copyrightLabel
-            // 
-            this.copyrightLabel.AutoSize = true;
-            this.copyrightLabel.Location = new System.Drawing.Point(12, 114);
-            this.copyrightLabel.Name = "copyrightLabel";
-            this.copyrightLabel.Size = new System.Drawing.Size(60, 15);
-            this.copyrightLabel.TabIndex = 2;
-            this.copyrightLabel.Text = "Copyright";
-            // 
-            // logoPictureBox
-            // 
-            this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
-            this.logoPictureBox.Location = new System.Drawing.Point(12, 12);
-            this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(104, 85);
-            this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.logoPictureBox.TabIndex = 3;
-            this.logoPictureBox.TabStop = false;
-            // 
-            // websiteLinkLabel
-            // 
-            this.websiteLinkLabel.AutoSize = true;
-            this.websiteLinkLabel.Location = new System.Drawing.Point(12, 138);
-            this.websiteLinkLabel.Name = "websiteLinkLabel";
-            this.websiteLinkLabel.Size = new System.Drawing.Size(97, 15);
-            this.websiteLinkLabel.TabIndex = 4;
-            this.websiteLinkLabel.TabStop = true;
-            this.websiteLinkLabel.Text = "websiteLinkLabel";
-            // 
-            // AboutForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 171);
-            this.Controls.Add(this.websiteLinkLabel);
-            this.Controls.Add(this.logoPictureBox);
-            this.Controls.Add(this.copyrightLabel);
-            this.Controls.Add(this.versionLabel);
-            this.Controls.Add(this.productLabel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "AboutForm";
-            this.Text = "About";
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        var resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
+        productLabel = new Label();
+        versionLabel = new Label();
+        copyrightLabel = new Label();
+        logoPictureBox = new PictureBox();
+        websiteLinkLabel = new LinkLabel();
+        listenLabel = new Label();
+        listenLinkLabel = new LinkLabel();
+        teamsStatusLabel = new Label();
+        lastTeamsStatusLabel = new Label();
+        teamsStatusTooltip = new ToolTip(components);
+        ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+        SuspendLayout();
+        // 
+        // productLabel
+        // 
+        productLabel.AutoSize = true;
+        productLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+        productLabel.Location = new Point(296, 48);
+        productLabel.Margin = new Padding(7, 0, 7, 0);
+        productLabel.Name = "productLabel";
+        productLabel.Size = new Size(324, 60);
+        productLabel.TabIndex = 0;
+        productLabel.Text = "Product Name";
+        // 
+        // versionLabel
+        // 
+        versionLabel.AutoSize = true;
+        versionLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+        versionLabel.Location = new Point(296, 128);
+        versionLabel.Margin = new Padding(7, 0, 7, 0);
+        versionLabel.Name = "versionLabel";
+        versionLabel.Size = new Size(116, 41);
+        versionLabel.TabIndex = 1;
+        versionLabel.Text = "Version";
+        // 
+        // copyrightLabel
+        // 
+        copyrightLabel.AutoSize = true;
+        copyrightLabel.Location = new Point(296, 170);
+        copyrightLabel.Margin = new Padding(7, 0, 7, 0);
+        copyrightLabel.Name = "copyrightLabel";
+        copyrightLabel.Size = new Size(150, 41);
+        copyrightLabel.TabIndex = 2;
+        copyrightLabel.Text = "Copyright";
+        // 
+        // logoPictureBox
+        // 
+        logoPictureBox.Image = (Image)resources.GetObject("logoPictureBox.Image");
+        logoPictureBox.Location = new Point(29, 33);
+        logoPictureBox.Margin = new Padding(7, 8, 7, 8);
+        logoPictureBox.Name = "logoPictureBox";
+        logoPictureBox.Size = new Size(253, 232);
+        logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+        logoPictureBox.TabIndex = 3;
+        logoPictureBox.TabStop = false;
+        // 
+        // websiteLinkLabel
+        // 
+        websiteLinkLabel.AutoSize = true;
+        websiteLinkLabel.Location = new Point(296, 212);
+        websiteLinkLabel.Margin = new Padding(7, 0, 7, 0);
+        websiteLinkLabel.Name = "websiteLinkLabel";
+        websiteLinkLabel.Size = new Size(243, 41);
+        websiteLinkLabel.TabIndex = 4;
+        websiteLinkLabel.TabStop = true;
+        websiteLinkLabel.Text = "websiteLinkLabel";
+        // 
+        // listenLabel
+        // 
+        listenLabel.AutoSize = true;
+        listenLabel.Location = new Point(28, 320);
+        listenLabel.Margin = new Padding(7, 0, 7, 0);
+        listenLabel.Name = "listenLabel";
+        listenLabel.Size = new Size(180, 41);
+        listenLabel.TabIndex = 5;
+        listenLabel.Text = "Listening on";
+        // 
+        // listenLinkLabel
+        // 
+        listenLinkLabel.AutoSize = true;
+        listenLinkLabel.Location = new Point(199, 320);
+        listenLinkLabel.Margin = new Padding(7, 0, 7, 0);
+        listenLinkLabel.Name = "listenLinkLabel";
+        listenLinkLabel.Size = new Size(304, 41);
+        listenLinkLabel.TabIndex = 6;
+        listenLinkLabel.TabStop = true;
+        listenLinkLabel.Text = "http://127.0.0.1:8080/";
+        // 
+        // teamsStatusLabel
+        // 
+        teamsStatusLabel.AutoSize = true;
+        teamsStatusLabel.Location = new Point(28, 370);
+        teamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
+        teamsStatusLabel.Name = "teamsStatusLabel";
+        teamsStatusLabel.Size = new Size(286, 41);
+        teamsStatusLabel.TabIndex = 7;
+        teamsStatusLabel.Text = "Last status in Teams:";
+        // 
+        // lastTeamsStatusLabel
+        // 
+        lastTeamsStatusLabel.AutoSize = true;
+        lastTeamsStatusLabel.Location = new Point(303, 370);
+        lastTeamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
+        lastTeamsStatusLabel.Name = "lastTeamsStatusLabel";
+        lastTeamsStatusLabel.Size = new Size(134, 41);
+        lastTeamsStatusLabel.TabIndex = 8;
+        lastTeamsStatusLabel.Text = "not busy";
+        // 
+        // AboutForm
+        // 
+        AutoScaleDimensions = new SizeF(17F, 41F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(1107, 467);
+        Controls.Add(lastTeamsStatusLabel);
+        Controls.Add(teamsStatusLabel);
+        Controls.Add(listenLinkLabel);
+        Controls.Add(listenLabel);
+        Controls.Add(websiteLinkLabel);
+        Controls.Add(logoPictureBox);
+        Controls.Add(copyrightLabel);
+        Controls.Add(versionLabel);
+        Controls.Add(productLabel);
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        Margin = new Padding(7, 8, 7, 8);
+        MaximizeBox = false;
+        MinimizeBox = false;
+        Name = "AboutForm";
+        Text = "About";
+        ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -114,4 +170,9 @@ partial class AboutForm
     private Label copyrightLabel;
     private PictureBox logoPictureBox;
     private LinkLabel websiteLinkLabel;
+    private Label listenLabel;
+    private LinkLabel listenLinkLabel;
+    private Label teamsStatusLabel;
+    private Label lastTeamsStatusLabel;
+    private ToolTip teamsStatusTooltip;
 }

@@ -6,10 +6,13 @@ namespace TeamsStatusPub.Views;
 
 public partial class AboutForm : Form, IAboutForm
 {
+    private readonly IAboutFormPresenter _presenter;
+    private readonly ILogger<AboutForm> _logger;
+
     public AboutForm(IAboutFormPresenter presenter, ILogger<AboutForm> logger)
     {
-        ArgumentNullException.ThrowIfNull(presenter);
-        ArgumentNullException.ThrowIfNull(logger);
+        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         InitializeComponent();
 
@@ -17,14 +20,30 @@ public partial class AboutForm : Form, IAboutForm
         productLabel.Text = presenter.ApplicationName;
         copyrightLabel.Text = presenter.Copyright;
         versionLabel.Text = presenter.Version;
+        teamsStatusTooltip.SetToolTip(teamsStatusLabel,
+            """
+            The status shown is not live and does not change here.
+            It's simply the status at the time of opening this dialog.
+            """);
 
-        websiteLinkLabel.Text = presenter.WebsiteUrl;
-        websiteLinkLabel.Links.Add(new LinkLabel.Link(0, presenter.WebsiteUrl.Length, presenter.WebsiteUrl));
+        StyleLinkLabel(websiteLinkLabel, presenter.WebsiteUrl);
+        StyleLinkLabel(listenLinkLabel, presenter.ListenUrl);
+    }
 
-        websiteLinkLabel.MouseEnter += (object? sender, EventArgs e) => websiteLinkLabel.LinkColor = Color.Red;
-        websiteLinkLabel.MouseLeave += (object? sender, EventArgs e) => websiteLinkLabel.LinkColor = Color.Blue;
+    protected override void OnLoad(EventArgs e)
+    {
+        lastTeamsStatusLabel.Text = _presenter.LastTeamsStatus;
+    }
 
-        websiteLinkLabel.LinkClicked += (object? sender, LinkLabelLinkClickedEventArgs e) =>
+    private void StyleLinkLabel(LinkLabel label, string url)
+    {
+        label.Text = url;
+        label.Links.Add(new LinkLabel.Link(0, url.Length, url));
+
+        label.MouseEnter += (object? sender, EventArgs e) => label.LinkColor = Color.Red;
+        label.MouseLeave += (object? sender, EventArgs e) => label.LinkColor = Color.Blue;
+
+        label.LinkClicked += (object? sender, LinkLabelLinkClickedEventArgs e) =>
         {
             try
             {
@@ -38,7 +57,7 @@ public partial class AboutForm : Form, IAboutForm
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error opening link to website");
+                _logger.LogError(ex, "Error opening link to website on {labelName}", label.Name);
             }
         };
     }
