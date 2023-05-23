@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## Unreleased
+## 1.3.0 (2023-05-22)
 
 - Fixed minimized window showing in bottom-left of screen ([#31](https://github.com/tetsuo13/TeamsStatusPub/issues/31))
 - Added runtime information to About dialog ([#41](https://github.com/tetsuo13/TeamsStatusPub/issues/41))
