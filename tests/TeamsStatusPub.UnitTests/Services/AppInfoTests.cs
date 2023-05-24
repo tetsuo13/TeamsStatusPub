@@ -1,7 +1,7 @@
 ﻿using TeamsStatusPub.Services;
 using Xunit;
 
-namespace TeamsStatusPub.Tests.Services;
+namespace TeamsStatusPub.UnitTests.Services;
 
 public static class AppInfoTests
 {

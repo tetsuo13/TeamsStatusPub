@@ -4,7 +4,7 @@ using NetCoreServer;
 using TeamsStatusPub.Services.HttpServers;
 using Xunit;
 
-namespace TeamsStatusPub.Tests.Services.HttpServers;
+namespace TeamsStatusPub.UnitTests.Services.HttpServers;
 
 public static class HttpAvailabilitySessionTests
 {
