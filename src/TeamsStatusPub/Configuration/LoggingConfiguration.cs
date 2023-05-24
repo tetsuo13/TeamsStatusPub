@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Settings.Configuration;
 
 namespace TeamsStatusPub.Configuration;
 
@@ -24,6 +25,10 @@ internal static class LoggingConfiguration
     /// </summary>
     public static void CreateDefaultLogger()
     {
+        // Need to explicitly specify assemblies that contain sinks otherwise
+        // an exception is thrown when launching as a single-file app.
+        var readerOptions = new ConfigurationReaderOptions(typeof(FileLoggerConfigurationExtensions).Assembly);
+
         // Allow Serilog config to be modified by appsettings file at runtime.
         var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
@@ -31,7 +36,7 @@ internal static class LoggingConfiguration
 
         Log.Logger = new LoggerConfiguration()
             .WriteTo.File($"{nameof(TeamsStatusPub).ToLower()}.log", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
-            .ReadFrom.Configuration(configuration)
+            .ReadFrom.Configuration(configuration, readerOptions)
             .CreateLogger();
     }
 }

@@ -1,5 +1,9 @@
 # Teams Status Pub Changelog
 
+## Unreleased
+
+- Fixed crash on launch introduced in previous version ([#49](https://github.com/tetsuo13/TeamsStatusPub/issues/49))
+
 ## 1.3.0 (2023-05-22)
 
 - Fixed minimized window showing in bottom-left of screen ([#31](https://github.com/tetsuo13/TeamsStatusPub/issues/31))
