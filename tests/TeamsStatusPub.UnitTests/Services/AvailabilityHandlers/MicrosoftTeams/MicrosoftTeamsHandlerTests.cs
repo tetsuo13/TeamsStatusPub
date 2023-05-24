@@ -2,7 +2,7 @@
 using TeamsStatusPub.Services.AvailabilityHandlers;
 using Xunit;
 
-namespace TeamsStatusPub.Tests.Services.AvailabilityHandlers.MicrosoftTeams;
+namespace TeamsStatusPub.UnitTests.Services.AvailabilityHandlers.MicrosoftTeams;
 
 public static class MicrosoftTeamsHandlerTests
 {

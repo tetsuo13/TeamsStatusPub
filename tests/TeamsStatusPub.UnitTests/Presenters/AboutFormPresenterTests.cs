@@ -7,7 +7,7 @@ using TeamsStatusPub.Services;
 using TeamsStatusPub.Services.AvailabilityHandlers;
 using Xunit;
 
-namespace TeamsStatusPub.Tests.Presenters;
+namespace TeamsStatusPub.UnitTests.Presenters;
 
 public static class AboutFormPresenterTests
 {

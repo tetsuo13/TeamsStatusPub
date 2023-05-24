@@ -7,7 +7,7 @@ using Moq;
 using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
 using Xunit;
 
-namespace TeamsStatusPub.Tests.Services.AvailabilityHandlers.MicrosoftTeams;
+namespace TeamsStatusPub.IntegrationTests.Services.AvailabilityHandlers.MicrosoftTeams;
 
 public static class LogFileReaderTests
 {
