@@ -14,23 +14,26 @@ internal static class Program
     [STAThread]
     public static void Main()
     {
-        LoggingConfiguration.CreateDefaultLogger();
-
-        var host = Host.CreateDefaultBuilder()
-            .ConfigureAppLogging()
-            .ConfigureAppServices()
-            .Build();
-
-        ApplicationConfiguration.Initialize();
-
         try
         {
+            LoggingConfiguration.CreateDefaultLogger();
+
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureAppLogging()
+                .ConfigureAppServices()
+                .Build();
+
+            ApplicationConfiguration.Initialize();
+
             Log.Information("Starting application");
+
             Application.Run((Form)host.Services.GetRequiredService<IMainForm>());
         }
         catch (Exception e)
         {
             Log.Fatal(e, "Application terminated unexpectedly");
+            MessageBox.Show($"An unexpected exception was encountered:\n{e.Message}",
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         finally
         {
