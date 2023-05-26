@@ -60,7 +60,9 @@ jobs:
         uses: actions/cache/save@v3
         id: cache-save
         with:
-          path: ~/.nuget/packages
+          path: |
+            ~/.nuget/packages
+            **/obj/project.assets.json
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
 
       - name: Test
