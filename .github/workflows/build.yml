@@ -29,11 +29,6 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3.0.3
-        with:
-          dotnet-version: 7.0.x
-
       # Existing version number isn't expected to have a revision number.
       # Expecting "x.y.z" string. This will append ".build" to it.
       - name: Add build number to version string
