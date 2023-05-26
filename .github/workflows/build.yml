@@ -44,7 +44,9 @@ jobs:
         uses: actions/cache/restore@v3
         id: cache-restore
         with:
-          path: ~/.nuget/packages
+          path: |
+            ~/.nuget/packages
+            **/obj/project.assets.json
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
 
       - name: Restore dependencies
