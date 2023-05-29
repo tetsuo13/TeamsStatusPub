@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## Unreleased
+## 1.3.1 (2023-05-29)
 
 - Fixed crash on launch introduced in previous version ([#49](https://github.com/tetsuo13/TeamsStatusPub/issues/49))
 

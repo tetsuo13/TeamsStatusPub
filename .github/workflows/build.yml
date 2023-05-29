@@ -4,11 +4,11 @@ on:
   workflow_call:
     inputs:
       createArtifact:
-        description: 'Whether or not to create the artifact'
+        description: Whether or not to create the artifact
         required: true
         type: boolean
       artifactVersion:
-        description: 'Version string to append to artifact file name'
+        description: Version string to append to artifact file name
         required: true
         type: string
 
