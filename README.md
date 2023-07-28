@@ -14,7 +14,7 @@ There are other projects available for integrating Teams with Home Assistant how
 
 ### Microsoft Graph
 
-Your status is available via the [presence](https://docs.microsoft.com/en-us/graph/api/presence-get) API in [Microsoft Graph](https://docs.microsoft.com/en-us/graph/overview) if your organization has granted consent. If so then [PresenceLight](https://github.com/isaacrlevin/PresenceLight) may be a better alternative in this scenario. Note that hardware support for bulbs is limited.
+Your status is available via the [presence](https://learn.microsoft.com/en-us/graph/api/presence-get) API in [Microsoft Graph](https://learn.microsoft.com/en-us/graph/overview) if your organization has granted consent. If so then [isaacrlevin/PresenceLight](https://github.com/isaacrlevin/PresenceLight) may be a better alternative in this scenario. Note that hardware support for bulbs is limited.
 
 ### Directly Update Home Assistant
 
@@ -22,7 +22,9 @@ If the computer that Teams is installed on can reach Home Assistant on the netwo
 
 ### Teams Status Pub
 
-If you've made it this far, the above alternatives are lacking something or you're in an organization that doesn't provide consent to read presense from the Graph API or the computer Teams is installed on cannot reach Home Assistant (due to network segregation or a restricted VLAN). These were the primary motivating factors behind this project.
+If you've made it this far, the above alternatives are lacking something or you're in an organization that doesn't provide consent to read presense from the Graph API or the computer Teams is installed on cannot reach Home Assistant (due to network segregation or a restricted VLAN).
+
+These were the primary motivating factors behind this project.
 
 ## Getting Started
 
@@ -30,7 +32,7 @@ If you've made it this far, the above alternatives are lacking something or you'
 - .NET 7 runtime.
 - The desktop version of Teams must be installed.
 
-Tested against Microsoft Teams app Windows versions 1.5.00.21463 - 1.6.00.11166 although the latest release noted here may not always be up to date.
+Tested against Microsoft Teams app Windows versions 1.5.00.21463 - 1.6.00.18681 although the latest release noted here may not always be up to date.
 
 ### Teams
 
@@ -40,7 +42,7 @@ No additional changes are required, the default settings already log sufficient 
 
 Download the latest release and unzip it to a dedicated folder. As part of the release there will be an `appsettings.json` file used to configure some basic runtime settings.
 
-The default listen address is http://192.168.1.1:17493/ but this will most likely need to be changed. The following settings are available in `appsettings.json`:
+The default listen address is http://192.168.1.1:17493/ but the IP address will most likely need to be changed. The following settings are available in `appsettings.json`:
 
 | Setting | Description |
 | ------- | ----------- |
