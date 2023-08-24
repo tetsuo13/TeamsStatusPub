@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Moq;
+using NSubstitute;
 using TeamsStatusPub.Models;
 using TeamsStatusPub.Services;
 using Xunit;
@@ -52,14 +52,14 @@ public static class HttpProviderTests
 
     private static HttpProvider CreateProvider(string? listenAddress, int listenPort)
     {
-        var logger = new Mock<ILogger<HttpProvider>>();
-        var scopeFactory = new Mock<IServiceScopeFactory>();
+        var logger = Substitute.For<ILogger<HttpProvider>>();
+        var scopeFactory = Substitute.For<IServiceScopeFactory>();
         var runtimeSettings = Options.Create(new RuntimeSettings
         {
             ListenAddress = listenAddress,
             ListenPort = listenPort
         });
 
-        return new HttpProvider(logger.Object, runtimeSettings, scopeFactory.Object);
+        return new HttpProvider(logger, runtimeSettings, scopeFactory);
     }
 }
