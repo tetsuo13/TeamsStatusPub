@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using Moq;
 using NetCoreServer;
+using NSubstitute;
 using TeamsStatusPub.Services.HttpServers;
 using Xunit;
 
@@ -57,10 +57,10 @@ public static class HttpAvailabilitySessionTests
     private static HttpAvailabilitySession CreateSession(bool? previousAvailabilityResult,
         bool currentAvailabilityResult)
     {
-        var logger = new Mock<ILogger<HttpAvailabilitySession>>();
+        var logger = Substitute.For<ILogger<HttpAvailabilitySession>>();
         var httpServer = new HttpServer("127.0.0.1", 12345);
 
-        return new HttpAvailabilitySession(logger.Object, httpServer,
+        return new HttpAvailabilitySession(logger, httpServer,
             previousAvailabilityResult, currentAvailabilityResult);
     }
 }

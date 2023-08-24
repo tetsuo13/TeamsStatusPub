@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
-using Moq;
+using NSubstitute;
 using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
 using Xunit;
 
@@ -149,12 +148,12 @@ public static class LogFileReaderTests
     {
         Assert.NotEmpty(linesOfInterest);
         Assert.Equal(expectedCount, linesOfInterest.Count);
-        Assert.True(linesOfInterest.All(LogFileReader.ContainsEventToken));
+        Assert.True(linesOfInterest.TrueForAll(LogFileReader.ContainsEventToken));
     }
 
     private static LogFileReader GetReader()
     {
-        var logger = new Mock<ILogger<LogFileReader>>();
-        return new LogFileReader(logger.Object);
+        var logger = Substitute.For<ILogger<LogFileReader>>();
+        return new LogFileReader(logger);
     }
 }
