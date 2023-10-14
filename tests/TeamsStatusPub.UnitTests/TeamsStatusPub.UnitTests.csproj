@@ -6,7 +6,6 @@
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
