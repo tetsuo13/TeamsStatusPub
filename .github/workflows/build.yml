@@ -24,7 +24,7 @@ jobs:
       DOTNET_NOLOGO: true
       # The directory where the .NET build process will publish the executable.
       PUBLISH_DIR: publish
-      INNO_SETUP: "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe"
+      INNO_SETUP: "%ProgramFiles(x86)%/Inno Setup 6/ISCC.exe"
       # The directory where Inno Setup will produce the installer.
       SETUP_DIR: Output
       # The value is a placeholder and will be set by a build step.
