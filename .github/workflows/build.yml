@@ -22,23 +22,31 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      ARTIFACT_NAME: TeamsStatusPub-${{ inputs.artifactVersion }}.zip
+      # The directory where the .NET build process will publish the executable.
       PUBLISH_DIR: publish
+      INNO_SETUP: "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe"
+      # The directory where Inno Setup will produce the installer.
+      SETUP_DIR: Output
+      # The value is a placeholder and will be set by a build step.
+      BUILD_VERSION: 1.0.0
+      RELEASE_NOTES_FILENAME: ReleaseNotes.md
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
 
       # Existing version number isn't expected to have a revision number.
-      # Expecting "x.y.z" string. This will append ".build" to it.
+      # Expecting "x.y.z" string. This step will append ".build" to it.
       - name: Add build number to version string
+        shell: pwsh
         run: |
-          # Need absolute path for saving later.
+          # Absolute path is required for saving changes later.
           $csproj = "src/TeamsStatusPub/TeamsStatusPub.csproj" | Resolve-Path
           $xml = [xml](Get-Content $csproj)
           $xml.Project.PropertyGroup.Version += ".${env:GITHUB_RUN_NUMBER}"
           Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
           $xml.Save($csproj)
+          Write-Output $xml.Project.PropertyGroup.Version >> $env:BUILD_VERSION
 
       - name: Restore dependencies
         run: dotnet restore
@@ -49,7 +57,7 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal --configuration Release
 
-      - name: Create artifact
+      - name: Create application artifact
         if: ${{ inputs.createArtifact }}
         run: >
           dotnet publish
@@ -63,14 +71,32 @@ jobs:
           --self-contained false
           src/TeamsStatusPub/TeamsStatusPub.csproj
 
-      - name: Zip artifact
+      - name: Build installer
         if: ${{ inputs.createArtifact }}
-        run: Compress-Archive -Path ${{ env.PUBLISH_DIR }}\* -DestinationPath ${{ env.ARTIFACT_NAME }}
+        run: >
+          ${{ env.INNO_SETUP }}
+          /DBuildVersion=${{ env.BUILD_VERSION }}
+          /DPublishDir=${{ env.PUBLISH_DIR }}
+          TeamsStatusPub.iss
+
+      - name: Create release notes file
+        if: ${{ inputs.createArtifact }}
+        shell: pwsh
+        run: >
+          $destFile = Join-Path "${{ env.SETUP_DIR }}" "${{ env.RELEASE_NOTES_FILENAME }}"
+          $checksums = Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
+            | Sort-Object -Property Name
+            | ForEach-Object { "| $($_.Name) | ``$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)`` |" }
+            | Out-String
+
+          "| File | SHA256 |" | Out-File -FilePath $destFile
+          "| --- | --- |" | Out-File -FilePath $destFile -Append
+          $checksums | Out-File -FilePath $destFile -Append
 
       - name: Upload artifact
         if: ${{ inputs.createArtifact }}
         uses: actions/upload-artifact@v3
         with:
           name: artifact
-          path: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.SETUP_DIR }}/
           retention-days: 1
