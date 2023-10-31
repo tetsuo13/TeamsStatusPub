@@ -48,6 +48,12 @@ jobs:
           $xml.Save($csproj)
           Write-Output $xml.Project.PropertyGroup.Version >> $env:BUILD_VERSION
 
+      - name: What's the build version?
+        shell: pwsh
+        run: >
+          echo $env:BUILD_VERSION
+          exit 1
+
       - name: Restore dependencies
         run: dotnet restore
 
