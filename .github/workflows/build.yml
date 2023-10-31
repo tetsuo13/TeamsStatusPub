@@ -83,7 +83,7 @@ jobs:
       - name: Create release notes file
         if: ${{ inputs.createArtifact }}
         shell: pwsh
-        run: >
+        run: |
           $destFile = Join-Path "${{ env.SETUP_DIR }}" "${{ env.RELEASE_NOTES_FILENAME }}"
           $checksums = Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
             | Sort-Object -Property Name
