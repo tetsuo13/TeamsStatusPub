@@ -24,7 +24,7 @@ jobs:
       DOTNET_NOLOGO: true
       # The directory where the .NET build process will publish the executable.
       PUBLISH_DIR: publish
-      INNO_SETUP: "%ProgramFiles(x86)%/Inno Setup 6/ISCC.exe"
+      INNO_SETUP: "${env:ProgramFiles(x86)}/Inno Setup 6/ISCC.exe"
       # The directory where Inno Setup will produce the installer.
       SETUP_DIR: Output
       # The value is a placeholder and will be set by a build step.
@@ -47,12 +47,6 @@ jobs:
           Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
           $xml.Save($csproj)
           Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup.Version)" >> $env:GITHUB_ENV
-
-      - name: What's the build version?
-        shell: pwsh
-        run: >
-          echo $env:BUILD_VERSION
-          exit 1
 
       - name: Restore dependencies
         run: dotnet restore
@@ -79,8 +73,9 @@ jobs:
 
       - name: Build installer
         if: ${{ inputs.createArtifact }}
+        shell: pwsh
         run: >
-          ${{ env.INNO_SETUP }}
+          & ${{ env.INNO_SETUP }}
           /DBuildVersion=${{ env.BUILD_VERSION }}
           /DPublishDir=${{ env.PUBLISH_DIR }}
           TeamsStatusPub.iss
