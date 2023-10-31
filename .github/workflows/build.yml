@@ -75,7 +75,7 @@ jobs:
         if: ${{ inputs.createArtifact }}
         shell: pwsh
         run: >
-          & ${{ env.INNO_SETUP }}
+          & "${{ env.INNO_SETUP }}"
           /DBuildVersion=${{ env.BUILD_VERSION }}
           /DPublishDir=${{ env.PUBLISH_DIR }}
           TeamsStatusPub.iss
