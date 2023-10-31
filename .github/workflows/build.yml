@@ -46,7 +46,7 @@ jobs:
           $xml.Project.PropertyGroup.Version += ".${env:GITHUB_RUN_NUMBER}"
           Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
           $xml.Save($csproj)
-          Write-Output $xml.Project.PropertyGroup.Version >> $env:BUILD_VERSION
+          Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup.Version)" >> $env:GITHUB_ENV
 
       - name: What's the build version?
         shell: pwsh
