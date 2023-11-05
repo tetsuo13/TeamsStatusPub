@@ -85,6 +85,13 @@ jobs:
         shell: pwsh
         run: |
           $destFile = Join-Path "${{ env.SETUP_DIR }}" "${{ env.RELEASE_NOTES_FILENAME }}"
+          Write-Output $destFile
+          Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
+          Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
+            | Sort-Object -Property Name
+          Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
+            | Sort-Object -Property Name
+            | ForEach-Object { "| $($_.Name) | ``$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)`` |" }
           $checksums = Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
             | Sort-Object -Property Name
             | ForEach-Object { "| $($_.Name) | ``$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)`` |" }
