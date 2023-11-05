@@ -80,18 +80,14 @@ jobs:
           /DPublishDir=${{ env.PUBLISH_DIR }}
           TeamsStatusPub.iss
 
+      # Use markdown to create base release notes file with hashes of all
+      # downloadable files. This file will be used to create the GitHub
+      # release notes.
       - name: Create release notes file
         if: ${{ inputs.createArtifact }}
         shell: pwsh
         run: |
-          $destFile = Join-Path "${{ env.SETUP_DIR }}" "${{ env.RELEASE_NOTES_FILENAME }}"
-          Write-Output $destFile
-          Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
-          Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
-            | Sort-Object -Property Name
-          Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
-            | Sort-Object -Property Name
-            | ForEach-Object { "| $($_.Name) | ``$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)`` |" }
+          $destFile = Join-Path -Path "${{ env.SETUP_DIR }}" -ChildPath "${{ env.RELEASE_NOTES_FILENAME }}"
           $checksums = Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
             | Sort-Object -Property Name
             | ForEach-Object { "| $($_.Name) | ``$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)`` |" }
