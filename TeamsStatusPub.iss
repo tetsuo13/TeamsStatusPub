@@ -1,9 +1,19 @@
-#define MyAppName "TeamsStatusPub"
+; The following "ifndef/define" blocks are written this way to allow the CI
+; process to overwrite the values from the commandline. This file takes
+; precedence over commandline flags so only set the definitions if they
+; weren't specified.
+#ifndef BuildVersion
 #define BuildVersion "1.0.0"
+#endif
+
+#ifndef PublishDir
+#define PublishDir "publish"
+#endif
+
+#define MyAppName "TeamsStatusPub"
 #define MyAppPublisher "Andrei Nicholson"
 #define MyAppURL "https://github.com/tetsuo13/TeamsStatusPub"
 #define MyAppExeName "TeamsStatusPub.exe"
-#define PublishDir "publish"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.

@@ -94,7 +94,7 @@ jobs:
             | Out-String
 
           "| File | SHA256 |" | Out-File -FilePath $destFile
-          "| --- | --- |" | Out-File -FilePath $destFile -Append
+          "| ---- | ------ |" | Out-File -FilePath $destFile -Append
           $checksums | Out-File -FilePath $destFile -Append
 
       - name: Upload artifact
