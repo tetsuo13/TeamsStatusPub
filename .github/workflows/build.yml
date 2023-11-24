@@ -41,11 +41,11 @@ jobs:
         shell: pwsh
         run: |
           # Absolute path is required for saving changes later.
-          $csproj = "src/TeamsStatusPub/TeamsStatusPub.csproj" | Resolve-Path
-          $xml = [xml](Get-Content $csproj)
+          $directoryProps = "Directory.Build.props" | Resolve-Path
+          $xml = [xml](Get-Content $directoryProps)
           $xml.Project.PropertyGroup.Version += ".${env:GITHUB_RUN_NUMBER}"
           Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
-          $xml.Save($csproj)
+          $xml.Save($directoryProps)
           Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup.Version)" >> $env:GITHUB_ENV
 
       - name: Restore dependencies
