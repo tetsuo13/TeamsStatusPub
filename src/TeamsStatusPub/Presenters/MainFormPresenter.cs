@@ -25,6 +25,6 @@ public class MainFormPresenter : IMainFormPresenter
     public async Task OnViewLoad()
     {
         _logger.LogInformation("Listening for incoming connections...");
-        await _httpHost.Listen(_availabilityHandler.IsAvailable);
+        //await _httpHost.Listen(_availabilityHandler.IsAvailable);
     }
 }

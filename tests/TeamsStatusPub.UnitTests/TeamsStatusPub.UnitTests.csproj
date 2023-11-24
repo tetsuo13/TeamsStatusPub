@@ -6,7 +6,6 @@
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
-    <ProjectGuid>24a47f30-6e43-4142-b33f-6d6c469d7634</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

@@ -40,7 +40,7 @@ No additional changes are required, the default settings already log sufficient 
 
 ### Teams Status Pub
 
-Download the latest release and unzip it to a dedicated folder. As part of the release there will be an `appsettings.json` file used to configure some basic runtime settings.
+Download the installer from the [Releases](https://github.com/tetsuo13/TeamsStatusPub/releases) page. By default it will install to your `C:\Users\username\AppData\Roaming\TeamsStatusPub` folder. As part of the installation there will be an `appsettings.json` file used to configure some basic runtime settings.
 
 The default listen address is http://192.168.1.1:17493/ but the IP address will most likely need to be changed. The following settings are available in `appsettings.json`:
 

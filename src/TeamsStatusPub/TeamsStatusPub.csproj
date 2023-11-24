@@ -9,22 +9,22 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Product>Teams Status Pub</Product>
-    <Version>1.3.1</Version>
     <Authors>Andrei Nicholson</Authors>
-    <Copyright>Copyright © 2023 Andrei Nicholson</Copyright>
     <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
     <Description>RESTful server from machine running Teams to provide sensor for Home Assistant</Description>
     <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
-    <ProjectGuid>73e16404-d5b2-4298-be82-051de8a5159e</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Icons\logo.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <InternalsVisibleTo Include="TeamsStatusPub.IntegrationTests" />
-    <InternalsVisibleTo Include="TeamsStatusPub.UnitTests" />
   </ItemGroup>
 
   <ItemGroup>
