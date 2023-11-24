@@ -15,7 +15,7 @@ public static class MicrosoftTeamsHandlerTests
     [Fact]
     public static void LastAvailabilityFromLinesOfInterest_NoLines_ReturnsNull()
     {
-        Assert.Null(MicrosoftTeamsHandler.LastAvailabilityFromLinesOfInterest(new List<string>()));
+        Assert.Null(MicrosoftTeamsHandler.LastAvailabilityFromLinesOfInterest([]));
     }
 
     [Fact]
