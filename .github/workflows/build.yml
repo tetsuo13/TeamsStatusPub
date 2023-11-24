@@ -43,10 +43,10 @@ jobs:
           # Absolute path is required for saving changes later.
           $directoryProps = "Directory.Build.props" | Resolve-Path
           $xml = [xml](Get-Content $directoryProps)
-          $xml.Project.PropertyGroup.VersionPrefix += ".${env:GITHUB_RUN_NUMBER}"
-          Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.VersionPrefix)"
+          $xml.Project.PropertyGroup[0].VersionPrefix += ".${env:GITHUB_RUN_NUMBER}"
+          Write-Host "Setting assembly version to $($xml.Project.PropertyGroup[0].VersionPrefix)"
           $xml.Save($directoryProps)
-          Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup.VersionPrefix)" >> $env:GITHUB_ENV
+          Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_ENV
 
       - name: Restore dependencies
         run: dotnet restore
