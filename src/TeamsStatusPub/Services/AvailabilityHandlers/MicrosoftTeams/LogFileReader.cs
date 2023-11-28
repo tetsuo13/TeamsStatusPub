@@ -27,7 +27,7 @@ public class LogFileReader : ILogFileReader
     private const int MaxLinesOfInterestToRead = 3;
 
     private readonly ILogger<LogFileReader> _logger;
-    private readonly List<string> _linesOfInterest = new();
+    private readonly List<string> _linesOfInterest = [];
     private readonly Stopwatch _stopwatch = new();
 
     private int _linesRead;
@@ -53,7 +53,7 @@ public class LogFileReader : ILogFileReader
     {
         var buffer = new byte[1];
         const char invalidChar = '�'; // 65533
-        char[] chars = { invalidChar };
+        char[] chars = [invalidChar];
         var iteration = 0;
 
         while (chars.Contains(invalidChar))
@@ -79,7 +79,7 @@ public class LogFileReader : ILogFileReader
             catch
             {
                 // Reached the beginning of the file.
-                chars = new char[] { '\0' };
+                chars = ['\0'];
                 break;
             }
 
@@ -132,7 +132,7 @@ public class LogFileReader : ILogFileReader
 
         _stopwatch.Stop();
         _logger.LogDebug("Couldn't find any event data tokens after reading {maxLines} lines in {numSeconds}s",
-            MaxLinesToRead, _stopwatch?.Elapsed.TotalSeconds);
+            MaxLinesToRead, _stopwatch.Elapsed.TotalSeconds);
 
         return _linesOfInterest;
     }
@@ -147,7 +147,7 @@ public class LogFileReader : ILogFileReader
             {
                 _stopwatch.Stop();
                 _logger.LogDebug("Read {linesRead} lines in {numSeconds}s",
-                    _linesOfInterest.Count, _stopwatch?.Elapsed.TotalSeconds);
+                    _linesOfInterest.Count, _stopwatch.Elapsed.TotalSeconds);
 
                 return true;
             }
@@ -159,7 +159,7 @@ public class LogFileReader : ILogFileReader
         {
             _stopwatch.Stop();
             _logger.LogDebug("Read maximum number of lines ({linesRead}) in {numSeconds}s",
-                _linesRead, _stopwatch?.Elapsed.TotalSeconds);
+                _linesRead, _stopwatch.Elapsed.TotalSeconds);
 
             return true;
         }

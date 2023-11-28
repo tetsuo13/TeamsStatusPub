@@ -29,7 +29,7 @@ These were the primary motivating factors behind this project.
 ## Getting Started
 
 - Your computer must be running Windows 10 or later.
-- .NET 7 runtime.
+- .NET 8 runtime.
 - The desktop version of Teams must be installed.
 
 Tested against Microsoft Teams app Windows versions 1.5.00.21463 - 1.6.00.18681 although the latest release noted here may not always be up to date.
