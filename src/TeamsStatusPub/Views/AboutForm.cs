@@ -47,7 +47,7 @@ public partial class AboutForm : Form, IAboutForm
         {
             try
             {
-                var url = e.Link!.LinkData.ToString();
+                var url = e.Link!.LinkData?.ToString();
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = url,
