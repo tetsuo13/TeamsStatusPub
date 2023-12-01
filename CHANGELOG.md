@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## Unreleased
+## 1.4.0 (2023-11-30)
 
 - .NET 8 ([#91](https://github.com/tetsuo13/TeamsStatusPub/pull/91))
 
