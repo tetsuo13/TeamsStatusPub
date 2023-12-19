@@ -32,7 +32,7 @@ These were the primary motivating factors behind this project.
 - .NET 8 runtime.
 - The desktop version of Teams must be installed.
 
-Tested against Microsoft Teams app Windows versions 1.5.00.21463 - 1.6.00.18681 although the latest release noted here may not always be up to date.
+Tested against Microsoft Teams classic for Windows versions 1.5.00.21463 - 1.6.00.33567 although the latest release noted here may not always be up to date.
 
 ### Teams
 
