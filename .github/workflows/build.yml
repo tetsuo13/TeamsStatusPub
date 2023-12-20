@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     name: Windows Forms
-    runs-on: windows-latest
+    runs-on: windows-2019
     timeout-minutes: 10
 
     env:
