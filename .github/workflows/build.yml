@@ -40,6 +40,10 @@ jobs:
           Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
           $xml.Save($csproj)
 
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+          with: dotnet-version: 8.x
+
       - name: Restore dependencies
         run: dotnet restore
 
