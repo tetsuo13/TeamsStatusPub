@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     name: Windows Forms
-    runs-on: windows-latest
+    runs-on: windows-2019
     timeout-minutes: 10
 
     env:
@@ -39,6 +39,11 @@ jobs:
           $xml.Project.PropertyGroup.Version += ".${env:GITHUB_RUN_NUMBER}"
           Write-Host "Setting assembly version to $($xml.Project.PropertyGroup.Version)"
           $xml.Save($csproj)
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.x
 
       - name: Restore dependencies
         run: dotnet restore
