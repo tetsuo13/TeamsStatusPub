@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-latest
+    runs-on: windows-2019
     permissions:
       actions: read
       contents: read
@@ -29,6 +29,11 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: csharp
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.x
 
       - name: Restore dependencies
         run: dotnet restore
