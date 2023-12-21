@@ -49,7 +49,7 @@ jobs:
           Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_ENV
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.x
 
