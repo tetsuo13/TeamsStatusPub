@@ -16,7 +16,22 @@ public class AssemblyAppInfo : IAppInfo
         get
         {
             var version = _assembly.GetName().Version;
-            return $"Version {version?.Major}.{version?.Minor}.{version?.Build}";
+
+            // This should never happen.
+            if (version is null)
+            {
+                return "Unknown";
+            }
+
+            var canonicalVersion = $"Version {version.Major}.{version.Minor}.{version.Build}";
+
+            // CI build will set this with the build number.
+            if (version.Revision != -1)
+            {
+                canonicalVersion += $" (Build {version.Revision})";
+            }
+
+            return canonicalVersion;
         }
     }
 
@@ -25,9 +40,13 @@ public class AssemblyAppInfo : IAppInfo
     /// <summary>
     /// Initializes a new instance of the AssemblyAppInfo class.
     /// </summary>
-    public AssemblyAppInfo()
+    public AssemblyAppInfo() : this(Assembly.GetExecutingAssembly())
     {
-        _assembly = Assembly.GetExecutingAssembly();
+    }
+
+    public AssemblyAppInfo(Assembly assembly)
+    {
+        _assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
     }
 
     private string GetAssemblyAttribute<T>(Func<T, string> attributeProperty)
