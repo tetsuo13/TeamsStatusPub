@@ -1,5 +1,9 @@
 # Teams Status Pub Changelog
 
+## Unreleased
+
+- Added CI build number to version reported in About window ([#105](https://github.com/tetsuo13/TeamsStatusPub/pull/105))
+
 ## 1.4.0 (2023-11-30)
 
 - .NET 8 ([#91](https://github.com/tetsuo13/TeamsStatusPub/pull/91))
