@@ -19,7 +19,7 @@ internal static class Program
     {
         try
         {
-            //LoggingConfiguration.CreateDefaultLogger();
+            LoggingConfiguration.CreateDefaultLogger();
 
             var host = Host.CreateDefaultBuilder()
                 .ConfigureAppLogging()

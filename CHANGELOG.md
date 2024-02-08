@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added CI build number to version reported in About window ([#105](https://github.com/tetsuo13/TeamsStatusPub/pull/105))
+- Created installer rather than distributing executable ([#38](https://github.com/tetsuo13/TeamsStatusPub/issues/38))
 
 ## 1.4.0 (2023-11-30)
 

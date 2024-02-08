@@ -35,7 +35,7 @@ public partial class MainForm : Form, IMainForm
         }
 
         _notifyIcon.ContextMenuStrip.Items.Add("About");
-        //_notifyIcon.ContextMenuStrip.Items[0].Click += ContextMenu_About;
+        _notifyIcon.ContextMenuStrip.Items[0].Click += ContextMenu_About;
         _notifyIcon.ContextMenuStrip.Items.Add("Quit");
         _notifyIcon.ContextMenuStrip.Items[1].Click += ContextMenu_Quit;
         _notifyIcon.Visible = true;
@@ -58,12 +58,12 @@ public partial class MainForm : Form, IMainForm
         Application.Exit();
     }
 
-    //private void ContextMenu_About(object? sender, EventArgs e)
-    //{
-    //    using var scope = _serviceScopeFactory.CreateScope();
-    //    using var form = (Form)scope.ServiceProvider.GetRequiredService<IAboutForm>();
-    //    form.ShowDialog();
-    //}
+    private void ContextMenu_About(object? sender, EventArgs e)
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        using var form = (Form)scope.ServiceProvider.GetRequiredService<IAboutForm>();
+        form.ShowDialog();
+    }
 
     private void RemoveNotifyIcon()
     {

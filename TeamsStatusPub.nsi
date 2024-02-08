@@ -11,6 +11,7 @@
 !define SETUP_DIR output
 !endif
 
+!echo "Creating subdirectory '${SETUP_DIR}' for installer file..."
 !system "MKDIR ${SETUP_DIR}"
 
 Unicode true
@@ -52,9 +53,16 @@ Section Install
     Sleep 500
 
     File "${PUBLISH_DIR}\${APPNAME}.exe"
+
+    ; Don't overwrite settings file when upgrading.
+    SetOverwrite off
     File "src\${APPNAME}\appsettings.json"
+    SetOverwrite on
 
     WriteUninstaller $INSTDIR\uninstall.exe
+
+    ; Create Start Menu launcher
+    CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\${APPNAME}.exe"
 
     ; Uninstall information to Add/Remove Programs
     WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
@@ -78,6 +86,10 @@ Section Install
 SectionEnd
 
 Section Uninstall
+    ; Delete Start Menu launcher.
+    Delete "$SMPROGRAMS\${APPNAME}.lnk"
+
+    ; Delete all application files.
     Delete $INSTDIR\${APPNAME}.exe
     Delete $INSTDIR\appsettings.json
     Delete $INSTDIR\uninstall.exe

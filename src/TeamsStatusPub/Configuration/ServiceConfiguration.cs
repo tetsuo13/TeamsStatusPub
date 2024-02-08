@@ -27,17 +27,17 @@ internal static class ServiceConfiguration
             services.Configure<RuntimeSettings>(context.Configuration.GetSection("Runtime"));
 
             services.AddTransient<IMainFormPresenter, MainFormPresenter>();
-            //services.AddTransient<IAboutFormPresenter, AboutFormPresenter>();
+            services.AddTransient<IAboutFormPresenter, AboutFormPresenter>();
 
             services.AddTransient<IMainForm, MainForm>();
-            //services.AddTransient<IAboutForm, AboutForm>();
+            services.AddTransient<IAboutForm, AboutForm>();
 
             services.AddTransient<IHttpProvider, HttpProvider>();
 
             services.AddTransient<IAvailabilityHandler, MicrosoftTeamsHandler>();
             services.AddTransient<ILogFileReader, LogFileReader>();
 
-            //services.AddSingleton<IAppInfo, AssemblyAppInfo>();
+            services.AddSingleton<IAppInfo, AssemblyAppInfo>();
         });
     }
 }
