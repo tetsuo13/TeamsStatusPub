@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <VersionPrefix>1.4.0</VersionPrefix>
-    <Copyright>Copyright 2022-2024 Andrei Nicholson</Copyright>
+    <Copyright>Copyright (c) 2022-2024 Andrei Nicholson</Copyright>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)TeamsStatusPub.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>True</SignAssembly>
     <PackageId>$(AssemblyName)</PackageId>

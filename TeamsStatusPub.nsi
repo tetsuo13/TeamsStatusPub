@@ -32,7 +32,7 @@ InstallDir $LOCALAPPDATA\Programs\${APPNAME}
 
 VIAddVersionKey "ProductName" "${APPNAME}"
 VIAddVersionKey "CompanyName" "${COMPANY_NAME}"
-VIAddVersionKey "LegalCopyright" "Copyright (c) 2023 ${COMPANY_NAME}"
+VIAddVersionKey "LegalCopyright" "Copyright (c) 2022-2024 ${COMPANY_NAME}"
 VIAddVersionKey "FileDescription" "${APPNAME} ${VERSION} Installer"
 VIAddVersionKey "FileVersion" "${VERSION}"
 VIAddVersionKey "ProductVersion" "${VERSION}"
