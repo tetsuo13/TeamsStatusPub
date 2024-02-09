@@ -27,7 +27,7 @@ public static class AppInfoTests
     {
         // Note: copyright decade will need to be updated starting in the 30s
         // but hopefully we're still not using Teams by then...
-        Assert.StartsWith("Copyright 202", _appInfo.Copyright);
+        Assert.StartsWith("Copyright (c) 202", _appInfo.Copyright);
     }
 
     [Fact]
