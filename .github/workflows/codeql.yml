@@ -6,7 +6,7 @@ on:
     paths-ignore:
       - '**.md'
   schedule:
-    - cron: '36 6 * * 6'
+    - cron: '36 6 10 * *'
 
 jobs:
   analyze:
