@@ -40,7 +40,7 @@ No additional changes are required, the default settings already log sufficient 
 
 ### Teams Status Pub
 
-Download the latest release and unzip it to a dedicated folder. As part of the release there will be an `appsettings.json` file used to configure some basic runtime settings.
+Download the installer from the [Releases](https://github.com/tetsuo13/TeamsStatusPub/releases) page. By default it will install to your `C:\Users\username\AppData\Local\Programs\TeamsStatusPub` folder. As part of the installation there will be an `appsettings.json` file used to configure some basic runtime settings.
 
 The default listen address is http://192.168.1.1:17493/ but the IP address will most likely need to be changed. The following settings are available in `appsettings.json`:
 
@@ -49,7 +49,19 @@ The default listen address is http://192.168.1.1:17493/ but the IP address will 
 | `Runtime:ListenAddress` | The IP address to listen on.  |
 | `Runtime:ListenPort` | The port to listen on. Should be greater than 1024. |
 
-In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall.
+In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall. Open **Windows Defender Firewall with Advanced Security** and create a new rule using the folowing custom values for the **New Inbound Rule Wizard**, customize all others as needed:
+
+- Rule type
+  - Custom
+- Program
+  - This program path: C:\Users\username\AppData\Local\Programs\TeamsStatusPub\TeamsStatusPub.exe
+- Protocol and Ports
+  - Protocol type: TCP
+  - Local port: Specific ports 17493 (**Note:** Reference the `Runtime:ListenPort` value used in the `appsettings.json` file.)
+- Profile
+  - Domain, Private, Public
+- Name
+  - Name: TeamsStatusPub
 
 ### Home Assistant
 

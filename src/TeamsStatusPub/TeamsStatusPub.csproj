@@ -9,10 +9,18 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Product>Teams Status Pub</Product>
-    <Version>1.4.0</Version>
-    <Copyright>Copyright © 2023 Andrei Nicholson</Copyright>
+    <Authors>Andrei Nicholson</Authors>
     <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
+    <Description>RESTful server from machine running Teams to provide sensor for Home Assistant</Description>
     <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="TeamsStatusPub.IntegrationTests" />
-    <InternalsVisibleTo Include="TeamsStatusPub.UnitTests" />
+    <InternalsVisibleTo Include="$(MSBuildProjectName).IntegrationTests" Key="00240000048000009400000006020000002400005253413100040000010001006107927f7b44f7a3903e060e56969fce38be1a7bd60e461ddbf443640802e27b1bf1a5c81acb08ccf467bd6d41b772a04f874a07ba7c0d71eb216b0de58aa5632c94a16e969cf0aa94287efd49e1ee03aa86e4c74b968fbda7f00ac3d0a6f5f21f0c059bf2a1399d50be5eaa4833816e7cce65dff53630fd6194c64fb9e40aa8" />
+    <InternalsVisibleTo Include="$(MSBuildProjectName).UnitTests" Key="00240000048000009400000006020000002400005253413100040000010001006107927f7b44f7a3903e060e56969fce38be1a7bd60e461ddbf443640802e27b1bf1a5c81acb08ccf467bd6d41b772a04f874a07ba7c0d71eb216b0de58aa5632c94a16e969cf0aa94287efd49e1ee03aa86e4c74b968fbda7f00ac3d0a6f5f21f0c059bf2a1399d50be5eaa4833816e7cce65dff53630fd6194c64fb9e40aa8" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Runtime.InteropServices;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using TeamsStatusPub.Configuration;
 using TeamsStatusPub.Views;
+
+[assembly: Guid("73e16404-d5b2-4298-be82-051de8a5159e")]
 
 namespace TeamsStatusPub;
 
