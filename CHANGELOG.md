@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## Unreleased
+## 1.5.0 (2024-02-21)
 
 - Added CI build number to version reported in About window ([#105](https://github.com/tetsuo13/TeamsStatusPub/pull/105))
 - Created installer rather than distributing executable ([#38](https://github.com/tetsuo13/TeamsStatusPub/issues/38))
