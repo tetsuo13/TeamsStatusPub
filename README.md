@@ -8,6 +8,9 @@ Serve a RESTful interface from a computer running [Microsoft Teams](https://www.
 
 Teams Status Pub runs on the system tray to publish your Teams status via a web server that listens for incoming requests. When a request comes in, it will look at the Teams log file to determine your status as either "available" or "busy" and serve a JSON payload with the result. You're considered busy in Teams when on a call, regardless of video or mic status.
 
+> [!NOTE]
+> Teams Status Pub only supports the classic client of Teams. Follow [#112](https://github.com/tetsuo13/TeamsStatusPub/issues/112) for any updates.
+
 ## Motivation and Alternatives
 
 There are other projects available for integrating Teams with Home Assistant however their usage is largely dependent on how Teams and/or your computer is configured within the organization.
@@ -106,4 +109,3 @@ There has been some consideration taken to make the code modular enough to handl
 ## License
 
 See [LICENSE](LICENSE)
-
