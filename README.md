@@ -8,9 +8,9 @@ Serve a RESTful interface from a computer running [Microsoft Teams](https://www.
 
 Teams Status Pub runs on the system tray to publish your Teams status via a web server that listens for incoming requests. When a request comes in, it will look at the Teams log file to determine your status as either "available" or "busy" and serve a JSON payload with the result. You're considered busy in Teams when on a call, regardless of video or mic status.
 
-## Motiviation and Alternatives
+## Motivation and Alternatives
 
-There are other projects available for integrating Teams with Home Assistant however their usage is largly dependent on how Teams and/or your computer is configured within the organization.
+There are other projects available for integrating Teams with Home Assistant however their usage is largely dependent on how Teams and/or your computer is configured within the organization.
 
 ### Microsoft Graph
 
@@ -49,7 +49,7 @@ The default listen address is http://192.168.1.1:17493/ but the IP address will 
 | `Runtime:ListenAddress` | The IP address to listen on.  |
 | `Runtime:ListenPort` | The port to listen on. Should be greater than 1024. |
 
-In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall. Open **Windows Defender Firewall with Advanced Security** and create a new rule using the folowing custom values for the **New Inbound Rule Wizard**, customize all others as needed:
+In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall. Open **Windows Defender Firewall with Advanced Security** and create a new rule using the following custom values for the **New Inbound Rule Wizard**, customize all others as needed:
 
 - Rule type
   - Custom
@@ -71,7 +71,7 @@ Teams Status Pub will output a single object with a boolean value that will indi
 {"busy":false}
 ```
 
-Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targetting the IP and port set in `appsettings.json`:
+Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targeting the IP and port set in `appsettings.json`:
 
 ```yaml
 binary_sensor:
@@ -106,3 +106,4 @@ There has been some consideration taken to make the code modular enough to handl
 ## License
 
 See [LICENSE](LICENSE)
+
