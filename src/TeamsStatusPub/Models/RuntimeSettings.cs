@@ -14,4 +14,9 @@ public record RuntimeSettings
     /// The port to listen on.
     /// </summary>
     public int ListenPort { get; init; }
+
+    /// <summary>
+    /// The system to handle determining availability.
+    /// </summary>
+    public MeetingSystems AvailabilityHandler { get; init; }
 }

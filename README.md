@@ -8,9 +8,6 @@ Serve a RESTful interface from a computer running [Microsoft Teams](https://www.
 
 Teams Status Pub runs on the system tray to publish your Teams status via a web server that listens for incoming requests. When a request comes in, it will look at the Teams log file to determine your status as either "available" or "busy" and serve a JSON payload with the result. You're considered busy in Teams when on a call, regardless of video or mic status.
 
-> [!NOTE]
-> Teams Status Pub only supports the classic client of Teams. Follow [#112](https://github.com/tetsuo13/TeamsStatusPub/issues/112) for any updates.
-
 ## Motivation and Alternatives
 
 There are other projects available for integrating Teams with Home Assistant however their usage is largely dependent on how Teams and/or your computer is configured within the organization.
@@ -33,9 +30,17 @@ These were the primary motivating factors behind this project.
 
 - Your computer must be running Windows 10 or later.
 - .NET 8 runtime.
-- The desktop version of Teams must be installed.
+- The desktop version of Teams must be installed, either Teams or Teams Classic.
 
-Tested against Microsoft Teams classic for Windows versions 1.5.00.21463 - 1.6.00.33567 although the latest release noted here may not always be up to date.
+Teasted against the following versions:
+
+- Microsoft Teams 24033.811.2738.2546
+- Microsoft Teams classic for Windows versions 1.5.00.21463 - 1.6.00.33567
+
+The latest release noted here may not always be up to date.
+
+> **Note**
+> Microsoft Teams Classic is considered deprecated and will eventually be removed.
 
 ### Teams
 
@@ -49,7 +54,8 @@ The default listen address is http://192.168.1.1:17493/ but the IP address will 
 
 | Setting | Description |
 | ------- | ----------- |
-| `Runtime:ListenAddress` | The IP address to listen on.  |
+| `Runtime:AvailabilityHandler` | Can be either "MicrosoftTeams" (default) or "MicrosoftTeamsClassic". |
+| `Runtime:ListenAddress` | The IP address to listen on. |
 | `Runtime:ListenPort` | The port to listen on. Should be greater than 1024. |
 
 In order for Home Assistant to successfully query the computer, you will likely need to add an inbound rule to allow this application through the firewall. Open **Windows Defender Firewall with Advanced Security** and create a new rule using the following custom values for the **New Inbound Rule Wizard**, customize all others as needed:
@@ -104,7 +110,7 @@ To enable logging, change the `Serilog:MinimumLevel:Default` value in `appsettin
 
 ## Development
 
-There has been some consideration taken to make the code modular enough to handle integrating with other conferencing tools other than Microsoft Teams, although that is the only one currently supported. In the future it could be possible to add additional availability handlers and use configuration to determine which handler(s) to use. A detailed breakdown of handlers and how a user is considered busy can be found in the [README](src/TeamsStatusPub/Services/AvailabilityHandlers/README.md) file in the availability handlers directory.
+There has been some consideration taken to make the code modular enough to handle integrating with other conferencing tools other than Microsoft Teams. In the future it could be possible to add additional availability handlers and use configuration to determine which handler(s) to use. A detailed breakdown of handlers and how a user is considered busy can be found in the [README](src/TeamsStatusPub/Services/AvailabilityHandlers/README.md) file in the availability handlers directory.
 
 ## License
 

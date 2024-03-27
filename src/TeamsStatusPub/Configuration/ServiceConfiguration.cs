@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using TeamsStatusPub.Models;
 using TeamsStatusPub.Presenters;
 using TeamsStatusPub.Services;
 using TeamsStatusPub.Services.AvailabilityHandlers;
 using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
+using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams.FileSystemProviders;
 using TeamsStatusPub.Views;
 
 namespace TeamsStatusPub.Configuration;
@@ -34,10 +36,28 @@ internal static class ServiceConfiguration
 
             services.AddTransient<IHttpProvider, HttpProvider>();
 
-            services.AddTransient<IAvailabilityHandler, MicrosoftTeamsHandler>();
-            services.AddTransient<ILogFileReader, LogFileReader>();
-
             services.AddSingleton<IAppInfo, AssemblyAppInfo>();
+
+            using var sp = services.BuildServiceProvider();
+            var runtimeSettings = sp.GetRequiredService<IOptions<RuntimeSettings>>();
+
+            switch (runtimeSettings.Value.AvailabilityHandler)
+            {
+                case MeetingSystems.MicrosoftTeamsClassic:
+                    services.AddTransient<IAvailabilityHandler, MicrosoftTeamsClassicHandler>();
+                    break;
+
+                case MeetingSystems.MicrosoftTeams:
+                    services.AddTransient<IAvailabilityHandler, MicrosoftTeamsHandler>();
+                    services.AddTransient<IFileSystemProvider, FileSystemWrapper>();
+                    services.AddTransient<IDirectoryProvider, DirectoryWrapper>();
+                    services.AddTransient<ILogDiscovery, LogDiscovery>();
+                    break;
+
+                default:
+                    throw new NotImplementedException(
+                        $"Unsupported 'AvailabilityHandler' value from appsettings.json: {runtimeSettings.Value.AvailabilityHandler}");
+            }
         });
     }
 }

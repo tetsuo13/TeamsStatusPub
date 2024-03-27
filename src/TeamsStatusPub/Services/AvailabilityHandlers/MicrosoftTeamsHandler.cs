@@ -1,81 +1,95 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
+using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams.FileSystemProviders;
 
 namespace TeamsStatusPub.Services.AvailabilityHandlers;
 
 /// <summary>
-/// Availability of user in the Microsoft Teams desktop application. This
-/// doesn't handle the mobile or web versions.
+/// Availability of user in the Microsoft Teams desktop application.
 /// </summary>
 public class MicrosoftTeamsHandler : IAvailabilityHandler
 {
     /// <summary>
-    /// The result of the last log file processing.
+    /// The availability from the last successful log parse. In case there's
+    /// no successful parsing yet, use a default value of "available."
     /// </summary>
     private bool _lastAvailability = true;
 
     /// <summary>
-    /// The absolute path to the Teams log file.
+    /// The absolute path to the Teams log directory. This is cached once
+    /// found as it won't change throughout this application's lifetime.
     /// </summary>
-    private readonly string _teamsLogFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "Microsoft", "Teams", "logs.txt");
+    private string? _logDirectory = null;
+
+    /// <summary>
+    /// All statuses that should be considered as "not available."
+    /// </summary>
+    private readonly string[] _statusesConsideredNotAvailable = ["busy", "doNotDisturb"];
 
     private readonly ILogger<MicrosoftTeamsHandler> _logger;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly IFileSystemProvider _fileSystemProvider;
+    private readonly ILogDiscovery _logDiscovery;
 
     /// <summary>
     /// Initializes a new instance of the MicrosoftTeamsHandler class.
     /// </summary>
     /// <param name="logger"></param>
-    /// <param name="serviceScopeFactory"></param>
-    public MicrosoftTeamsHandler(ILogger<MicrosoftTeamsHandler> logger,
-        IServiceScopeFactory serviceScopeFactory)
+    /// <param name="fileSystemProvider"></param>
+    /// <param name="logDiscovery"></param>
+    public MicrosoftTeamsHandler(ILogger<MicrosoftTeamsHandler> logger, IFileSystemProvider fileSystemProvider,
+        ILogDiscovery logDiscovery)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
+        _fileSystemProvider = fileSystemProvider ?? throw new ArgumentNullException(nameof(fileSystemProvider));
+        _logDiscovery = logDiscovery ?? throw new ArgumentNullException(nameof(logDiscovery));
     }
 
     public bool IsAvailable()
     {
-        if (!File.Exists(_teamsLogFilePath))
+        var statusChangeLine = MostRecentSignificantLogLine();
+
+        if (statusChangeLine is null)
         {
-            _logger.LogCritical("Couldn't find Teams log file at {logFilePath}", _teamsLogFilePath);
-            throw new FileNotFoundException("Couldn't find Teams log file", _teamsLogFilePath);
+            return _lastAvailability;
         }
 
-        var lastAvailabilityFromFile = FindLastAvailabilityFromLogFile(_teamsLogFilePath);
+        var status = statusChangeLine.Split(' ').Last();
 
-        if (lastAvailabilityFromFile.HasValue)
-        {
-            _lastAvailability = lastAvailabilityFromFile.Value;
-        }
+        var lineIndicatesBusy = _statusesConsideredNotAvailable.Contains(status);
 
+        // If busy then not available.
+        _lastAvailability = !lineIndicatesBusy;
         return _lastAvailability;
     }
 
-    private bool? FindLastAvailabilityFromLogFile(string logFilePath)
+    private string? MostRecentSignificantLogLine()
     {
-        using var scope = _serviceScopeFactory.CreateScope();
-        var logFileReader = scope.ServiceProvider.GetRequiredService<ILogFileReader>();
+        // It's possible that this program is launched before Teams is first
+        // launched and has a chance to create the appropriate directories.
+        // Try to find Teams every time this method is queried until it's
+        // found.
+        _logDirectory ??= _logDiscovery.FindLogDirectory();
 
-        var linesOfInterest = logFileReader.ReadLinesOfInterest(logFilePath);
-        return LastAvailabilityFromLinesOfInterest(linesOfInterest);
-    }
-
-    internal static bool? LastAvailabilityFromLinesOfInterest(List<string> linesOfInterest)
-    {
-        if (linesOfInterest.Count == 0)
+        if (string.IsNullOrEmpty(_logDirectory))
         {
+            _logger.LogInformation("Couldn't find log directory");
             return null;
         }
 
-        if (linesOfInterest[0].Contains(EventDataTokens.CallStarted) ||
-            linesOfInterest[0].Contains(EventDataTokens.ScreenShareStarted))
+        // Have to discover what the latest log file is every time a query is
+        // needed as it's likely to change during runtime -- new file every
+        // day and even multiple files throughout the day.
+        var logFile = _logDiscovery.FindLogPath(_logDirectory);
+
+        if (string.IsNullOrEmpty(logFile))
         {
-            return false;
+            _logger.LogInformation("Couldn't find log file");
+            return null;
         }
 
-        return true;
+        // Look for the last line that indicates a status badge change.
+        return _fileSystemProvider
+            .ReadAllLines(logFile)
+            .LastOrDefault(x => x.Contains("Setting badge: GlyphBadge"));
     }
 }

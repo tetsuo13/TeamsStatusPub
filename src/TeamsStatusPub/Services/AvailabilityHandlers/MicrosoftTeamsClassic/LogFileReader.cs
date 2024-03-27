@@ -2,7 +2,7 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
 
-namespace TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
+namespace TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 
 /// <summary>
 /// Microsoft Teams log file reader. Designed to be instantiated each time the

@@ -3,10 +3,10 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
+using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 using Xunit;
 
-namespace TeamsStatusPub.IntegrationTests.Services.AvailabilityHandlers.MicrosoftTeams;
+namespace TeamsStatusPub.IntegrationTests.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 
 public static class LogFileReaderTests
 {
@@ -135,7 +135,7 @@ public static class LogFileReaderTests
 
         Assert.NotNull(assemblyDirectory);
 
-        var logDirectory = Path.Combine(nameof(Services), nameof(AvailabilityHandlers), nameof(MicrosoftTeams), "ExampleLogs");
+        var logDirectory = Path.Combine(nameof(Services), nameof(AvailabilityHandlers), nameof(MicrosoftTeamsClassic), "ExampleLogs");
         var logfilePath = Path.Combine(assemblyDirectory, logDirectory, fileName);
 
         Assert.True(File.Exists(logfilePath),
