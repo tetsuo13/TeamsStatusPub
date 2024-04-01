@@ -46,6 +46,10 @@ The latest release noted here may not always be up to date.
 
 No additional changes are required, the default settings already log sufficient data.
 
+Note that there is sometimes a delay between the status shown in Teams and the logs used by Teams Status Pub. For Teams Classic this delay was rarely longer than a few seconds but in Teams it can be up to a few minutes. Resetting or otherwise changing the status in Teams doesn't seem to cause the log to be updated any faster.
+
+Teams Status Pub will reflect the statuses in Teams that are deemed "not available" -- **Busy** and **Do not disturb**. This is slightly different than how availability was deemed with Teams Classic as it was strictly based on whether or not you were engaged in a call. This can be apparent after ending a meeting call early: in Teams you remain in **Busy** status until the end of the meeting so therefor Teams Status Pub reports as unavailable but in Teams Classic Teams Status Pub reports as available despite the status.
+
 ### Teams Status Pub
 
 Download the installer from the [Releases](https://github.com/tetsuo13/TeamsStatusPub/releases) page. By default it will install to your `C:\Users\username\AppData\Local\Programs\TeamsStatusPub` folder. As part of the installation there will be an `appsettings.json` file used to configure some basic runtime settings.
