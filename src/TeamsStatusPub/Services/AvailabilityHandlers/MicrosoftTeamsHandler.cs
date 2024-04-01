@@ -13,7 +13,7 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
     /// The availability from the last successful log parse. In case there's
     /// no successful parsing yet, use a default value of "available."
     /// </summary>
-    private bool _lastAvailability = true;
+    private bool _lastAvailability;
 
     /// <summary>
     /// The absolute path to the Teams log directory. This is cached once
@@ -38,10 +38,17 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
     /// <param name="logDiscovery"></param>
     public MicrosoftTeamsHandler(ILogger<MicrosoftTeamsHandler> logger, IFileSystemProvider fileSystemProvider,
         ILogDiscovery logDiscovery)
+        : this(logger, fileSystemProvider, logDiscovery, true)
+    {
+    }
+
+    internal MicrosoftTeamsHandler(ILogger<MicrosoftTeamsHandler> logger, IFileSystemProvider fileSystemProvider,
+        ILogDiscovery logDiscovery, bool lastAvailability)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _fileSystemProvider = fileSystemProvider ?? throw new ArgumentNullException(nameof(fileSystemProvider));
         _logDiscovery = logDiscovery ?? throw new ArgumentNullException(nameof(logDiscovery));
+        _lastAvailability = lastAvailability;
     }
 
     public bool IsAvailable()

@@ -16,43 +16,49 @@ public class MicrosoftTeamsHandlerTests
     private const string EventData5 = """2024-03-05T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"doNotDistrb"}, overlay: No items, status doNotDisturb""";
     private const string EventData6 = """2024-03-06T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"available"}, overlay: アイテムなし、状態 available""";
 
-    [Fact]
-    public void IsAvailable_MissingLogDirectory_ReturnsTrue()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void IsAvailable_MissingLogDirectory_ReturnsLastAvailable(bool lastAvailable)
     {
         _logDiscovery.FindLogDirectory().Returns((string?)null);
-        var handler = GetHandler();
+        var handler = GetHandler(lastAvailable);
 
         var actual = handler.IsAvailable();
 
-        Assert.True(actual);
+        Assert.Equal(lastAvailable, actual);
         _logDiscovery.DidNotReceiveWithAnyArgs().FindLogPath(Arg.Any<string>());
     }
 
-    [Fact]
-    public void IsAvailable_MissingLogFile_ReturnsTrue()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void IsAvailable_MissingLogFile_ReturnsLastAvailable(bool lastAvailable)
     {
-        _logDiscovery.FindLogDirectory().Returns(nameof(IsAvailable_MissingLogFile_ReturnsTrue));
+        _logDiscovery.FindLogDirectory().Returns(nameof(IsAvailable_MissingLogFile_ReturnsLastAvailable));
         _logDiscovery.FindLogPath(Arg.Any<string>()).Returns((string?)null);
-        var handler = GetHandler();
+        var handler = GetHandler(lastAvailable);
 
         var actual = handler.IsAvailable();
 
-        Assert.True(actual);
+        Assert.Equal(lastAvailable, actual);
         _fileSystemProvider.DidNotReceiveWithAnyArgs().ReadAllLines(Arg.Any<string>());
     }
 
-    [Fact]
-    public void IsAvailable_NoEventDataLastAvailableTrue_ReturnsTrue()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void IsAvailable_NoEventData_ReturnsLastAvailable(bool lastAvailable)
     {
         _fileSystemProvider.ReadAllLines(Arg.Any<string>()).Returns([]);
 
-        _logDiscovery.FindLogDirectory().Returns(nameof(IsAvailable_NoEventDataLastAvailableTrue_ReturnsTrue));
-        _logDiscovery.FindLogPath(Arg.Any<string>()).Returns(nameof(IsAvailable_NoEventDataLastAvailableTrue_ReturnsTrue));
-        var handler = GetHandler();
+        _logDiscovery.FindLogDirectory().Returns(nameof(IsAvailable_NoEventData_ReturnsLastAvailable));
+        _logDiscovery.FindLogPath(Arg.Any<string>()).Returns(nameof(IsAvailable_NoEventData_ReturnsLastAvailable));
+        var handler = GetHandler(lastAvailable);
 
         var actual = handler.IsAvailable();
 
-        Assert.True(actual);
+        Assert.Equal(lastAvailable, actual);
     }
 
     public static TheoryData<string, bool> AvailabilityLogLines => new()
@@ -83,9 +89,9 @@ public class MicrosoftTeamsHandlerTests
     private readonly IFileSystemProvider _fileSystemProvider = Substitute.For<IFileSystemProvider>();
     private readonly ILogDiscovery _logDiscovery = Substitute.For<ILogDiscovery>();
 
-    private MicrosoftTeamsHandler GetHandler()
+    private MicrosoftTeamsHandler GetHandler(bool lastAvailable = true)
     {
         var logger = Substitute.For<ILogger<MicrosoftTeamsHandler>>();
-        return new MicrosoftTeamsHandler(logger, _fileSystemProvider, _logDiscovery);
+        return new MicrosoftTeamsHandler(logger, _fileSystemProvider, _logDiscovery, lastAvailable);
     }
 }
