@@ -18,5 +18,5 @@ public record RuntimeSettings
     /// <summary>
     /// The system to handle determining availability.
     /// </summary>
-    public MeetingSystems AvailabilityHandler { get; init; }
+    public AvailabilitySystems AvailabilityHandler { get; init; }
 }

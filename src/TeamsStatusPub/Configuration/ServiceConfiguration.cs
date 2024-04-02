@@ -43,11 +43,11 @@ internal static class ServiceConfiguration
 
             switch (runtimeSettings.Value.AvailabilityHandler)
             {
-                case MeetingSystems.MicrosoftTeamsClassic:
+                case AvailabilitySystems.MicrosoftTeamsClassic:
                     services.AddTransient<IAvailabilityHandler, MicrosoftTeamsClassicHandler>();
                     break;
 
-                case MeetingSystems.MicrosoftTeams:
+                case AvailabilitySystems.MicrosoftTeams:
                     services.AddTransient<IAvailabilityHandler, MicrosoftTeamsHandler>();
                     services.AddTransient<IFileSystemProvider, FileSystemWrapper>();
                     services.AddTransient<IDirectoryProvider, DirectoryWrapper>();

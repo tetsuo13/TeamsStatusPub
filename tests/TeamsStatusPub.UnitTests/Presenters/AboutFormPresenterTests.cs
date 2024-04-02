@@ -12,11 +12,11 @@ namespace TeamsStatusPub.UnitTests.Presenters;
 public static class AboutFormPresenterTests
 {
     [Theory]
-    [InlineData(MeetingSystems.MicrosoftTeams, true, "Teams: not busy")]
-    [InlineData(MeetingSystems.MicrosoftTeams, false, "Teams: busy")]
-    [InlineData(MeetingSystems.MicrosoftTeamsClassic, true, "Teams Classic: not busy")]
-    [InlineData(MeetingSystems.MicrosoftTeamsClassic, false, "Teams Classic: busy")]
-    public static void LastAvailabilitySystemStatus_ShowsSystemNameAndAvailability(MeetingSystems system,
+    [InlineData(AvailabilitySystems.MicrosoftTeams, true, "Teams: not busy")]
+    [InlineData(AvailabilitySystems.MicrosoftTeams, false, "Teams: busy")]
+    [InlineData(AvailabilitySystems.MicrosoftTeamsClassic, true, "Teams Classic: not busy")]
+    [InlineData(AvailabilitySystems.MicrosoftTeamsClassic, false, "Teams Classic: busy")]
+    public static void LastAvailabilitySystemStatus_ShowsSystemNameAndAvailability(AvailabilitySystems system,
         bool isAvailable, string expectedStatus)
     {
         var appInfo = Substitute.For<IAppInfo>();
