@@ -9,12 +9,11 @@ namespace TeamsStatusPub.UnitTests.Services.AvailabilityHandlers.MicrosoftTeams;
 
 public class MicrosoftTeamsHandlerTests
 {
-    private const string EventData1 = """2024-03-01T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"available"}, overlay: No items, status available""";
-    private const string EventData2 = """2024-03-02T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"away"}, overlay: No items, status away""";
-    private const string EventData3 = """2024-03-03T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"busy"}, overlay: No items, status busy""";
-    private const string EventData4 = """2024-03-04T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"offline"}, overlay: No items, status offline""";
-    private const string EventData5 = """2024-03-05T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"doNotDistrb"}, overlay: No items, status doNotDisturb""";
-    private const string EventData6 = """2024-03-06T14:19:16.252320-04:00 0x00005038 <DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge Setting badge: GlyphBadge{"available"}, overlay: アイテムなし、状態 available""";
+    private const string EventData1 = """2024-04-01T08:38:46.492348-04:00 0x000041dc <INFO> native_modules::UserDataCrossCloudModule: BroadcastGlobalState: New Global State Event: UserDataGlobalState total number of users: 1 { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: Available, unread notification count: 9 }""";
+    private const string EventData2 = """2024-04-01T08:38:46.492348-04:00 0x000041dc <INFO> native_modules::UserDataCrossCloudModule: BroadcastGlobalState: New Global State Event: UserDataGlobalState total number of users: 1 { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: Busy, unread notification count: 10 }""";
+    private const string EventData3 = """2024-04-01T08:38:46.492348-04:00 0x000041dc <INFO> native_modules::UserDataCrossCloudModule: BroadcastGlobalState: New Global State Event: UserDataGlobalState total number of users: 1 { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: Away, unread notification count: 8 }""";
+    private const string EventData4 = """2024-04-01T08:38:46.492348-04:00 0x000041dc <INFO> native_modules::UserDataCrossCloudModule: BroadcastGlobalState: New Global State Event: UserDataGlobalState total number of users: 1 { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: DoNotDisturb, unread notification count: 8 }""";
+    private const string EventData5 = """2024-04-01T08:38:46.492348-04:00 0x000041dc <INFO> native_modules::UserDataCrossCloudModule: BroadcastGlobalState: New Global State Event: UserDataGlobalState total number of users: 1 { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: BeRightBack, unread notification count: 8 }""";
 
     [Theory]
     [InlineData(true)]
@@ -64,11 +63,10 @@ public class MicrosoftTeamsHandlerTests
     public static TheoryData<string, bool> AvailabilityLogLines => new()
     {
         { EventData1, true },
-        { EventData2, true },
-        { EventData3, false },
-        { EventData4, true },
-        { EventData5, false },
-        { EventData6, true }
+        { EventData2, false },
+        { EventData3, true },
+        { EventData4, false },
+        { EventData5, true }
     };
 
     [Theory]

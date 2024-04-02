@@ -12,15 +12,27 @@ The log file is written under the `C:\Users\user\AppData\Local\Packages\MSTeams_
 
 The log file uses the pattern `MSTeams_yyyy-MM-dd_HH-mm-ss.%counter%.log` where `%counter%` is a two-digit zero-based counter that usually starts at `00` but not always. It will be incremented if more than one log file is written on that day.
 
-When the status is changed in Teams, 3 lines related to changing the badge are written to the log file. The badge name will indicate the availability.
+When the status is changed in Teams, 2-3 INFO level lines are written related to updating the account's status in the cloud.
 
 Example status change to "busy":
 
 ```
-<DBG>  TaskbarBadgeServiceLegacy:Work: SetBadge PreSetBadge verification: GlyphBadge{"busy"}, overlay: No items, status busy
+2024-04-01T16:11:01.694594-04:00 0x00007b24 <INFO> native_modules::UserDataCrossCloudModule: BroadcastGlobalState: New Global State Event: UserDataGlobalState total number of users: 1 { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: Busy, unread notification count: 0 }
 ```
 
-Either the GlyphBadge or the last word on the line can be used as the indicator.
+The relevant parts of the line broken down:
+
+```
+[1] native_modules::UserDataCrossCloudModule: BroadcastGlobalState:
+[2] New Global State Event: UserDataGlobalState
+[3] total number of users: 1
+[4] { user id :118c7aa5-4e0a-4276-9cd5-68e8e9ea9ede, availability: Busy, unread notification count: 0 }
+```
+
+1. This module is responsible for several cloud-related activities. While **CloudStateChanged** could also have been used, it was decided to only focus on **BroadcastGlobalState** as it appears to be more wide reaching.
+2. This line indicates that a new state event was initiated.
+3. Indicates how many accounts are affected by the new state event.
+4. Data on the account and related event. This is not JSON data. The relevant portion is "availability".
 
 ## Microsoft Teams Classic
 

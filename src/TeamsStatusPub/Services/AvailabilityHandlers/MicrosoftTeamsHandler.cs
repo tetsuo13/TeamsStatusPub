@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
 using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams.FileSystemProviders;
 
@@ -7,7 +8,7 @@ namespace TeamsStatusPub.Services.AvailabilityHandlers;
 /// <summary>
 /// Availability of user in the Microsoft Teams desktop application.
 /// </summary>
-public class MicrosoftTeamsHandler : IAvailabilityHandler
+public partial class MicrosoftTeamsHandler : IAvailabilityHandler
 {
     /// <summary>
     /// The availability from the last successful log parse. In case there's
@@ -22,13 +23,17 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
     private string? _logDirectory = null;
 
     /// <summary>
-    /// All statuses that should be considered as "not available."
+    /// All statuses that should be considered as "not available." Case
+    /// doesn't matter.
     /// </summary>
-    private readonly string[] _statusesConsideredNotAvailable = ["busy", "doNotDisturb"];
+    private readonly string[] _statusesConsideredNotAvailable = ["Busy", "DoNotDisturb"];
 
     private readonly ILogger<MicrosoftTeamsHandler> _logger;
     private readonly IFileSystemProvider _fileSystemProvider;
     private readonly ILogDiscovery _logDiscovery;
+
+    [GeneratedRegex("availability: ([a-zA-Z]+),")]
+    private static partial Regex AvailabilityRegex();
 
     /// <summary>
     /// Initializes a new instance of the MicrosoftTeamsHandler class.
@@ -60,9 +65,32 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
             return _lastAvailability;
         }
 
-        var status = statusChangeLine.Split(' ').Last();
+        var statuses = AvailabilityRegex().Match(statusChangeLine);
 
-        var lineIndicatesBusy = _statusesConsideredNotAvailable.Contains(status);
+        if (!statuses.Success)
+        {
+            return _lastAvailability;
+        }
+
+        var lineIndicatesBusy = statuses.Groups.Values
+
+            // First element contains entire regex pattern. Ignore it.
+            .Skip(1)
+
+            // There may be more than one account logged into Teams. Check
+            // each account's availability. The line indicates busy if there's
+            // any status that indicates so.
+            //
+            // Note: Unclear if it's possible to have statuses not in sync.
+            // Multiple accounts scenario was not tested.
+            .Any(latestStatusGroup =>
+            {
+                return _statusesConsideredNotAvailable.Any(notAvailableStatus =>
+                {
+                    return notAvailableStatus.Equals(latestStatusGroup.Value,
+                        StringComparison.InvariantCultureIgnoreCase);
+                });
+            });
 
         // If busy then not available.
         _lastAvailability = !lineIndicatesBusy;
@@ -94,9 +122,9 @@ public class MicrosoftTeamsHandler : IAvailabilityHandler
             return null;
         }
 
-        // Look for the last line that indicates a status badge change.
+        // Look for the last line that indicates a status change.
         return _fileSystemProvider
             .ReadAllLines(logFile)
-            .LastOrDefault(x => x.Contains("Setting badge: GlyphBadge"));
+            .LastOrDefault(x => x.Contains("New Global State Event: UserDataGlobalState"));
     }
 }

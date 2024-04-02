@@ -32,14 +32,12 @@ These were the primary motivating factors behind this project.
 - .NET 8 runtime.
 - The desktop version of Teams must be installed, either Teams or Teams Classic.
 
-Teasted against the following versions:
+Teasted against the following minimum versions and is known to work on the latest available version:
 
 - Microsoft Teams 24033.811.2738.2546
-- Microsoft Teams classic for Windows versions 1.5.00.21463 - 1.6.00.33567
+- Microsoft Teams classic for Windows versions 1.5.00.21463
 
-The latest release noted here may not always be up to date.
-
-> **Note**
+> [!NOTE]
 > Microsoft Teams Classic is considered deprecated and will eventually be removed.
 
 ### Teams
