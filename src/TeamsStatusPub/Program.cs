@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using TeamsStatusPub.Configuration;
+using TeamsStatusPub.Core.Configuration;
 using TeamsStatusPub.Views;
 
 [assembly: Guid("73e16404-d5b2-4298-be82-051de8a5159e")]
@@ -24,6 +24,11 @@ internal static class Program
             var host = Host.CreateDefaultBuilder()
                 .ConfigureAppLogging()
                 .ConfigureAppServices()
+                .ConfigureServices(services =>
+                {
+                    services.AddTransient<IMainForm, MainForm>();
+                    services.AddTransient<IAboutForm, AboutForm>();
+                })
                 .Build();
 
             ApplicationConfiguration.Initialize();
