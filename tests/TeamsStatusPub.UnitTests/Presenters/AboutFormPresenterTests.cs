@@ -12,18 +12,21 @@ namespace TeamsStatusPub.UnitTests.Presenters;
 public static class AboutFormPresenterTests
 {
     [Theory]
-    [InlineData(true, "not busy")]
-    [InlineData(false, "busy")]
-    public static void LastTeamsStatus_IsAvailable_ReturnsBusyStatus(bool isAvailable, string expectedStatus)
+    [InlineData(AvailabilitySystems.MicrosoftTeams, true, "Teams: not busy")]
+    [InlineData(AvailabilitySystems.MicrosoftTeams, false, "Teams: busy")]
+    [InlineData(AvailabilitySystems.MicrosoftTeamsClassic, true, "Teams Classic: not busy")]
+    [InlineData(AvailabilitySystems.MicrosoftTeamsClassic, false, "Teams Classic: busy")]
+    public static void LastAvailabilitySystemStatus_ShowsSystemNameAndAvailability(AvailabilitySystems system,
+        bool isAvailable, string expectedStatus)
     {
         var appInfo = Substitute.For<IAppInfo>();
-        var runtimeSettings = Options.Create(new RuntimeSettings());
+        var runtimeSettings = Options.Create(new RuntimeSettings { AvailabilityHandler = system });
         var availabilityHandler = Substitute.For<IAvailabilityHandler>();
         availabilityHandler.IsAvailable().Returns(isAvailable);
 
         var presenter = new AboutFormPresenter(appInfo, runtimeSettings, availabilityHandler);
 
-        Assert.Equal(expectedStatus, presenter.LastTeamsStatus);
+        Assert.Equal(expectedStatus, presenter.LastAvailabilitySystemStatus);
     }
 
     [Fact]

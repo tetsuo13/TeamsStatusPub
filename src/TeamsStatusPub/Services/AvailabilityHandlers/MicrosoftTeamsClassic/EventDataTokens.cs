@@ -1,4 +1,4 @@
-﻿namespace TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeams;
+﻿namespace TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 
 /// <summary>
 /// Relevant Event data tokens to parsing status.

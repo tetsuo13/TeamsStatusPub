@@ -37,8 +37,8 @@ partial class AboutForm
         websiteLinkLabel = new LinkLabel();
         listenLabel = new Label();
         listenLinkLabel = new LinkLabel();
-        teamsStatusLabel = new Label();
-        lastTeamsStatusLabel = new Label();
+        availabilityStatusLabel = new Label();
+        lastAvailabilityHandlerStatusLabel = new Label();
         teamsStatusTooltip = new ToolTip(components);
         ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
         SuspendLayout();
@@ -46,42 +46,38 @@ partial class AboutForm
         // productLabel
         // 
         productLabel.AutoSize = true;
-        productLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
-        productLabel.Location = new Point(296, 48);
-        productLabel.Margin = new Padding(7, 0, 7, 0);
+        productLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+        productLabel.Location = new Point(122, 18);
         productLabel.Name = "productLabel";
-        productLabel.Size = new Size(324, 60);
+        productLabel.Size = new Size(134, 25);
         productLabel.TabIndex = 0;
         productLabel.Text = "Product Name";
         // 
         // versionLabel
         // 
         versionLabel.AutoSize = true;
-        versionLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-        versionLabel.Location = new Point(296, 128);
-        versionLabel.Margin = new Padding(7, 0, 7, 0);
+        versionLabel.Font = new Font("Segoe UI", 9F);
+        versionLabel.Location = new Point(122, 47);
         versionLabel.Name = "versionLabel";
-        versionLabel.Size = new Size(116, 41);
+        versionLabel.Size = new Size(45, 15);
         versionLabel.TabIndex = 1;
         versionLabel.Text = "Version";
         // 
         // copyrightLabel
         // 
         copyrightLabel.AutoSize = true;
-        copyrightLabel.Location = new Point(296, 170);
-        copyrightLabel.Margin = new Padding(7, 0, 7, 0);
+        copyrightLabel.Location = new Point(122, 62);
         copyrightLabel.Name = "copyrightLabel";
-        copyrightLabel.Size = new Size(150, 41);
+        copyrightLabel.Size = new Size(60, 15);
         copyrightLabel.TabIndex = 2;
         copyrightLabel.Text = "Copyright";
         // 
         // logoPictureBox
         // 
         logoPictureBox.Image = (Image)resources.GetObject("logoPictureBox.Image");
-        logoPictureBox.Location = new Point(29, 33);
-        logoPictureBox.Margin = new Padding(7, 8, 7, 8);
+        logoPictureBox.Location = new Point(12, 12);
         logoPictureBox.Name = "logoPictureBox";
-        logoPictureBox.Size = new Size(253, 232);
+        logoPictureBox.Size = new Size(104, 85);
         logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         logoPictureBox.TabIndex = 3;
         logoPictureBox.TabStop = false;
@@ -89,10 +85,9 @@ partial class AboutForm
         // websiteLinkLabel
         // 
         websiteLinkLabel.AutoSize = true;
-        websiteLinkLabel.Location = new Point(296, 212);
-        websiteLinkLabel.Margin = new Padding(7, 0, 7, 0);
+        websiteLinkLabel.Location = new Point(122, 78);
         websiteLinkLabel.Name = "websiteLinkLabel";
-        websiteLinkLabel.Size = new Size(243, 41);
+        websiteLinkLabel.Size = new Size(97, 15);
         websiteLinkLabel.TabIndex = 4;
         websiteLinkLabel.TabStop = true;
         websiteLinkLabel.Text = "websiteLinkLabel";
@@ -100,51 +95,47 @@ partial class AboutForm
         // listenLabel
         // 
         listenLabel.AutoSize = true;
-        listenLabel.Location = new Point(28, 320);
-        listenLabel.Margin = new Padding(7, 0, 7, 0);
+        listenLabel.Location = new Point(12, 117);
         listenLabel.Name = "listenLabel";
-        listenLabel.Size = new Size(180, 41);
+        listenLabel.Size = new Size(72, 15);
         listenLabel.TabIndex = 5;
         listenLabel.Text = "Listening on";
         // 
         // listenLinkLabel
         // 
         listenLinkLabel.AutoSize = true;
-        listenLinkLabel.Location = new Point(199, 320);
-        listenLinkLabel.Margin = new Padding(7, 0, 7, 0);
+        listenLinkLabel.Location = new Point(82, 117);
         listenLinkLabel.Name = "listenLinkLabel";
-        listenLinkLabel.Size = new Size(304, 41);
+        listenLinkLabel.Size = new Size(119, 15);
         listenLinkLabel.TabIndex = 6;
         listenLinkLabel.TabStop = true;
         listenLinkLabel.Text = "http://127.0.0.1:8080/";
         // 
-        // teamsStatusLabel
+        // availabilityStatusLabel
         // 
-        teamsStatusLabel.AutoSize = true;
-        teamsStatusLabel.Location = new Point(28, 370);
-        teamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
-        teamsStatusLabel.Name = "teamsStatusLabel";
-        teamsStatusLabel.Size = new Size(286, 41);
-        teamsStatusLabel.TabIndex = 7;
-        teamsStatusLabel.Text = "Last status in Teams:";
+        availabilityStatusLabel.AutoSize = true;
+        availabilityStatusLabel.Location = new Point(12, 135);
+        availabilityStatusLabel.Name = "availabilityStatusLabel";
+        availabilityStatusLabel.Size = new Size(75, 15);
+        availabilityStatusLabel.TabIndex = 7;
+        availabilityStatusLabel.Text = "Last status in";
         // 
-        // lastTeamsStatusLabel
+        // lastAvailabilityHandlerStatusLabel
         // 
-        lastTeamsStatusLabel.AutoSize = true;
-        lastTeamsStatusLabel.Location = new Point(303, 370);
-        lastTeamsStatusLabel.Margin = new Padding(7, 0, 7, 0);
-        lastTeamsStatusLabel.Name = "lastTeamsStatusLabel";
-        lastTeamsStatusLabel.Size = new Size(134, 41);
-        lastTeamsStatusLabel.TabIndex = 8;
-        lastTeamsStatusLabel.Text = "not busy";
+        lastAvailabilityHandlerStatusLabel.AutoSize = true;
+        lastAvailabilityHandlerStatusLabel.Location = new Point(83, 135);
+        lastAvailabilityHandlerStatusLabel.Name = "lastAvailabilityHandlerStatusLabel";
+        lastAvailabilityHandlerStatusLabel.Size = new Size(89, 15);
+        lastAvailabilityHandlerStatusLabel.TabIndex = 8;
+        lastAvailabilityHandlerStatusLabel.Text = "Thing: not busy";
         // 
         // AboutForm
         // 
-        AutoScaleDimensions = new SizeF(17F, 41F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1107, 467);
-        Controls.Add(lastTeamsStatusLabel);
-        Controls.Add(teamsStatusLabel);
+        ClientSize = new Size(456, 171);
+        Controls.Add(lastAvailabilityHandlerStatusLabel);
+        Controls.Add(availabilityStatusLabel);
         Controls.Add(listenLinkLabel);
         Controls.Add(listenLabel);
         Controls.Add(websiteLinkLabel);
@@ -153,7 +144,6 @@ partial class AboutForm
         Controls.Add(versionLabel);
         Controls.Add(productLabel);
         FormBorderStyle = FormBorderStyle.FixedDialog;
-        Margin = new Padding(7, 8, 7, 8);
         MaximizeBox = false;
         MinimizeBox = false;
         Name = "AboutForm";
@@ -172,7 +162,7 @@ partial class AboutForm
     private LinkLabel websiteLinkLabel;
     private Label listenLabel;
     private LinkLabel listenLinkLabel;
-    private Label teamsStatusLabel;
-    private Label lastTeamsStatusLabel;
+    private Label availabilityStatusLabel;
+    private Label lastAvailabilityHandlerStatusLabel;
     private ToolTip teamsStatusTooltip;
 }

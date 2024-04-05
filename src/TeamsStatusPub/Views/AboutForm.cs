@@ -20,7 +20,7 @@ public partial class AboutForm : Form, IAboutForm
         productLabel.Text = presenter.ApplicationName;
         copyrightLabel.Text = presenter.Copyright;
         versionLabel.Text = presenter.Version;
-        teamsStatusTooltip.SetToolTip(teamsStatusLabel,
+        teamsStatusTooltip.SetToolTip(availabilityStatusLabel,
             """
             The status shown is not live and does not change here.
             It's simply the status at the time of opening this dialog.
@@ -32,7 +32,7 @@ public partial class AboutForm : Form, IAboutForm
 
     protected override void OnLoad(EventArgs e)
     {
-        lastTeamsStatusLabel.Text = _presenter.LastTeamsStatus;
+        lastAvailabilityHandlerStatusLabel.Text = _presenter.LastAvailabilitySystemStatus;
     }
 
     private void StyleLinkLabel(LinkLabel label, string url)

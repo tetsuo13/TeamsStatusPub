@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Services\AvailabilityHandlers\MicrosoftTeams\ExampleLogs\*" />
+    <None Remove="Services\AvailabilityHandlers\MicrosoftTeamsClassic\ExampleLogs\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Services\AvailabilityHandlers\MicrosoftTeams\ExampleLogs\*">
+    <Content Include="Services\AvailabilityHandlers\MicrosoftTeamsClassic\ExampleLogs\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

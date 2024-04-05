@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.ComponentModel;
+using System.Reflection;
+using Microsoft.Extensions.Options;
 using TeamsStatusPub.Models;
 using TeamsStatusPub.Services;
 using TeamsStatusPub.Services.AvailabilityHandlers;
@@ -12,7 +14,22 @@ public class AboutFormPresenter : IAboutFormPresenter
     public string WebsiteUrl => _appInfo.WebsiteUrl;
     public string Version => _appInfo.Version;
     public string ListenUrl => $"http://{_runtimeSettings.Value.ListenAddress}:{_runtimeSettings.Value.ListenPort}/";
-    public string LastTeamsStatus => _availabilityHandler.IsAvailable() ? "not busy" : "busy";
+
+    public string LastAvailabilitySystemStatus
+    {
+        get
+        {
+            var status = _availabilityHandler.IsAvailable() ? "not busy" : "busy";
+            var handlerName = _runtimeSettings.Value.AvailabilityHandler
+                .GetType()
+                .GetMember(_runtimeSettings.Value.AvailabilityHandler.ToString())[0]
+                .GetCustomAttribute(typeof(DescriptionAttribute), false) as DescriptionAttribute;
+
+            return handlerName is null
+                ? throw new NotImplementedException("Missing expected Description attribute")
+                : $"{handlerName.Description}: {status}";
+        }
+    }
 
     private readonly IAppInfo _appInfo;
     private readonly IOptions<RuntimeSettings> _runtimeSettings;
