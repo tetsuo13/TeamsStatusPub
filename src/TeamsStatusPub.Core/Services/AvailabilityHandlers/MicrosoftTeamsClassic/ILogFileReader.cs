@@ -1,4 +1,4 @@
-﻿namespace TeamsStatusPub.Core.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
+namespace TeamsStatusPub.Core.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 
 /// <summary>
 /// Microsoft Teams log file reader.

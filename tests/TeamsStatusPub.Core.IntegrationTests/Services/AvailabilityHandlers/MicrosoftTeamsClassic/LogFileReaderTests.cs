@@ -3,10 +3,17 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
+<<<<<<<< HEAD:tests/TeamsStatusPub.Core.IntegrationTests/Services/AvailabilityHandlers/MicrosoftTeamsClassic/LogFileReaderTests.cs
 using TeamsStatusPub.Core.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 using Xunit;
 
 namespace TeamsStatusPub.Core.IntegrationTests.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
+========
+using TeamsStatusPub.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
+using Xunit;
+
+namespace TeamsStatusPub.IntegrationTests.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
+>>>>>>>> main:tests/TeamsStatusPub.IntegrationTests/Services/AvailabilityHandlers/MicrosoftTeamsClassic/LogFileReaderTests.cs
 
 public static class LogFileReaderTests
 {
