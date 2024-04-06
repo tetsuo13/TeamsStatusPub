@@ -8,9 +8,6 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Product>Teams Status Pub</Product>
-    <Authors>Andrei Nicholson</Authors>
-    <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
     <Description>RESTful server from machine running Teams to provide sensor for Home Assistant</Description>
     <ApplicationIcon>Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>

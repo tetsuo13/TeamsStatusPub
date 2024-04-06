@@ -13,18 +13,18 @@ public class AppInfoTests
     [Fact]
     public void ApplicationName_FromAssembly()
     {
-        Assert.Equal("Teams Status Pub for Integration Testing", _appInfo.ApplicationName);
+        Assert.Equal("Teams Status Pub", _appInfo.ApplicationName);
     }
 
     [Fact]
     public void Copyright_FromAssembly()
     {
-        Assert.Equal("Copyright (c) 2024 Integration Tester", _appInfo.Copyright);
+        Assert.StartsWith("Copyright (c) 2022", _appInfo.Copyright);
     }
 
     [Fact]
     public void WebsiteUrl_FromAssembly()
     {
-        Assert.Equal("https://www.example.com/TeamsStatusPub", _appInfo.WebsiteUrl);
+        Assert.Equal("https://www.github.com/tetsuo13/TeamsStatusPub", _appInfo.WebsiteUrl);
     }
 }

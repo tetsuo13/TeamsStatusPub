@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TeamsStatusPub.Core.Services.AvailabilityHandlers;
 using Xunit;
 
@@ -107,4 +107,3 @@ public static class MicrosoftTeamsClassicHandlerTests
         Assert.True(MicrosoftTeamsClassicHandler.LastAvailabilityFromLinesOfInterest(lines));
     }
 }
-
