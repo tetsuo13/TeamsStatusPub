@@ -7,6 +7,8 @@
     <PackageId>$(AssemblyName)</PackageId>
     <Features>strict</Features>
     <Authors>Andrei Nicholson</Authors>
+    <Product>Teams Status Pub</Product>
+    <Company>https://www.github.com/tetsuo13/TeamsStatusPub</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">

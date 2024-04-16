@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.Logging;
-using TeamsStatusPub.Presenters;
+using TeamsStatusPub.Core.Presenters;
 
 namespace TeamsStatusPub.Views;
 

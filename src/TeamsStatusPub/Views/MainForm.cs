@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TeamsStatusPub.Presenters;
+using TeamsStatusPub.Core.Presenters;
 using TeamsStatusPub.Properties;
 
 namespace TeamsStatusPub.Views;
