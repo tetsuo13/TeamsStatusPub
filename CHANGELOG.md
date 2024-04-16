@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## 1.6.0
+## 1.6.0 (2024-04-15)
 
 - Added support for Microsoft Teams in addition to Microsoft Teams Classic ([#112](https://github.com/tetsuo13/TeamsStatusPub/issues/112))
 
@@ -37,3 +37,4 @@
 ## 1.0.0 (2022-08-03)
 
 - Initial release
+
