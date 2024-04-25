@@ -112,7 +112,9 @@ To enable logging, change the `Serilog:MinimumLevel:Default` value in `appsettin
 
 ## Development
 
-There has been some consideration taken to make the code modular enough to handle integrating with other conferencing tools other than Microsoft Teams. In the future it could be possible to add additional availability handlers and use configuration to determine which handler(s) to use. A detailed breakdown of handlers and how a user is considered busy can be found in the [README](src/TeamsStatusPub/Services/AvailabilityHandlers/README.md) file in the availability handlers directory.
+This was written as a WinForms application using the Model View Presenter (MVP) design pattern.
+
+There has been some consideration taken to make the code modular enough to handle integrating with other conferencing tools other than Microsoft Teams. In the future it could be possible to add additional availability handlers and use configuration to determine which handler(s) to use. A detailed breakdown of handlers and how a user is considered busy can be found in the [README](src/TeamsStatusPub.Core/Services/AvailabilityHandlers/README.md) file in the availability handlers directory.
 
 ## License
 

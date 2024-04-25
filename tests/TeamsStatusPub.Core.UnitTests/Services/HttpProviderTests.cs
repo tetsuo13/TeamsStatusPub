@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using TeamsStatusPub.Core.Models;
 using TeamsStatusPub.Core.Services;
+using TeamsStatusPub.Core.Services.HttpServers;
 using Xunit;
 
 namespace TeamsStatusPub.Core.UnitTests.Services;
@@ -53,7 +53,7 @@ public static class HttpProviderTests
     private static HttpProvider CreateProvider(string? listenAddress, int listenPort)
     {
         var logger = Substitute.For<ILogger<HttpProvider>>();
-        var scopeFactory = Substitute.For<IServiceScopeFactory>();
+        var scopeFactory = Substitute.For<IHttpFactory>();
         var runtimeSettings = Options.Create(new RuntimeSettings
         {
             ListenAddress = listenAddress,

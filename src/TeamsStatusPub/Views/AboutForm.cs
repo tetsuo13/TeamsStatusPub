@@ -4,7 +4,7 @@ using TeamsStatusPub.Core.Presenters;
 
 namespace TeamsStatusPub.Views;
 
-public partial class AboutForm : Form, IAboutForm
+public partial class AboutForm : Form
 {
     private readonly IAboutFormPresenter _presenter;
     private readonly ILogger<AboutForm> _logger;

@@ -4,9 +4,7 @@ using Microsoft.Extensions.Options;
 using TeamsStatusPub.Core.Models;
 using TeamsStatusPub.Core.Presenters;
 using TeamsStatusPub.Core.Services;
-using TeamsStatusPub.Core.Services.AvailabilityHandlers;
-using TeamsStatusPub.Core.Services.AvailabilityHandlers.MicrosoftTeams;
-using TeamsStatusPub.Core.Services.AvailabilityHandlers.MicrosoftTeams.FileSystemProviders;
+using TeamsStatusPub.Core.Services.HttpServers;
 
 namespace TeamsStatusPub.Core.Configuration;
 
@@ -14,7 +12,7 @@ namespace TeamsStatusPub.Core.Configuration;
 /// Extension methods for <see cref="IHostBuilder"/> that adds the application
 /// services.
 /// </summary>
-public static class ServiceConfiguration
+public static partial class ServiceConfiguration
 {
     /// <summary>
     /// Adds the application services into the service collection.
@@ -30,6 +28,7 @@ public static class ServiceConfiguration
             services.AddTransient<IMainFormPresenter, MainFormPresenter>();
             services.AddTransient<IAboutFormPresenter, AboutFormPresenter>();
 
+            services.AddSingleton<IHttpFactory, HttpFactory>(sp => new HttpFactory(sp));
             services.AddTransient<IHttpProvider, HttpProvider>();
 
             services.AddSingleton<IAppInfo, AssemblyAppInfo>();
@@ -40,14 +39,11 @@ public static class ServiceConfiguration
             switch (runtimeSettings.Value.AvailabilityHandler)
             {
                 case AvailabilitySystems.MicrosoftTeamsClassic:
-                    services.AddTransient<IAvailabilityHandler, MicrosoftTeamsClassicHandler>();
+                    services.ConfigureMicrosoftTeamsClassicServices();
                     break;
 
                 case AvailabilitySystems.MicrosoftTeams:
-                    services.AddTransient<IAvailabilityHandler, MicrosoftTeamsHandler>();
-                    services.AddTransient<IFileSystemProvider, FileSystemWrapper>();
-                    services.AddTransient<IDirectoryProvider, DirectoryWrapper>();
-                    services.AddTransient<ILogDiscovery, LogDiscovery>();
+                    services.ConfigureMicrosoftTeamsServices();
                     break;
 
                 default:

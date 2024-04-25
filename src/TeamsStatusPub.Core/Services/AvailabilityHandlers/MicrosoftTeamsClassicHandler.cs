@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using TeamsStatusPub.Core.Services.AvailabilityHandlers.MicrosoftTeamsClassic;
 
 namespace TeamsStatusPub.Core.Services.AvailabilityHandlers;
@@ -22,18 +21,18 @@ public class MicrosoftTeamsClassicHandler : IAvailabilityHandler
         "Microsoft", "Teams", "logs.txt");
 
     private readonly ILogger<MicrosoftTeamsClassicHandler> _logger;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly IMicrosoftTeamsClassicFactory _microsoftTeamsClassicFactory;
 
     /// <summary>
     /// Initializes a new instance of the MicrosoftTeamsHandler class.
     /// </summary>
     /// <param name="logger"></param>
-    /// <param name="serviceScopeFactory"></param>
+    /// <param name="microsoftTeamsClassicFactory"></param>
     public MicrosoftTeamsClassicHandler(ILogger<MicrosoftTeamsClassicHandler> logger,
-        IServiceScopeFactory serviceScopeFactory)
+        IMicrosoftTeamsClassicFactory microsoftTeamsClassicFactory)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
+        _microsoftTeamsClassicFactory = microsoftTeamsClassicFactory ?? throw new ArgumentNullException(nameof(microsoftTeamsClassicFactory));
     }
 
     public bool IsAvailable()
@@ -56,9 +55,7 @@ public class MicrosoftTeamsClassicHandler : IAvailabilityHandler
 
     private bool? FindLastAvailabilityFromLogFile(string logFilePath)
     {
-        using var scope = _serviceScopeFactory.CreateScope();
-        var logFileReader = new LogFileReader(scope.ServiceProvider.GetRequiredService<ILogger<LogFileReader>>());
-
+        var logFileReader = _microsoftTeamsClassicFactory.CreateLogFileReader();
         var linesOfInterest = logFileReader.ReadLinesOfInterest(logFilePath);
         return LastAvailabilityFromLinesOfInterest(linesOfInterest);
     }

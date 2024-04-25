@@ -11,6 +11,10 @@ namespace TeamsStatusPub;
 
 internal static class Program
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public static IServiceProvider ServiceProvider { get; private set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
     /// <summary>
     /// The main entry point for the application.
     /// </summary>
@@ -20,22 +24,24 @@ internal static class Program
         try
         {
             LoggingConfiguration.CreateDefaultLogger();
+            Log.Debug("Initializing...");
 
             var host = Host.CreateDefaultBuilder()
                 .ConfigureAppLogging()
                 .ConfigureAppServices()
                 .ConfigureServices(services =>
                 {
-                    services.AddTransient<IMainForm, MainForm>();
-                    services.AddTransient<IAboutForm, AboutForm>();
+                    services.AddTransient<MainForm>();
+                    services.AddTransient<AboutForm>();
                 })
                 .Build();
+
+            ServiceProvider = host.Services;
 
             ApplicationConfiguration.Initialize();
 
             Log.Information("Starting application");
-
-            Application.Run((Form)host.Services.GetRequiredService<IMainForm>());
+            Application.Run(ServiceProvider.GetRequiredService<MainForm>());
         }
         catch (Exception e)
         {

@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TeamsStatusPub.Core.Models;
@@ -19,7 +18,7 @@ public class HttpProvider : IHttpProvider, IDisposable
 {
     private readonly ILogger<HttpProvider> _logger;
     private readonly IOptions<RuntimeSettings> _runtimeSettings;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly IHttpFactory _httpFactory;
 
     private HttpAvailabilityServer? _server;
     private bool _disposedValue;
@@ -29,13 +28,13 @@ public class HttpProvider : IHttpProvider, IDisposable
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="runtimeSettings"></param>
-    /// <param name="serviceScopeFactory"></param>
+    /// <param name="httpFactory"></param>
     public HttpProvider(ILogger<HttpProvider> logger, IOptions<RuntimeSettings> runtimeSettings,
-        IServiceScopeFactory serviceScopeFactory)
+        IHttpFactory httpFactory)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _runtimeSettings = runtimeSettings ?? throw new ArgumentNullException(nameof(runtimeSettings));
-        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
+        _httpFactory = httpFactory ?? throw new ArgumentNullException(nameof(httpFactory));
     }
 
     internal string? VerifyReadyToListen(Func<bool>? availabilityHandler)
@@ -72,8 +71,11 @@ public class HttpProvider : IHttpProvider, IDisposable
         _logger.LogInformation("Starting listener on http://{uri}:{port}...",
             _runtimeSettings.Value.ListenAddress, _runtimeSettings.Value.ListenPort);
 
-        _server = new HttpAvailabilityServer(_serviceScopeFactory,
-            IPAddress.Parse(_runtimeSettings.Value.ListenAddress!),
+        //_server = new HttpAvailabilityServer(_serviceScopeFactory,
+        //    IPAddress.Parse(_runtimeSettings.Value.ListenAddress!),
+        //    _runtimeSettings.Value.ListenPort, availabilityHandler!);
+
+        _server = _httpFactory.CreateServer(IPAddress.Parse(_runtimeSettings.Value.ListenAddress!),
             _runtimeSettings.Value.ListenPort, availabilityHandler!);
 
         _server.Start();

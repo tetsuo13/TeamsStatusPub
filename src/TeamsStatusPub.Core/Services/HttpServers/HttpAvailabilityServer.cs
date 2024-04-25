@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using NetCoreServer;
 
 namespace TeamsStatusPub.Core.Services.HttpServers;
@@ -8,28 +6,22 @@ namespace TeamsStatusPub.Core.Services.HttpServers;
 public class HttpAvailabilityServer : HttpServer
 {
     private readonly Func<bool> _availabilityHandler;
-    private readonly ILogger<HttpAvailabilitySession> _sessionLogger;
+    private readonly IHttpFactory _httpFactory;
 
     private bool? _previousAvailabilityResult = null;
 
     /// <summary>
     /// Initializes a new instance of the HttpAvailabilityServer class.
     /// </summary>
-    /// <param name="serviceScopeFactory"></param>
     /// <param name="address"></param>
     /// <param name="port"></param>
     /// <param name="availabilityHandler"></param>
-    public HttpAvailabilityServer(IServiceScopeFactory serviceScopeFactory,
-        IPAddress address, int port, Func<bool> availabilityHandler)
+    public HttpAvailabilityServer(IPAddress address, int port,
+        Func<bool> availabilityHandler, IHttpFactory httpFactory)
         : base(address, port)
     {
-        ArgumentNullException.ThrowIfNull(serviceScopeFactory);
-
-        _availabilityHandler = availabilityHandler;
-
-        using var scope = serviceScopeFactory.CreateScope();
-
-        _sessionLogger = scope.ServiceProvider.GetRequiredService<ILogger<HttpAvailabilitySession>>();
+        _availabilityHandler = availabilityHandler ?? throw new ArgumentNullException(nameof(availabilityHandler));
+        _httpFactory = httpFactory ?? throw new ArgumentNullException(nameof(httpFactory));
     }
 
     /// <summary>
@@ -38,9 +30,7 @@ public class HttpAvailabilityServer : HttpServer
     protected override TcpSession CreateSession()
     {
         var currentAvailabilityResult = _availabilityHandler();
-
-        var session = new HttpAvailabilitySession(_sessionLogger, this,
-            _previousAvailabilityResult, currentAvailabilityResult);
+        var session = _httpFactory.CreateSession(this, _previousAvailabilityResult, currentAvailabilityResult);
 
         _previousAvailabilityResult = currentAvailabilityResult;
 

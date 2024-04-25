@@ -3,7 +3,7 @@
 /// <summary>
 /// Microsoft Teams log file reader.
 /// </summary>
-internal interface ILogFileReader
+public interface ILogFileReader
 {
     /// <summary>
     /// Reads the last select lines of interest which contain event data

@@ -5,15 +5,12 @@ using TeamsStatusPub.Properties;
 
 namespace TeamsStatusPub.Views;
 
-public partial class MainForm : Form, IMainForm
+public partial class MainForm : Form
 {
-    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly NotifyIcon _notifyIcon;
 
-    public MainForm(ILogger<MainForm> logger, IServiceScopeFactory serviceScopeFactory, IMainFormPresenter presenter)
+    public MainForm(ILogger<MainForm> logger, IMainFormPresenter presenter)
     {
-        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
-
         ArgumentNullException.ThrowIfNull(presenter);
         ArgumentNullException.ThrowIfNull(logger);
 
@@ -60,8 +57,7 @@ public partial class MainForm : Form, IMainForm
 
     private void ContextMenu_About(object? sender, EventArgs e)
     {
-        using var scope = _serviceScopeFactory.CreateScope();
-        using var form = (Form)scope.ServiceProvider.GetRequiredService<IAboutForm>();
+        using var form = Program.ServiceProvider.GetRequiredService<AboutForm>();
         form.ShowDialog();
     }
 
