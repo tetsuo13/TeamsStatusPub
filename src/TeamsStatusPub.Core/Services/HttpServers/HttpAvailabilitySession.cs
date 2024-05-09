@@ -36,7 +36,8 @@ public class HttpAvailabilitySession : HttpSession
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="server"></param>
-    /// <param name="availabilityHandler"></param>
+    /// <param name="previousAvailabilityResult"></param>
+    /// <param name="currentAvailabilityResult"></param>
     public HttpAvailabilitySession(ILogger<HttpAvailabilitySession> logger, HttpServer server,
         bool? previousAvailabilityResult, bool currentAvailabilityResult)
         : base(server)

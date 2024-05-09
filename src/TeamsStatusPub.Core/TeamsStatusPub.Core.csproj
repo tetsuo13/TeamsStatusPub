@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageReference Include="NetCoreServer" Version="8.0.7" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
@@ -16,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="$(MSBuildProjectName).IntegrationTests" Key="00240000048000009400000006020000002400005253413100040000010001006107927f7b44f7a3903e060e56969fce38be1a7bd60e461ddbf443640802e27b1bf1a5c81acb08ccf467bd6d41b772a04f874a07ba7c0d71eb216b0de58aa5632c94a16e969cf0aa94287efd49e1ee03aa86e4c74b968fbda7f00ac3d0a6f5f21f0c059bf2a1399d50be5eaa4833816e7cce65dff53630fd6194c64fb9e40aa8" />
-    <InternalsVisibleTo Include="$(MSBuildProjectName).UnitTests" Key="00240000048000009400000006020000002400005253413100040000010001006107927f7b44f7a3903e060e56969fce38be1a7bd60e461ddbf443640802e27b1bf1a5c81acb08ccf467bd6d41b772a04f874a07ba7c0d71eb216b0de58aa5632c94a16e969cf0aa94287efd49e1ee03aa86e4c74b968fbda7f00ac3d0a6f5f21f0c059bf2a1399d50be5eaa4833816e7cce65dff53630fd6194c64fb9e40aa8" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" Key="0024000004800000940000000602000000240000525341310004000001000100c547cac37abd99c8db225ef2f6c8a3602f3b3606cc9891605d02baa56104f4cfc0734aa39b93bf7852f7d9266654753cc297e7d2edfe0bac1cdcf9f717241550e0a7b191195b7667bb4f64bcb8e2121380fd1d9d46ad2d92d2d15605093924cceaf74c4861eff62abf69b9291ed0a340e113be11e6a7d3113e92484cf7045cc7" />
+    <InternalsVisibleTo Include="TeamsStatusPub.Core.IntegrationTests" Key="00240000048000009400000006020000002400005253413100040000010001006107927f7b44f7a3903e060e56969fce38be1a7bd60e461ddbf443640802e27b1bf1a5c81acb08ccf467bd6d41b772a04f874a07ba7c0d71eb216b0de58aa5632c94a16e969cf0aa94287efd49e1ee03aa86e4c74b968fbda7f00ac3d0a6f5f21f0c059bf2a1399d50be5eaa4833816e7cce65dff53630fd6194c64fb9e40aa8" />
+    <InternalsVisibleTo Include="TeamsStatusPub.Core.UnitTests" Key="00240000048000009400000006020000002400005253413100040000010001006107927f7b44f7a3903e060e56969fce38be1a7bd60e461ddbf443640802e27b1bf1a5c81acb08ccf467bd6d41b772a04f874a07ba7c0d71eb216b0de58aa5632c94a16e969cf0aa94287efd49e1ee03aa86e4c74b968fbda7f00ac3d0a6f5f21f0c059bf2a1399d50be5eaa4833816e7cce65dff53630fd6194c64fb9e40aa8" />
   </ItemGroup>
 
 </Project>

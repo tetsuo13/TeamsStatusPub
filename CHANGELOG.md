@@ -3,6 +3,7 @@
 ## 1.6.1
 
 - Refactored away service locator anti-pattern.
+- Changed front-end from WinForms to Avalonia.
 
 ## 1.6.0 (2024-04-15)
 

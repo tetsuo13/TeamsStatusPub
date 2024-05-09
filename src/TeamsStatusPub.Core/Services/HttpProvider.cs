@@ -14,7 +14,7 @@ namespace TeamsStatusPub.Core.Services;
 /// <see cref="HttpListener"/> for the HTTP server as it requires elevated
 /// permissions in order to open a listening port, even above 1024.
 /// </remarks>
-public class HttpProvider : IHttpProvider, IDisposable
+public sealed class HttpProvider : IHttpProvider, IDisposable
 {
     private readonly ILogger<HttpProvider> _logger;
     private readonly IOptions<RuntimeSettings> _runtimeSettings;
@@ -60,6 +60,8 @@ public class HttpProvider : IHttpProvider, IDisposable
     /// <inheritdoc/>
     public Task Listen(Func<bool>? availabilityHandler)
     {
+        _logger.LogInformation("Listening for incoming connections...");
+
         var initializationError = VerifyReadyToListen(availabilityHandler);
 
         if (!string.IsNullOrEmpty(initializationError))
@@ -89,7 +91,7 @@ public class HttpProvider : IHttpProvider, IDisposable
         return Task.CompletedTask;
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!_disposedValue)
         {

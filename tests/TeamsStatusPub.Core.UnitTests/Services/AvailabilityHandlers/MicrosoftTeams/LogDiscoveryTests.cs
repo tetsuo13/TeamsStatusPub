@@ -51,9 +51,9 @@ public class LogDiscoveryTests
     {
         _fileSystemProvider.Directory.Exists(default).ReturnsForAnyArgs(
             // Check for Packages directory
-            x => true,
+            _ => true,
             // Check for Logs directory
-            x => false);
+            _ => false);
         _fileSystemProvider.Directory.GetDirectories(Arg.Any<string>(), Arg.Any<string>()).ReturnsForAnyArgs(["MSTeams_3ahsuwkd5mfie"]);
         var logDiscovery = GetLogDiscovery();
 

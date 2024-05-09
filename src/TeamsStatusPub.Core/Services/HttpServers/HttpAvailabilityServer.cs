@@ -8,7 +8,7 @@ public class HttpAvailabilityServer : HttpServer
     private readonly Func<bool> _availabilityHandler;
     private readonly IHttpFactory _httpFactory;
 
-    private bool? _previousAvailabilityResult = null;
+    private bool? _previousAvailabilityResult;
 
     /// <summary>
     /// Initializes a new instance of the HttpAvailabilityServer class.
@@ -16,6 +16,7 @@ public class HttpAvailabilityServer : HttpServer
     /// <param name="address"></param>
     /// <param name="port"></param>
     /// <param name="availabilityHandler"></param>
+    /// <param name="httpFactory"></param>
     public HttpAvailabilityServer(IPAddress address, int port,
         Func<bool> availabilityHandler, IHttpFactory httpFactory)
         : base(address, port)

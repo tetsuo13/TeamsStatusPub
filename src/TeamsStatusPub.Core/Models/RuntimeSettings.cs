@@ -1,7 +1,10 @@
-﻿namespace TeamsStatusPub.Core.Models;
+﻿using TeamsStatusPub.Core.Configuration;
+
+namespace TeamsStatusPub.Core.Models;
 
 /// <summary>
-/// Application runtime settings from the <i>appsettings.json</i> file.
+/// Application runtime settings from the
+/// <see cref="AppConfiguration.SettingsFileName"/> file.
 /// </summary>
 public record RuntimeSettings
 {
