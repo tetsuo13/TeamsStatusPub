@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    name: Windows Forms
+    name: App
     runs-on: windows-2019
     timeout-minutes: 10
 
