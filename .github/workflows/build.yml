@@ -104,4 +104,4 @@ jobs:
         with:
           name: artifact
           path: ${{ env.SETUP_DIR }}/
-          retention-days: 1
+          retention-days: 2

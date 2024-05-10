@@ -10,8 +10,8 @@ jobs:
     name: Build and Test
     uses: ./.github/workflows/build.yml
     with:
-      createArtifact: ${{ startsWith(github.ref, 'refs/tags/') }}
-      artifactVersion: ${{ github.ref_name }}
+      createArtifact: true #${{ startsWith(github.ref, 'refs/tags/') }}
+      artifactVersion: 0.1.120 #${{ github.ref_name }}
 
   release:
     name: Create Release
