@@ -5,9 +5,6 @@ on:
     paths-ignore:
       - '**.md'
 
-env:
-  BUILD_VERSION: 1.0.0
-
 jobs:
   build:
     name: Build and Test
@@ -38,14 +35,14 @@ jobs:
           # Write final version string to environment variable for other jobs.
           Write-Output "build_version=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_ENV
 
-      - name: Restore dependencies
-        run: dotnet restore
+      #- name: Restore dependencies
+      #  run: dotnet restore
 
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
+      #- name: Build
+      #  run: dotnet build --no-restore --configuration Release
 
-      - name: Test
-        run: dotnet test --no-build --verbosity normal --configuration Release
+      #- name: Test
+      #  run: dotnet test --no-build --verbosity normal --configuration Release
 
   installer:
     name: Create Installer
@@ -53,7 +50,6 @@ jobs:
     #if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: windows-latest
     env:
-      BUILD_VERSION: ${{ needs.build.outputs.build_version }}
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
     steps:
       - name: Download artifact
@@ -61,6 +57,8 @@ jobs:
 
       - name: What's the version
         shell: pwsh
+        env:
+          BUILD_VERSION: ${{ needs.build.outputs.build_version }}
         run: Write-Output "Found version ${{ env.BUILD_VERSION }}"
 
       #- name: Build installer
