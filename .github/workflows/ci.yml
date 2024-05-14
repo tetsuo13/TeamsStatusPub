@@ -5,17 +5,72 @@ on:
     paths-ignore:
       - '**.md'
 
+env:
+  createArtifact:
+
 jobs:
   build:
     name: Build and Test
-    uses: ./.github/workflows/build.yml
-    with:
-      createArtifact: true #${{ startsWith(github.ref, 'refs/tags/') }}
-      artifactVersion: 0.1.120 #${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Add build number to version string
+        shell: pwsh
+        run: |
+          $directoryProps = "Directory.Build.props" | Resolve-Path
+
+          $xml = [xml](Get-Content $directoryProps)
+          $xml.Project.PropertyGroup[0].VersionPrefix += ".${env:GITHUB_RUN_NUMBER}"
+
+          Write-Host "Setting assembly version to $($xml.Project.PropertyGroup[0].VersionPrefix)"
+          $xml.Save($directoryProps)
+
+          # Write final version string to environment variable for other jobs.
+          Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_ENV
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --configuration Release
+
+  installer:
+    name: Create Installer
+    needs: build
+    #if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    runs-on: windows-latest
+    env:
+      INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+
+      - name: What's the version
+        shell: pwsh
+        run: Write-Output "Found version ${{ env.BUILD_VERSION }}"
+
+      #- name: Build installer
+      #  shell: pwsh
+      #  run: >
+      #    & "${{ env.INSTALLER_TOOL }}"
+      #    /DVERSION=${{ env.BUILD_VERSION }}
+      #    /DPUBLISH_DIR=${{ env.PUBLISH_DIR }}
+      #    /DSETUP_DIR=${{ env.SETUP_DIR }}
+      #    TeamsStatusPub.nsi
 
   release:
     name: Create Release
-    needs: build
+    needs: installer
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: ubuntu-latest
     env:
