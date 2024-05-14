@@ -14,6 +14,9 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
+      CREATE_ARTIFACT: ${{ inputs.createArtifact }}
+      # The directory where the .NET build process will publish the executable.
+      PUBLISH_DIR: publish
     outputs:
       build_version: ${{ steps.set_build_version.outputs.build_version }}
     steps:
@@ -35,14 +38,36 @@ jobs:
           # Write final version string to environment variable for job output.
           Write-Output "build_version=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_OUTPUT
 
-      #- name: Restore dependencies
-      #  run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-      #- name: Build
-      #  run: dotnet build --no-restore --configuration Release
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
 
-      #- name: Test
-      #  run: dotnet test --no-build --verbosity normal --configuration Release
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --configuration Release
+
+      - name: Create application artifact
+        if: ${{ env.CREATE_ARTIFACT }}
+        run: >
+          dotnet publish
+          --configuration Release
+          --runtime win-x64
+          --output ${{ env.PUBLISH_DIR }}
+          --no-restore
+          -property:PublishSingleFile=true
+          -property:DebugType=None
+          -property:DebugSymbols=false
+          --self-contained false
+          src/TeamsStatusPub/TeamsStatusPub.csproj
+
+      - name: Upload artifact
+        if: ${{ env.CREATE_ARTIFACT }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: ${{ env.PUBLISH_DIR }}/
+          retention-days: 2 # TODO: Set to 1 day
 
   installer:
     name: Create Installer
