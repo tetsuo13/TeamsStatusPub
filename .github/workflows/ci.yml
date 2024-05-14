@@ -17,12 +17,15 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
+    outputs:
+      build_version: ${{ steps.set_build_version.outputs.build_version }}
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
 
       - name: Add build number to version string
         shell: pwsh
+        id: set_build_version
         run: |
           $directoryProps = "Directory.Build.props" | Resolve-Path
 
@@ -33,7 +36,7 @@ jobs:
           $xml.Save($directoryProps)
 
           # Write final version string to environment variable for other jobs.
-          Write-Output "BUILD_VERSION=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_ENV
+          Write-Output "build_version=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_ENV
 
       - name: Restore dependencies
         run: dotnet restore
@@ -50,6 +53,7 @@ jobs:
     #if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: windows-latest
     env:
+      BUILD_VERSION: ${{ needs.build.outputs.build_version }}
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
     steps:
       - name: Download artifact
