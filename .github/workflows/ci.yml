@@ -14,7 +14,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      CREATE_ARTIFACT: ${{ inputs.createArtifact }}
+      CREATE_ARTIFACT: true #${{ startsWith(github.ref, 'refs/tags/') }}
       # The directory where the .NET build process will publish the executable.
       PUBLISH_DIR: publish
     outputs:
