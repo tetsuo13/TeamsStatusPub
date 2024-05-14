@@ -5,9 +5,6 @@ on:
     paths-ignore:
       - '**.md'
 
-env:
-  CREATE_RELEASE: true #${{ startsWith(github.ref, 'refs/tags/') }}
-
 jobs:
   build:
     name: Build and Test
@@ -50,7 +47,7 @@ jobs:
   installer:
     name: Create Installer
     needs: build
-    if: env.CREATE_RELEASE
+    #if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: windows-latest
     env:
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
