@@ -80,10 +80,15 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
+        with:
+          name: artifact
 
       - name: What's the version
         shell: pwsh
         run: Write-Output "Found version ${{ env.BUILD_VERSION }}"
+
+      - name: Display artifact directory contents
+        run: ls -l artifact/
 
       #- name: Build installer
       #  shell: pwsh
