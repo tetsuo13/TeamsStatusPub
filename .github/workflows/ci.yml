@@ -50,7 +50,7 @@ jobs:
   installer:
     name: Create Installer
     needs: build
-    if: ${{ env.CREATE_RELEASE }}
+    if: env.CREATE_RELEASE
     runs-on: windows-latest
     env:
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
