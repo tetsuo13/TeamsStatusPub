@@ -67,7 +67,7 @@ jobs:
         with:
           name: artifact
           path: ${{ env.PUBLISH_DIR }}/
-          retention-days: 2 # TODO: Set to 1 day
+          retention-days: 1
 
   installer:
     name: Create Installer
@@ -77,25 +77,30 @@ jobs:
     env:
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
       BUILD_VERSION: ${{ needs.build.outputs.build_version }}
+      # The directory where the build artifact from previous job will be
+      # downloaded to.
+      ARTIFACT_DIR: artifact
+      # The directory where the installer will be built.
+      SETUP_DIR: Output
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
 
-      - name: What's the version
+      - name: Build installer
         shell: pwsh
-        run: Write-Output "Found version ${{ env.BUILD_VERSION }}"
+        run: >
+          & "${{ env.INSTALLER_TOOL }}"
+          /DVERSION=${{ env.BUILD_VERSION }}
+          /DPUBLISH_DIR=${{ env.ARTIFACT_DIR }}
+          /DSETUP_DIR=${{ env.SETUP_DIR }}
+          TeamsStatusPub.nsi
 
-      - name: Display artifact directory contents
-        run: ls -l artifact/
-
-      #- name: Build installer
-      #  shell: pwsh
-      #  run: >
-      #    & "${{ env.INSTALLER_TOOL }}"
-      #    /DVERSION=${{ env.BUILD_VERSION }}
-      #    /DPUBLISH_DIR=${{ env.PUBLISH_DIR }}
-      #    /DSETUP_DIR=${{ env.SETUP_DIR }}
-      #    TeamsStatusPub.nsi
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: ${{ env.SETUP_DIR }}/
+          retention-days: 1
 
   release:
     name: Create Release
@@ -108,9 +113,27 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
 
+      # Use markdown to create base release notes file with hashes of all
+      # downloadable files. This file will be used to create the GitHub
+      # release notes.
+      - name: Create release notes file
+        if: ${{ inputs.createArtifact }}
+        shell: pwsh
+        run: |
+          $destFile = Join-Path -Path "${{ env.SETUP_DIR }}" -ChildPath "${{ env.RELEASE_NOTES_FILENAME }}"
+          $checksums = Get-ChildItem -Path "${{ env.SETUP_DIR }}" -File
+            | Sort-Object -Property Name
+            | ForEach-Object { "| $($_.Name) | ``$((Get-FileHash $_.FullName -Algorithm SHA256).Hash)`` |" }
+            | Out-String
+
+          "| File | SHA256 |" | Out-File -FilePath $destFile
+          "| ---- | ------ |" | Out-File -FilePath $destFile -Append
+          $checksums | Out-File -FilePath $destFile -Append
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
           files: artifact/*.exe
           name: TeamsStatusPub ${{ github.ref_name }}
           body_path: artifact/${{ env.RELEASE_NOTES_FILENAME }}
+
