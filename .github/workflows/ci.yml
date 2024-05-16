@@ -14,7 +14,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      CREATE_ARTIFACT: true #${{ startsWith(github.ref, 'refs/tags/') }}
+      CREATE_ARTIFACT: ${{ startsWith(github.ref, 'refs/tags/') }}
       # The directory where the .NET build process will publish the executable.
       PUBLISH_DIR: publish
     outputs:
@@ -69,11 +69,11 @@ jobs:
           path: ${{ env.PUBLISH_DIR }}/
           retention-days: 1
 
+  # Separate job for creating the installer because NSIS only runs on Windows.
   installer:
     name: Create Installer
     needs: build
-    #if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    # Have to use Windows for NSIS.
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: windows-latest
     env:
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
@@ -109,10 +109,9 @@ jobs:
   release:
     name: Create Release
     needs: installer
-    #if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: ubuntu-latest
     env:
-      # Directory for the installer artifact.
       INSTALLER_DIR: installer
       RELEASE_NOTES_FILENAME: ReleaseNotes.md
     steps:
@@ -121,10 +120,6 @@ jobs:
         with:
           name: installer
           path: ${{ env.INSTALLER_DIR }}
-
-      - name: Show artifact directory contents
-        shell: pwsh
-        run: Get-ChildItem -Recurse
 
       # Use markdown to create base release notes file with hashes of all
       # downloadable files. This file will be used to create the GitHub
