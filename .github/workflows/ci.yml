@@ -120,6 +120,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: installer
+          path: ${{ env.INSTALLER_DIR }}
 
       - name: Show artifact directory contents
         shell: pwsh
