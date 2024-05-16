@@ -121,6 +121,10 @@ jobs:
         with:
           name: installer
 
+      - name: Show artifact directory contents
+        shell: pwsh
+        run: Get-ChildItem -Recurse
+
       # Use markdown to create base release notes file with hashes of all
       # downloadable files. This file will be used to create the GitHub
       # release notes.
