@@ -14,7 +14,7 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
       DOTNET_NOLOGO: true
-      CREATE_ARTIFACT: ${{ startsWith(github.ref, 'refs/tags/') }}
+      CREATE_ARTIFACT: startsWith(github.ref, 'refs/tags/')
       # The directory where the .NET build process will publish the executable.
       PUBLISH_DIR: publish
     outputs:
@@ -73,7 +73,7 @@ jobs:
   installer:
     name: Create Installer
     needs: build
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: windows-latest
     env:
       INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
@@ -109,7 +109,7 @@ jobs:
   release:
     name: Create Release
     needs: installer
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     env:
       INSTALLER_DIR: installer
