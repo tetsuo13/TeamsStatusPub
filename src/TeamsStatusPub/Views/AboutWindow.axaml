@@ -6,7 +6,8 @@
         mc:Ignorable="d" d:DesignWidth="525" d:DesignHeight="200"
         x:Class="TeamsStatusPub.Views.AboutWindow"
         x:DataType="vm:AboutViewModel"
-        SizeToContent="WidthAndHeight" CanResize="False"
+        SizeToContent="WidthAndHeight"
+        CanResize="False"
         Icon="/Assets/logo.ico"
         Title="About TeamsStatusPub">
   <Grid HorizontalAlignment="Left"
