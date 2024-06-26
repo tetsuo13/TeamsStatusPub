@@ -2,7 +2,7 @@
 
 [![Continuous integration](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yml/badge.svg)](https://github.com/tetsuo13/TeamsStatusPub/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![release](https://img.shields.io/github/release/tetsuo13/TeamsStatusPub.svg)](https://github.com/tetsuo13/TeamsStatusPub/releases)
 
-<img src="src/TeamsStatusPub/Icons/logo.png" width="100" alt="Logo" align="right" />
+<img src="src/TeamsStatusPub/Assets/logo.png" width="100" alt="TeamsStatusPub Logo" align="right" />
 
 Serve a RESTful interface from a computer running [Microsoft Teams](https://www.microsoft.com/en-us/microsoft-teams/group-chat-software/) to act as a sensor for [Home Assistant](https://www.home-assistant.io/). This sensor can then be used, for example, to toggle power to a smart lightbulb when you're in a meeting.
 
@@ -112,7 +112,7 @@ To enable logging, change the `Serilog:MinimumLevel:Default` value in `appsettin
 
 ## Development
 
-This was written as a WinForms application using the Model View Presenter (MVP) design pattern.
+This was written as an Avalonia application using the MVVM design pattern.
 
 There has been some consideration taken to make the code modular enough to handle integrating with other conferencing tools other than Microsoft Teams. In the future it could be possible to add additional availability handlers and use configuration to determine which handler(s) to use. A detailed breakdown of handlers and how a user is considered busy can be found in the [README](src/TeamsStatusPub.Core/Services/AvailabilityHandlers/README.md) file in the availability handlers directory.
 
