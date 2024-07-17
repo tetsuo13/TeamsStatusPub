@@ -1,15 +1,12 @@
-# editorconfig.org
-
 # top-most EditorConfig file
 root = true
 
 # All files
 [*]
-guidelines = 120 1px dotted 504CFF00, 150 1px dotted 50FF6A00
 indent_style = space
 indent_size = 4
 
-[*.{csproj,json}]
+[*.{axaml,csproj,json}]
 indent_size = 2
 
 # XML config files
@@ -18,7 +15,6 @@ indent_size = 2
 
 # C# and VB files
 [*.{cs,vb}]
-charset = utf-8-bom
 insert_final_newline = true
 trim_trailing_whitespace = true
 
@@ -140,6 +136,9 @@ csharp_space_between_method_declaration_parameter_list_parentheses = false
 csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
+# IDE0290 primary constructor
+csharp_style_prefer_primary_constructors = false
+
 # IDE0008: Use explicit type
 dotnet_diagnostic.IDE0008.severity = silent
 
@@ -162,7 +161,6 @@ indent_size = 2
 # resx Files
 [*.{resx,xlf}]
 indent_size = 2
-charset = utf-8-bom
 insert_final_newline = true
 
 [*.yml]

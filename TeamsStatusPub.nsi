@@ -53,6 +53,9 @@ Section Install
     Sleep 500
 
     File "${PUBLISH_DIR}\${APPNAME}.exe"
+    File "${PUBLISH_DIR}\av_libglesv2.dll"
+    File "${PUBLISH_DIR}\libHarfBuzzSharp.dll"
+    File "${PUBLISH_DIR}\libSkiaSharp.dll"
 
     ; Don't overwrite settings file when upgrading.
     SetOverwrite off
@@ -91,6 +94,7 @@ Section Uninstall
 
     ; Delete all application files.
     Delete $INSTDIR\${APPNAME}.exe
+    Delete $INSTDIR\*.dll
     Delete $INSTDIR\appsettings.json
     Delete $INSTDIR\uninstall.exe
     Delete $INSTDIR\*.log

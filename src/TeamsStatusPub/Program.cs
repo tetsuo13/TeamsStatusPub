@@ -1,57 +1,51 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.ReactiveUI;
 using Serilog;
 using TeamsStatusPub.Core.Configuration;
-using TeamsStatusPub.Views;
 
 [assembly: Guid("73e16404-d5b2-4298-be82-051de8a5159e")]
 
 namespace TeamsStatusPub;
 
-internal static class Program
+internal sealed class Program
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static IServiceProvider ServiceProvider { get; private set; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
-    /// <summary>
-    /// The main entry point for the application.
-    /// </summary>
     [STAThread]
-    public static void Main()
+    public static async Task<int> Main(string[] args)
     {
         try
         {
             LoggingConfiguration.CreateDefaultLogger();
-            Log.Debug("Initializing...");
+            Log.Information("Starting up...");
 
-            var host = Host.CreateDefaultBuilder()
-                .ConfigureAppLogging()
-                .ConfigureAppServices()
-                .ConfigureServices(services =>
-                {
-                    services.AddTransient<MainForm>();
-                    services.AddTransient<AboutForm>();
-                })
-                .Build();
-
-            ServiceProvider = host.Services;
-
-            ApplicationConfiguration.Initialize();
-
-            Log.Information("Starting application");
-            Application.Run(ServiceProvider.GetRequiredService<MainForm>());
+            return BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         catch (Exception e)
         {
             Log.Fatal(e, "Application terminated unexpectedly");
-            MessageBox.Show($"An unexpected exception was encountered:\n{e.Message}",
-                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            // Notifying the user of a fatal exception that likely caused the
+            // application to unexpectedly close or not even start up would
+            // improve the user experience.
+            //
+            // MessageBox is a classic goto, but it's not available yet.
+            // See https://github.com/AvaloniaUI/Avalonia/issues/670
+
+            return 1;
         }
         finally
         {
-            Log.CloseAndFlush();
+            Log.Information("Shutting down...");
+            await Log.CloseAndFlushAsync();
         }
     }
+
+    private static AppBuilder BuildAvaloniaApp() =>
+        AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace()
+            .UseReactiveUI();
 }
