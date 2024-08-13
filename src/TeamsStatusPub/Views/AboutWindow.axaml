@@ -10,6 +10,12 @@
         CanResize="False"
         Icon="/Assets/logo.ico"
         Title="About TeamsStatusPub">
+  <Window.Styles>
+    <Style Selector="HyperlinkButton">
+      <Setter Property="Padding" Value="0" />
+    </Style>
+  </Window.Styles>
+
   <Grid HorizontalAlignment="Left"
         ColumnDefinitions="Auto,*"
         RowDefinitions="Auto,*"
@@ -19,14 +25,12 @@
       <TextBlock Text="{Binding ApplicationName}" FontWeight="Bold" FontSize="18" Margin="0,0,0,10" />
       <TextBlock Text="{Binding Version}" />
       <TextBlock Text="{Binding Copyright}" />
-      <!-- HyperlinkButton coming in AvaloniaUI 11.1.0 -->
-      <SelectableTextBlock Text="{Binding WebsiteUrl}" />
+      <HyperlinkButton Content="{Binding WebsiteUrl}" NavigateUri="{Binding WebsiteUrl}" />
     </StackPanel>
     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
       <TextBlock>
         <Run Text="Listening on" />
-        <!-- HyperlinkButton coming in AvaloniaUI 11.1.0 -->
-        <Run Text="{Binding ListenUrl}" />
+        <HyperlinkButton Content="{Binding ListenUrl}" NavigateUri="{Binding ListenUrl}" />
       </TextBlock>
       <TextBlock>
         <Run Text="Last status in" />
