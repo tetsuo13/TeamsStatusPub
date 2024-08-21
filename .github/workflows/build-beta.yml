@@ -1,4 +1,4 @@
-name: build-beta
+name: Build beta app
 
 on:
   workflow_dispatch:
