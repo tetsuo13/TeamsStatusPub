@@ -1,0 +1,12 @@
+name: build-beta
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Test
+    uses: ./.github/workflows/build.yml
+    with:
+      createArtifact: true
+
