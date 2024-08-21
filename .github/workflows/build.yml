@@ -1,0 +1,111 @@
+name: Build and test solution
+
+on:
+  workflow_call:
+    inputs:
+      createArtifact:
+        description: Whether or not to create the artifact
+        required: true
+        type: boolean
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+      POWERSHELL_TELEMETRY_OPTOUT: true
+      # The directory where the .NET build process will publish the executable.
+      PUBLISH_DIR: publish
+    outputs:
+      build_version: ${{ steps.set_build_version.outputs.build_version }}
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Add build number to version string
+        id: set_build_version
+        shell: pwsh
+        run: |
+          $directoryProps = "Directory.Build.props" | Resolve-Path
+
+          $xml = [xml](Get-Content $directoryProps)
+          $xml.Project.PropertyGroup[0].VersionPrefix += ".${env:GITHUB_RUN_NUMBER}"
+
+          Write-Host "Setting assembly version to $($xml.Project.PropertyGroup[0].VersionPrefix)"
+          $xml.Save($directoryProps)
+
+          # Write final version string to environment variable for job output.
+          Write-Output "build_version=$($xml.Project.PropertyGroup[0].VersionPrefix)" >> $env:GITHUB_OUTPUT
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --configuration Release
+
+      - name: Create application artifact
+        if: ${{ inputs.createArtifact }}
+        run: >
+          dotnet publish
+          --configuration Release
+          --runtime win-x64
+          --output ${{ env.PUBLISH_DIR }}
+          --no-restore
+          -property:PublishSingleFile=true
+          -property:DebugType=None
+          -property:DebugSymbols=false
+          --self-contained false
+          src/TeamsStatusPub/TeamsStatusPub.csproj
+
+      - name: Upload artifact
+        if: ${{ inputs.createArtifact }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: ${{ env.PUBLISH_DIR }}/
+          retention-days: 1
+
+  # Separate job for creating the installer because NSIS only runs on Windows.
+  installer:
+    name: Create Installer
+    needs: build
+    if: ${{ inputs.createArtifact }}
+    runs-on: windows-latest
+    env:
+      INSTALLER_TOOL: ${env:ProgramFiles(x86)}/NSIS/makensis.exe
+      BUILD_VERSION: ${{ needs.build.outputs.build_version }}
+      # The directory where the build artifact from previous job will be
+      # downloaded to.
+      ARTIFACT_DIR: artifact
+      # The directory where the installer will be built.
+      SETUP_DIR: Output
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+
+      - name: Build installer
+        shell: pwsh
+        run: >
+          & "${{ env.INSTALLER_TOOL }}"
+          /DVERSION=${{ env.BUILD_VERSION }}
+          /DPUBLISH_DIR=${{ env.ARTIFACT_DIR }}
+          /DSETUP_DIR=${{ env.SETUP_DIR }}
+          TeamsStatusPub.nsi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: ${{ env.SETUP_DIR }}/
+          retention-days: 1
+
