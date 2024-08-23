@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## 1.6.1
+## 1.6.1 (Unreleased)
 
 - Refactored away service locator anti-pattern.
 
