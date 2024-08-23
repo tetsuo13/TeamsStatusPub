@@ -4,6 +4,7 @@
 
 - Refactored away service locator anti-pattern.
 - Changed front-end from WinForms to Avalonia ([#120](https://github.com/tetsuo13/TeamsStatusPub/pull/120))
+- Added support for dark mode in About window ([#75](https://github.com/tetsuo13/TeamsStatusPub/pull/75))
 
 ## 1.6.0 (2024-04-15)
 
