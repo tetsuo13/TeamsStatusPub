@@ -53,11 +53,6 @@ public class AssemblyAppInfo : IAppInfo
     {
         var attributes = _assembly.GetCustomAttributes(typeof(T), false);
 
-        if (attributes.Length == 0)
-        {
-            return string.Empty;
-        }
-
-        return attributeProperty((T)attributes[0]);
+        return attributes.Length == 0 ? string.Empty : attributeProperty((T)attributes[0]);
     }
 }

@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
@@ -30,11 +30,6 @@ jobs:
         with:
           languages: csharp
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.x
-
       - name: Restore dependencies
         run: dotnet restore
 
@@ -45,3 +40,4 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:csharp"
+

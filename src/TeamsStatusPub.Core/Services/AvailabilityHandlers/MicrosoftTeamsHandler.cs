@@ -20,7 +20,7 @@ public partial class MicrosoftTeamsHandler : IAvailabilityHandler
     /// The absolute path to the Teams log directory. This is cached once
     /// found as it won't change throughout this application's lifetime.
     /// </summary>
-    private string? _logDirectory = null;
+    private string? _logDirectory;
 
     /// <summary>
     /// All statuses that should be considered as "not available." Case

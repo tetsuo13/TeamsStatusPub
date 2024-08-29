@@ -14,7 +14,7 @@ public static class HttpProviderTests
     private const string ValidListenAddress = "127.0.0.1";
     private const int ValidListenPort = 28374;
 
-    private static Func<bool>? ValidProvider => () => false;
+    private static Func<bool> ValidProvider => () => false;
 
     [Theory]
     [InlineData(null)]

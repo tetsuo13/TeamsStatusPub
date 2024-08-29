@@ -55,9 +55,7 @@ public class LogDiscovery : ILogDiscovery
     public string? FindLogPath(string directory)
     {
         // Follows this pattern: MSTeams_2024-03-19_02-21-57.02.log
-        var latestLogFile = _fileSystemProvider.Directory.GetFiles(directory, "MSTeams_*.log")
-            .OrderByDescending(x => x)
-            .FirstOrDefault();
+        var latestLogFile = _fileSystemProvider.Directory.GetFiles(directory, "MSTeams_*.log").MaxBy(x => x);
 
         if (string.IsNullOrEmpty(latestLogFile))
         {
