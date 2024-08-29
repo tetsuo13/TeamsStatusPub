@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## 1.6.1 (Unreleased)
+## 1.6.1 (2024-08-28)
 
 - Refactored away service locator anti-pattern.
 - Changed front-end from WinForms to Avalonia ([#120](https://github.com/tetsuo13/TeamsStatusPub/pull/120))
