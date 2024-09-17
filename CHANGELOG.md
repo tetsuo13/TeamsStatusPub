@@ -1,5 +1,9 @@
 # Teams Status Pub Changelog
 
+## 1.6.2 (Unreleased)
+
+- Fixed rolled log files created with trailing sequence sometimes created on app startup ([#136](https://github.com/tetsuo13/TeamsStatusPub/issues/136))
+
 ## 1.6.1 (2024-08-28)
 
 - Refactored away service locator anti-pattern.

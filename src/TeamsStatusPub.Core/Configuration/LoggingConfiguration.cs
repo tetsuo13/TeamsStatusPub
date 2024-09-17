@@ -10,9 +10,15 @@ namespace TeamsStatusPub.Core.Configuration;
 public static class LoggingConfiguration
 {
     /// <summary>
+    /// Gets the default logger that was created from calling
+    /// <see cref="CreateDefaultLogger"/>.
+    /// </summary>
+    public static ILogger Logger => Log.Logger;
+
+    /// <summary>
     /// Creates the default logger.
     /// </summary>
-    public static ILogger CreateDefaultLogger()
+    public static void CreateDefaultLogger()
     {
         // Need to explicitly specify assemblies that contain sinks otherwise
         // an exception is thrown when launching as a single-file app.
@@ -25,8 +31,6 @@ public static class LoggingConfiguration
             .WriteTo.File($"{nameof(TeamsStatusPub).ToLower()}.log", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
             .ReadFrom.Configuration(configuration, readerOptions)
             .CreateLogger();
-
-        return Log.Logger;
     }
 
     public static void AddAppLogging(this IServiceCollection services) =>

@@ -11,7 +11,11 @@ namespace TeamsStatusPub;
 /// </summary>
 public class AvaloniaSerilogSink : ILogSink
 {
-    private readonly ILogger _logger = LoggingConfiguration.CreateDefaultLogger();
+    /// <summary>
+    /// Assumes that <see cref="LoggingConfiguration.CreateDefaultLogger"/> has
+    /// been called before an instance of this class has been created.
+    /// </summary>
+    private readonly ILogger _logger = LoggingConfiguration.Logger;
 
     /// <summary>
     /// <para>
