@@ -6,10 +6,11 @@ using Avalonia.Logging;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using TeamsStatusPub.ViewModels;
 using TeamsStatusPub.Core.Configuration;
 using TeamsStatusPub.Core.Services;
 using TeamsStatusPub.Core.Services.AvailabilityHandlers;
+using TeamsStatusPub.ViewModels;
+using TeamsStatusPub.Views;
 
 namespace TeamsStatusPub;
 
@@ -31,6 +32,7 @@ public class App : Application
         collection.ConfigureAppServices();
         collection.AddTransient<AppViewModel>();
         collection.AddTransient<AboutViewModel>();
+        collection.AddSingleton<AboutWindow>();
 
         ServiceProvider = collection.BuildServiceProvider();
 

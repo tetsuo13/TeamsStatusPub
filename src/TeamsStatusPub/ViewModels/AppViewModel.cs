@@ -1,6 +1,7 @@
 using System.Reactive;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using TeamsStatusPub.Views;
 
@@ -15,8 +16,18 @@ public class AppViewModel : ViewModelBase
     {
         AboutCommand = ReactiveCommand.Create(() =>
         {
-            var view = new AboutWindow();
-            view.Show();
+            // Treat the about window like a dialog: only one instance should
+            // ever be shown.
+            var view = App.ServiceProvider.GetRequiredService<AboutWindow>();
+
+            if (!view.IsVisible)
+            {
+                view.Show();
+            }
+            else
+            {
+                view.Activate();
+            }
         });
 
         ExitCommand = ReactiveCommand.Create(() =>
