@@ -99,6 +99,8 @@ public class App : Application
                 }
                 else
                 {
+                    // This likely won't bring the window to the front on
+                    // Windows, but it's not too important that it does.
                     view.Activate();
                 }
             }
