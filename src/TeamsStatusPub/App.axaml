@@ -2,8 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TeamsStatusPub.App"
              xmlns:local="using:TeamsStatusPub"
-             xmlns:viewModels="clr-namespace:TeamsStatusPub.ViewModels"
-             x:DataType="viewModels:AppViewModel"
              RequestedThemeVariant="Default">
   <Application.DataTemplates>
     <local:ViewLocator />
@@ -19,8 +17,8 @@
                 ToolTipText="TeamsStatusPub">
         <TrayIcon.Menu>
           <NativeMenu>
-            <NativeMenuItem Header="About" Command="{Binding AboutCommand}" />
-            <NativeMenuItem Header="Exit" Command="{Binding ExitCommand}" />
+            <NativeMenuItem Header="About" Click="AboutMenuClick" />
+            <NativeMenuItem Header="Exit" Click="ExitMenuClick" />
           </NativeMenu>
         </TrayIcon.Menu>
       </TrayIcon>
