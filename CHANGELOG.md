@@ -1,6 +1,6 @@
 # Teams Status Pub Changelog
 
-## 1.6.2 (Unreleased)
+## 1.6.2 (2024-12-03)
 
 - Fixed rolled log files created with trailing sequence sometimes created on app startup ([#136](https://github.com/tetsuo13/TeamsStatusPub/issues/136))
 - Prevent multiple About windows ([#129](https://github.com/tetsuo13/TeamsStatusPub/issues/129))
