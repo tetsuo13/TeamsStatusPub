@@ -4,6 +4,19 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      avalonia:
+        patterns:
+          - avalonia*
+      microsoft-extensions:
+        patterns:
+          - microsoft.extensions.*
+      serilog:
+        patterns:
+          - serilog*
+      xunit:
+        patterns:
+          - xunit*
 
   - package-ecosystem: github-actions
     directory: /
