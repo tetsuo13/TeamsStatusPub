@@ -10,7 +10,7 @@ using TeamsStatusPub.Core.Configuration;
 
 namespace TeamsStatusPub;
 
-internal sealed class Program
+internal static class Program
 {
     [STAThread]
     public static async Task<int> Main(string[] args)
