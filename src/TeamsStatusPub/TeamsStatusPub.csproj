@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**"/>
+    <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TeamsStatusPub.Core\TeamsStatusPub.Core.csproj"/>
+    <ProjectReference Include="..\TeamsStatusPub.Core\TeamsStatusPub.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
