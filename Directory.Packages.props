@@ -8,10 +8,10 @@
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.2" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.2" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="11.3.2" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.7" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="NetCoreServer" Version="8.0.7" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
