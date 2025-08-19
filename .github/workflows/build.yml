@@ -24,7 +24,7 @@ jobs:
       build_version: ${{ steps.set_build_version.outputs.build_version }}
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Add build number to version string
         id: set_build_version
@@ -88,7 +88,7 @@ jobs:
       SETUP_DIR: Output
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download artifact
         uses: actions/download-artifact@v5
