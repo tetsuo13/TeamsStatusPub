@@ -18,8 +18,8 @@ updates:
         patterns:
           - xunit*
     ignore:
-      - dependency-name: Microsoft.Extensions.*
-        versions: ['9.*']
+      - dependency-name: "Microsoft.Extensions.*"
+        versions: [ "9.*" ]
 
   - package-ecosystem: github-actions
     directory: /
