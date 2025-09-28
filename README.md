@@ -85,11 +85,23 @@ Teams Status Pub will output a single object with a boolean value that will indi
 Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/binary_sensor.rest/) targeting the IP and port set in `appsettings.json`:
 
 ```yaml
+# Service will return a json object with key "busy" and a boolean value.
+# Sensor value is set to the boolean value. If the service is not available,
+# it will fall back to a value of "false" rather than Home Assistant's default
+# behavior of "unavailable" (which is an invalid json value and cause parsing
+# errors and many log entries).
+#
+# Example response: {"busy":false}
 binary_sensor:
   - platform: rest
     resource: http://LISTEN_ADDRESS:LISTEN_PORT/
     name: Microsoft Teams on Call
-    value_template: "{{ value_json.busy }}"
+    value_template: >
+      {% if has_value('value_json.busy') %}
+        {{ value_json.busy }}
+      {% else %}
+        false
+      {% endif %}
 ```
 
 With that binary sensor in place there are all sorts of [automations](https://www.home-assistant.io/docs/automation/) that can be created. One example is to toggle a light:
