@@ -104,7 +104,19 @@ binary_sensor:
       {% endif %}
 ```
 
-With that binary sensor in place there are all sorts of [automations](https://www.home-assistant.io/docs/automation/) that can be created. One example is to toggle a light:
+When the service is unavailable, the binary_sensor will log several messages. Use the [logger system](https://www.home-assistant.io/integrations/logger/) to filter out these messages:
+
+```yaml
+logger:
+  filters:
+    # Filter out REST platform binary sensor when remote server unavailable.
+    # This is somewhat commonplace and not noteworthy.
+    homeassistant.components.binary_sensor:
+      - Setup of binary_sensor platform rest is taking over 10 seconds
+      - Platform rest not ready yet; Retrying in background in 30 seconds
+```
+
+With the binary sensor in place there are all sorts of [automations](https://www.home-assistant.io/docs/automation/) that can be created. One example is to toggle a light:
 
 ```yaml
 automation:
