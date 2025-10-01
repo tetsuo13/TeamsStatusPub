@@ -87,21 +87,14 @@ Set up a [RESTful binary sensor](https://www.home-assistant.io/integrations/bina
 ```yaml
 # Service will return a json object with key "busy" and a boolean value.
 # Sensor value is set to the boolean value. If the service is not available,
-# it will fall back to a value of "false" rather than Home Assistant's default
-# behavior of "unavailable" (which is an invalid json value and cause parsing
-# errors and many log entries).
+# it will return "unavailable".
 #
 # Example response: {"busy":false}
 binary_sensor:
   - platform: rest
     resource: http://LISTEN_ADDRESS:LISTEN_PORT/
     name: Microsoft Teams on Call
-    value_template: >
-      {% if has_value('value_json.busy') %}
-        {{ value_json.busy }}
-      {% else %}
-        false
-      {% endif %}
+    value_template: "{{ value_json.busy }}"
 ```
 
 When the service is unavailable, the binary_sensor will log several messages. Use the [logger system](https://www.home-assistant.io/integrations/logger/) to filter out these messages:
