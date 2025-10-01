@@ -117,11 +117,14 @@ automation:
     trigger:
       platform: state
       entity_id: binary_sensor.microsoft_teams_on_call
+      not_to: unavailable
     action:
       - service: light.turn_{{ trigger.to_state.state }}
         target:
           entity_id: light.red_light_above_office_door
 ```
+
+Note the `not_to` option that's specified. This can occur when the REST binary_sensor cannot reach TeamsStatusPub, it will result in the "unavailable" state. Using `not_to` prevents the automation from triggering. Omit the option if you want an automation to trigger otherwise.
 
 ## Troubleshooting
 
