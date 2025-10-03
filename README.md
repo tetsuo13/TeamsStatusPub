@@ -97,18 +97,6 @@ binary_sensor:
     value_template: "{{ value_json.busy }}"
 ```
 
-When the service is unavailable, the binary_sensor will log several messages. Use the [logger system](https://www.home-assistant.io/integrations/logger/) to filter out these messages:
-
-```yaml
-logger:
-  filters:
-    # Filter out REST platform binary sensor when remote server unavailable.
-    # This is somewhat commonplace and not noteworthy.
-    homeassistant.components.binary_sensor:
-      - Setup of binary_sensor platform rest is taking over 10 seconds
-      - Platform rest not ready yet; Retrying in background in 30 seconds
-```
-
 With the binary sensor in place there are all sorts of [automations](https://www.home-assistant.io/docs/automation/) that can be created. One example is to toggle a light:
 
 ```yaml
@@ -117,6 +105,8 @@ automation:
     trigger:
       platform: state
       entity_id: binary_sensor.microsoft_teams_on_call
+      # When the REST platform isn't able to get a successful response, this
+      # binary_sensor will emit "unavailable" instead. Ignore it.
       not_to: unavailable
     action:
       - service: light.turn_{{ trigger.to_state.state }}
@@ -125,6 +115,19 @@ automation:
 ```
 
 Note the `not_to` option that's specified. This can occur when the REST binary_sensor cannot reach TeamsStatusPub, it will result in the "unavailable" state. Using `not_to` prevents the automation from triggering. Omit the option if you want an automation to trigger otherwise.
+
+Further on the subject of TeamsStatusPub being unavailable, Home Assistant will log a lot of messages during this time. You can filter these messages out of the logs using the [logger](https://www.home-assistant.io/integrations/logger/) integration:
+
+```yaml
+logger:
+  filters:
+    homeassistant.components.rest.data:
+      - Timeout while fetching data
+    homeassistant.components.binary_sensor:
+      - Setup of binary_sensor platform rest is taking over 10 seconds
+    homeassistant.helpers.entity:
+      - Update of binary_sensor.teams_on_call is taking over 10 seconds
+```
 
 ## Troubleshooting
 
