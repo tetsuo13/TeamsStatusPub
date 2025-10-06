@@ -122,6 +122,7 @@ Further on the subject of TeamsStatusPub being unavailable, Home Assistant will 
 logger:
   filters:
     homeassistant.components.rest.data:
+      - failed with Cannot connect to host
       - Timeout while fetching data
     homeassistant.components.binary_sensor:
       - Setup of binary_sensor platform rest is taking over 10 seconds
