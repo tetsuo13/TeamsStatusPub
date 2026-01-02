@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/TeamsStatusPub.Core/TeamsStatusPub.Core.csproj" />
+  <Project Path="src/TeamsStatusPub/TeamsStatusPub.csproj" />
+  <Project Path="tests/TeamsStatusPub.Core.IntegrationTests/TeamsStatusPub.Core.IntegrationTests.csproj" />
+  <Project Path="tests/TeamsStatusPub.Core.UnitTests/TeamsStatusPub.Core.UnitTests.csproj" />
+  <Project Path="tests/TeamsStatusPub.UnitTests/TeamsStatusPub.UnitTests.csproj" />
+</Solution>
