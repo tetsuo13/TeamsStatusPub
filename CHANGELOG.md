@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- .NET 10
+- .NET 10 ([#268](https://github.com/tetsuo13/TeamsStatusPub/pull/268))
 
 ## 1.6.2 (2024-12-03)
 
