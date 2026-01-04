@@ -102,7 +102,7 @@ jobs:
 
       - name: Debug artifact
         shell: pwsh
-        run: >
+        run: |
           dir
           dir "${{ env.ARTIFACT_DIR }}"
 
