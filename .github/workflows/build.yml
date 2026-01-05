@@ -100,12 +100,6 @@ jobs:
         with:
           path: ${{ env.ARTIFACT_DIR }}
 
-      - name: Debug artifact
-        shell: pwsh
-        run: |
-          dir
-          dir "${{ env.ARTIFACT_DIR }}"
-
       - name: Build installer
         shell: pwsh
         run: >
