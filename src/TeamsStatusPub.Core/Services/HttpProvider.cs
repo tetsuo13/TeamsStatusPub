@@ -98,6 +98,8 @@ public sealed class HttpProvider : IHttpProvider, IDisposable
             if (disposing)
             {
                 _server?.Stop();
+                _server?.Dispose();
+                _server = null;
             }
             _disposedValue = true;
         }
