@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup NSIS
-        uses: repolevedavaj/install-nsis@a55ed92772254d1e51d880f85ce9b5719f907801 # v1.1.0
+        uses: repolevedavaj/install-nsis@c14d0ea1b829818b4e9313d8e009b43f0a65fddd # v1.2.0
         with:
           nsis-version: 3.11
 
