@@ -24,7 +24,7 @@ jobs:
       build_version: ${{ steps.set_build_version.outputs.build_version }}
     steps:
       - name: Clone repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Add build number to version string
         id: set_build_version
@@ -88,7 +88,7 @@ jobs:
       SETUP_DIR: Output
     steps:
       - name: Clone repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup NSIS
         uses: repolevedavaj/install-nsis@1ab2f7ba2fe9408db612029be0bb3c0088b0d3e9 # v1.2.1
